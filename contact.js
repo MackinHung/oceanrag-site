@@ -234,15 +234,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let hasError = false;
 
-    // Validate each field
+    // Validate required fields (name + message only)
     const fields = [
       { el: name, check: () => name.value.trim() === '' },
-      { el: company, check: () => company.value.trim() === '' },
-      { el: email, check: () => !email.value.trim() || !email.validity.valid },
-      { el: phone, check: () => !phone.value.trim() || !/^[0-9\-+()]{7,20}$/.test(phone.value.trim()) },
-      { el: type, check: () => type.value === '' },
       { el: message, check: () => message.value.trim() === '' },
     ];
+
+    // Validate optional email format if provided
+    if (email.value.trim() && !email.validity.valid) {
+      email.closest('.form-group').classList.add('error');
+      hasError = true;
+    }
+
+    // Validate optional phone format if provided
+    if (phone.value.trim() && !/^[0-9\-+()]{7,20}$/.test(phone.value.trim())) {
+      phone.closest('.form-group').classList.add('error');
+      hasError = true;
+    }
 
     fields.forEach(({ el, check }) => {
       if (check()) {
@@ -251,17 +259,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
 
-    // Check date & time
-    if (!selectedDate || !selectedTime) {
-      hasError = true;
-      const calCard = document.querySelector('.calendar-card');
-      calCard.style.boxShadow = '0 0 0 3px rgba(220, 38, 38, 0.3)';
-      setTimeout(() => { calCard.style.boxShadow = ''; }, 2000);
-
-      if (!selectedDate) {
-        timeslotCard.style.display = 'none';
-      }
-    }
+    // Date & time are optional — no validation needed
 
     if (hasError) {
       bookingInProgress = false;
@@ -270,16 +268,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Submit via Booking API ---
     submitBtn.disabled = true;
-    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 預約中...';
+    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 發送中...';
 
     const bookingData = {
-      date: formatDate(selectedDate),
-      time: selectedTime,
+      date: selectedDate ? formatDate(selectedDate) : '',
+      time: selectedTime || '',
       name: name.value.trim(),
       company: company.value.trim(),
       email: email.value.trim(),
       phone: phone.value.trim(),
-      type: type.value,
+      type: type.value || '',
       message: message.value.trim(),
     };
 
@@ -298,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
 
       if (res.ok && data.success) {
-        showNotice('success', '預約成功！日曆邀請已發送至您的 Email，我們會盡快與您聯繫。');
+        showNotice('success', '已送出，收到後我會盡快回覆你！');
         contactForm.reset();
         selectedDate = null;
         selectedTime = null;
@@ -325,7 +323,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } finally {
       bookingInProgress = false;
       submitBtn.disabled = false;
-      submitBtn.innerHTML = '<i class="fa-solid fa-calendar-check"></i> 確認預約';
+      submitBtn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> 確認發送';
     }
   });
 

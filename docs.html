@@ -45,30 +45,21 @@
       </div>
       <div class="control-right">
         <button class="icon-btn" id="copyLinkBtn" title="複製連結"><i class="fa-solid fa-link"></i></button>
-        <button class="toc-trigger" id="tocTrigger"><i class="fa-solid fa-list-ul"></i> <span>目錄導覽</span></button>
+        <div class="search-bar" id="searchBar">
+          <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input type="text" id="searchInput" placeholder="搜尋文件..." autocomplete="off">
+          <kbd class="search-kbd" id="searchKbd">/</kbd>
+        </div>
         <button class="icon-btn" id="modeToggle" title="切換深色模式"><i class="fa-solid fa-moon"></i></button>
       </div>
     </div>
   </div>
 
-  <!-- TOC Floating Panel -->
-  <div class="toc-panel" id="tocPanel">
-    <div class="toc-header">目錄導覽</div>
-    <div class="toc-body">
-      <a href="#intro" class="toc-link">快速介紹</a>
-      <a href="#features" class="toc-link">功能特色</a>
-      <a href="#effects" class="toc-link">核心效果對比</a>
-      <a href="#architecture" class="toc-link">四層模組架構</a>
-      <a href="#query-flow" class="toc-link">查詢流程</a>
-      <a href="#dual-rag" class="toc-link">雙 RAG 系統</a>
-      <a href="#security" class="toc-link">安全議題與設計</a>
-      <a href="#dashboard" class="toc-link">管理儀表板</a>
-      <a href="#logging" class="toc-link">雙日誌系統</a>
-      <a href="#roadmap" class="toc-link">開發計畫</a>
-      <a href="#models" class="toc-link">模型選擇</a>
-      <a href="#deployment" class="toc-link">部署升級</a>
-    </div>
-  </div>
+  <!-- Search Results Dropdown -->
+  <div class="search-results" id="searchResults"></div>
 
   <div class="app-container">
     <!-- Mobile Sidebar Overlay -->

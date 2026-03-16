@@ -21,6 +21,13 @@
   margin: 0 auto;
 }
 
+.contact-note {
+  font-size: 0.95rem !important;
+  color: var(--text-muted) !important;
+  margin-top: 12px;
+  font-style: italic;
+}
+
 /* Main Grid */
 .contact-main {
   padding: 0 0 120px;

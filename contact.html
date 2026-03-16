@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>合作聊聊 — OceanRAG 企業安全 AI 顧問</title>
-  <meta name="description" content="預約 OceanRAG POC 展示、產品諮詢或技術討論，讓我們聊聊如何讓 AI 進駐你的企業。">
+  <meta name="description" content="對 OceanRAG 有好奇、有問題？隨時留個訊息，開發者有空就會回信。">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -48,7 +48,8 @@
   <section class="contact-hero reveal-wrapper">
     <div class="container reveal-item">
       <h1 class="gradient-text">合作聊聊</h1>
-      <p>選個時間，讓我們聊聊如何讓 AI 進駐你的企業</p>
+      <p>你有好奇、想問，我有空就會回信</p>
+      <p class="contact-note">開發者是個人，因此你可以不用在乎是否爽約，我會在回信與你確認，或著你有其他想法。</p>
     </div>
   </section>
 
@@ -103,24 +104,24 @@
               </div>
 
               <div class="form-group">
-                <label for="contactCompany">公司 / 組織 <span class="required">*</span></label>
-                <input type="text" id="contactCompany" placeholder="公司或組織名稱" required>
+                <label for="contactCompany">公司 / 組織</label>
+                <input type="text" id="contactCompany" placeholder="公司或組織名稱（選填）">
               </div>
 
               <div class="form-group">
-                <label for="contactEmail">Email <span class="required">*</span></label>
-                <input type="email" id="contactEmail" placeholder="your@email.com" required>
+                <label for="contactEmail">Email</label>
+                <input type="email" id="contactEmail" placeholder="your@email.com（選填）">
               </div>
 
               <div class="form-group">
-                <label for="contactPhone">電話 <span class="required">*</span></label>
-                <input type="tel" id="contactPhone" placeholder="0912-345-678" pattern="[0-9\-+()]{7,20}" required>
+                <label for="contactPhone">電話</label>
+                <input type="tel" id="contactPhone" placeholder="0912-345-678（選填）" pattern="[0-9\-+()]{7,20}">
               </div>
 
               <div class="form-group">
-                <label for="contactType">諮詢類型 <span class="required">*</span></label>
-                <select id="contactType" required>
-                  <option value="" disabled selected>請選擇諮詢類型</option>
+                <label for="contactType">諮詢類型</label>
+                <select id="contactType">
+                  <option value="" disabled selected>請選擇諮詢類型（選填）</option>
                   <option value="POC預約">POC 預約</option>
                   <option value="產品展示">產品展示</option>
                   <option value="部署諮詢">部署諮詢</option>
@@ -135,8 +136,8 @@
               </div>
 
               <button type="submit" class="btn-submit" id="submitBtn">
-                <i class="fa-solid fa-calendar-check"></i>
-                確認預約
+                <i class="fa-solid fa-paper-plane"></i>
+                確認發送
               </button>
             </form>
 

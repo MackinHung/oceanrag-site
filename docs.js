@@ -52,30 +52,161 @@ document.addEventListener('DOMContentLoaded', () => {
     // Re-evaluate on resize
     window.addEventListener('resize', () => {
         if (!isMobile()) {
-            // Restore desktop state: remove mobile-only classes
             sidebar.classList.remove('active');
             if (overlay) overlay.classList.remove('active');
             document.body.style.overflow = '';
         }
     });
 
-    // ─── 2. TOC Floating Panel ────────────────────────────────────
-    const tocTrigger = document.getElementById('tocTrigger');
-    const tocPanel = document.getElementById('tocPanel');
+    // ─── 2. Search ──────────────────────────────────────────────
+    const searchInput = document.getElementById('searchInput');
+    const searchResults = document.getElementById('searchResults');
+    const searchKbd = document.getElementById('searchKbd');
+    const mainReader = document.querySelector('.main-reader');
 
-    if (tocTrigger && tocPanel) {
-        tocTrigger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            tocPanel.classList.toggle('active');
-        });
-        document.addEventListener('click', (e) => {
-            if (!tocPanel.contains(e.target) && !tocTrigger.contains(e.target)) {
-                tocPanel.classList.remove('active');
+    // Build search index from page sections
+    const searchIndex = [];
+    document.querySelectorAll('.content-canvas section[id]').forEach(section => {
+        const heading = section.querySelector('h1, h2, h3');
+        const sectionTitle = heading ? heading.textContent.trim() : '';
+        // Collect all text paragraphs and list items
+        const textEls = section.querySelectorAll('p, li, td, th');
+        textEls.forEach(el => {
+            const text = el.textContent.trim();
+            if (text.length > 15) {
+                searchIndex.push({
+                    sectionId: section.id,
+                    sectionTitle,
+                    text,
+                    el,
+                });
             }
         });
-        // Close TOC when a link inside is clicked
-        tocPanel.querySelectorAll('.toc-link').forEach(link => {
-            link.addEventListener('click', () => tocPanel.classList.remove('active'));
+        // Also index headings themselves
+        if (sectionTitle) {
+            searchIndex.push({
+                sectionId: section.id,
+                sectionTitle,
+                text: sectionTitle,
+                el: heading,
+            });
+        }
+    });
+
+    let searchTimeout = null;
+
+    function doSearch(query) {
+        searchResults.innerHTML = '';
+        if (!query || query.length < 2) {
+            searchResults.classList.remove('active');
+            return;
+        }
+
+        const q = query.toLowerCase();
+        const matches = [];
+        const seen = new Set();
+
+        for (const item of searchIndex) {
+            if (matches.length >= 12) break;
+            const idx = item.text.toLowerCase().indexOf(q);
+            if (idx === -1) continue;
+
+            // Deduplicate by section + rough text match
+            const key = item.sectionId + '|' + item.text.slice(0, 60);
+            if (seen.has(key)) continue;
+            seen.add(key);
+
+            // Extract snippet around match
+            const start = Math.max(0, idx - 30);
+            const end = Math.min(item.text.length, idx + query.length + 50);
+            let snippet = (start > 0 ? '...' : '') +
+                item.text.slice(start, end) +
+                (end < item.text.length ? '...' : '');
+
+            matches.push({ ...item, snippet, matchIdx: idx - start + (start > 0 ? 3 : 0) });
+        }
+
+        if (matches.length === 0) {
+            searchResults.innerHTML = '<div class="search-no-result">找不到相關內容</div>';
+            searchResults.classList.add('active');
+            return;
+        }
+
+        matches.forEach(m => {
+            const div = document.createElement('div');
+            div.className = 'search-result-item';
+
+            // Highlight match in snippet
+            const before = escapeHtml(m.snippet.slice(0, m.matchIdx));
+            const match = escapeHtml(m.snippet.slice(m.matchIdx, m.matchIdx + query.length));
+            const after = escapeHtml(m.snippet.slice(m.matchIdx + query.length));
+
+            div.innerHTML = `
+                <div class="result-section">${escapeHtml(m.sectionTitle)}</div>
+                <div class="result-text">${before}<mark>${match}</mark>${after}</div>
+            `;
+
+            div.addEventListener('click', () => {
+                searchResults.classList.remove('active');
+                searchInput.value = '';
+                // Scroll to element
+                if (m.el && mainReader) {
+                    const rect = m.el.getBoundingClientRect();
+                    const readerRect = mainReader.getBoundingClientRect();
+                    const scrollOffset = mainReader.scrollTop + (rect.top - readerRect.top) - 80;
+                    mainReader.scrollTo({ top: scrollOffset, behavior: 'smooth' });
+                    // Brief highlight
+                    m.el.style.transition = 'background 0.3s';
+                    m.el.style.background = 'rgba(0, 77, 128, 0.08)';
+                    m.el.style.borderRadius = '4px';
+                    setTimeout(() => { m.el.style.background = ''; }, 2000);
+                }
+            });
+
+            searchResults.appendChild(div);
+        });
+
+        searchResults.classList.add('active');
+    }
+
+    function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+    }
+
+    if (searchInput && searchResults) {
+        searchInput.addEventListener('input', () => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => doSearch(searchInput.value.trim()), 150);
+        });
+
+        // Close on outside click
+        document.addEventListener('click', (e) => {
+            const bar = document.getElementById('searchBar');
+            if (!searchResults.contains(e.target) && !bar.contains(e.target)) {
+                searchResults.classList.remove('active');
+            }
+        });
+
+        // Keyboard shortcut: "/" to focus search
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '/' && document.activeElement !== searchInput) {
+                e.preventDefault();
+                searchInput.focus();
+            }
+            if (e.key === 'Escape') {
+                searchInput.blur();
+                searchResults.classList.remove('active');
+            }
+        });
+
+        // Hide kbd hint when focused
+        searchInput.addEventListener('focus', () => {
+            if (searchKbd) searchKbd.style.display = 'none';
+        });
+        searchInput.addEventListener('blur', () => {
+            if (searchKbd && !searchInput.value) searchKbd.style.display = '';
         });
     }
 
@@ -134,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const navItems = document.querySelectorAll('.nav-item');
     const sections = document.querySelectorAll('section[id]');
 
-    const observer = new IntersectionObserver((entries) => {
+    const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const id = entry.target.getAttribute('id');
@@ -145,12 +276,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }, {
-        root: document.querySelector('.main-reader'),
+        root: mainReader,
         rootMargin: '-15% 0px -70% 0px',
         threshold: 0
     });
 
-    sections.forEach(section => observer.observe(section));
+    sections.forEach(section => sectionObserver.observe(section));
 
     // ─── 7. Mobile Nav (hamburger) ────────────────────────────────
     const menuToggle = document.getElementById('menuToggle');
@@ -173,9 +304,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ─── 8. Smooth Scroll for Anchor Links ───────────────────────
-    // Use main-reader as scroll container since body overflow is hidden
-    const mainReader = document.querySelector('.main-reader');
-
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             const href = this.getAttribute('href');

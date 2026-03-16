@@ -17,7 +17,7 @@
 
 /* Full-page Docs Layout Reset */
 body {
-  font-family: 'Inter', -apple-system, system-ui, sans-serif;
+  font-family: var(--font-family);
   margin: 0;
   padding-top: 0 !important;
   height: 100vh;
@@ -79,7 +79,11 @@ body {
 }
 
 .header.docs-nav .nav-links a {
+  font-family: var(--font-family);
   font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-decoration: none;
 }
 
 .header.docs-nav .menu-toggle {

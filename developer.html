@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>開發者自述 — OceanRAG 企業安全 AI 顧問</title>
+  <meta name="description" content="OceanRAG 開發者自述：探索 AI 時代下的企業數位轉型與開發者心路歷程。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .dev-content {
+      max-width: 800px;
+      margin: 60px auto 120px;
+      padding: 0 24px;
+    }
+
+    .dev-section {
+      background: var(--glass-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-xl);
+      padding: 48px;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dev-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--accent-base);
+    }
+
+    .dev-section h2 {
+      font-size: 2rem;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .dev-section h2 i {
+      color: var(--accent-base);
+      font-size: 1.5rem;
+    }
+
+    .dev-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--text-secondary);
+    }
+
+    .dev-text p {
+      margin-bottom: 24px;
+    }
+
+    .highlight-box {
+      background: rgba(0, 77, 128, 0.05);
+      border-left: 4px solid var(--accent-base);
+      padding: 24px;
+      margin: 32px 0;
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      color: var(--text-main);
+    }
+
+    .author-info {
+      text-align: right;
+      margin-top: 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+
+    .author-date {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      display: block;
+    }
+
+    .accent-text {
+      color: var(--accent-base);
+      font-weight: 700;
+    }
+
+    @media (max-width: 600px) {
+      .dev-section {
+        padding: 32px 20px;
+      }
+
+      .dev-section h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="mesh-bg"></div>
+  <div class="ambient-bg">
+    <div class="ambient-blob"></div>
+    <div class="ambient-blob"></div>
+    <div class="ambient-blob"></div>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="header-logo">
+        <img src="OceanRAG-LOG.svg" alt="OceanRAG Icon" style="height: 32px;">
+        <span>OceanRAG</span>
+      </a>
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="docs.html">深入了解</a></li>
+          <li><a href="developer.html" class="active-nav">開發者</a></li>
+          <li><a href="contact.html">合作聊聊</a></li>
+        </ul>
+      </nav>
+      <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <main class="dev-content reveal-wrapper visible">
+    <div class="section-header reveal-item" style="opacity: 1; transform: translateY(0);">
+      <h1 class="gradient-text" style="font-size: 3.5rem; margin-bottom: 16px;">開發者自述</h1>
+      <p style="font-size: 1.25rem;">關於 OceanRAG 的誕生與 AI 時代的深刻觀察</p>
+    </div>
+
+    <!-- 1. 開發者背景與心路歷程 -->
+    <div class="dev-section reveal-item" style="opacity: 1; transform: translateY(0); transition-delay: 0.1s;">
+      <h2><i class="fa-solid fa-user-graduate"></i> 我的背景與觀察</h2>
+      <div class="dev-text">
+        <p>高中念資料處理、大學念資管，我回想過去和一位夥伴曾在車上暢聊，覺得 AI 不可能這麼厲害，現在無論過去我的背景，還是獲得過的獎項，放到現在幾乎都已經 <span
+            class="accent-text">過時了</span>。</p>
+
+        <p>我對應用軟體的嘗試和學習熱情一直都很高，陸續在 2022 年開始學習最基礎的 bert 和大數據分析等等，但在那時候 AI 都還只是一個被過度包裝而華而不實的代名詞，但它的 <span
+            class="accent-text">崛起速度與發展</span> 甚至讓我幾乎每個月都在學習新的東西。</p>
+
+        <div class="highlight-box">
+          「我無法向你證明我對 AI 有多熟悉，但我可以向你證明 AI 在我身上，可以做很多你無法想像的事情。」
+        </div>
+
+        <p>AI 課程? AI 顧問? 當一種新技術快到一個月就出現新突破時，本質上 <span class="accent-text">"履歷"</span> 已經無法向多數公司描述自己的價值。</p>
+
+        <p>在 AI 時代下，你的公司不應該買軟體，而是找一位能做任何軟體、魔改軟體的 <span class="accent-text">AI 應用人才</span>，這個時代的工業 5.0
+          發展的劇變太快了，我們活在一個資訊飛速的時代裡，但轉眼間，一種你從未能想像的新一代競爭者都會是使用 AI 這類型的公司。無論他是否真的創新，能使用 AI 本身就是一種 <span
+            class="accent-text">產能數十倍提升</span>。</p>
+      </div>
+    </div>
+
+    <!-- 2. OceanRAG 專案特點 -->
+    <div class="dev-section reveal-item" style="opacity: 1; transform: translateY(0); transition-delay: 0.2s;">
+      <h2><i class="fa-solid fa-microchip"></i> 講講專案：OceanRAG</h2>
+      <div class="dev-text">
+        <p>OceanRAG 的概念其實很多主流 AI 應用廠商都已經導入，但這種專案特點在於 <span class="accent-text">純地端、輕量、開源萬用、彈性高</span> 等等，最低價格只需要 2 萬買一台
+          mac mini，你就有一位 24 小時的員工（雖然他目前沒有 MCP 或 agent 動手能力 XD）坐在公司發揮不少的能力。</p>
+
+        <p>RAG 或許再過幾個月就不是什麼新技術，目前最新的是 gemini 推出的 embedding 模型，去研究了一下概念，<span class="accent-text">圖片轉換</span> 在 OceanRAG
+          也能做。現在 v4.4-v5.0 之間還有不少小毛病，但幾乎可以證明，單人去模擬那些大公司把工具做出來的路徑是 <span class="accent-text">完全可行且瘋狂的</span>。</p>
+
+        <p>過程很有趣，也很有挑戰，<span class="accent-text">vibe code</span> 很大程度縮短了這些能力路徑，但也很吃架構設計跟底子。</p>
+
+        <p>最後或許你聽過 openclaw，他出圈的速度很快，但也被過度行銷和包裝，實際上它是一種幾乎沒有煞車設定的野馬，外行人忽略模型智性、駭客問題，造成不少損失。OceanRAG 設置 <span
+            class="accent-text">多層權限</span>，目前也還沒手腳(MPC、agent)，AI
+          不能自己幹事情，所以實際上沒什麼風險。但我相信或許在給我多一點時間，確實可以用比大公司更小的資源造出一個更有趣的功能。</p>
+      </div>
+    </div>
+
+    <!-- 3. 台灣 AI 模型問題與解決方案 -->
+    <div class="dev-section reveal-item" style="opacity: 1; transform: translateY(0); transition-delay: 0.3s;">
+      <h2><i class="fa-solid fa-code-branch"></i> 核心思考：開源與在地化</h2>
+      <div class="dev-text">
+        <p>關於台灣 AI 模型的問題，為了追求運行 <span class="accent-text">零成本</span>，每一個環節的模型都是開源可商用，但台灣並沒有這樣的開源模型在 RAG
+          3.0可使用。台灣目前將資源都投入走專精模型這條路徑是正確的，畢竟規模和資源都很有限，這項專案你需要知道一個不可避免的接受使用來自中國的AI模型</p>
+
+        <p>關於我推薦的 AI 模型都是來自中國的 <span class="accent-text">北京人工智能研究所（BAAI）</span>：語料華語、模型領先、蒸餾技術、模型夠小，重點是 <span
+            class="accent-text">開源可商用</span>，不必害怕資料被偷走，因為模型本身是不存在連網能力的。</p>
+
+        <p>文化差異問題，我採用 <span class="accent-text">OpenCC</span> 去做語料轉換、中繼站等等的方式處理，精度、輸出文法損失非常小，也符合台灣用語和輸出結果。</p>
+      </div>
+
+      <div class="author-info">
+        @MackinHung / 黃精豪
+        <span class="author-date">3.10 筆</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Column 1: Brand -->
+        <div class="footer-col">
+          <div class="footer-brand">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+              <img src="OceanRAG-LOG.svg" alt="OceanRAG Logo" style="height: 36px;">
+              <span style="font-size: 1.4rem; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">OceanRAG</span>
+            </div>
+            <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">OceanRAG
+              專為企業打造的AI世代的知識助理，結合開源模型、精確溯源與本地化部署，讓您的企業資料發揮真正的核心價值。</p>
+          </div>
+        </div>
+
+        <!-- Column 2: Navigation -->
+        <div class="footer-col">
+          <h4 class="footer-title">核心產品</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#features">功能特色</a></li>
+            <li><a href="index.html#permission">權限管理系統</a></li>
+            <li><a href="contact.html">虛擬顧問問答</a></li>
+            <li><a href="index.html#faq">常見問題</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Resources -->
+        <div class="footer-col">
+          <h4 class="footer-title">資源與文件</h4>
+          <ul class="footer-links">
+            <li><a href="docs.html">深入了解</a></li>
+            <li><a href="developer.html">開發者</a></li>
+            <li><a href="disclaimer.html">免責聲明</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Development -->
+        <div class="footer-col">
+          <h4 class="footer-title">開發者</h4>
+          <div class="developer-card">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <img src="devloppp.jpg" alt="Developer Avatar" class="developer-avatar">
+              <div style="font-size: 0.9rem; font-weight: 600; color: #1e293b;">@MackinHung</div>
+            </div>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px;">有想法意見，歡迎私信</p>
+            <div class="developer-socials">
+              <a href="https://github.com/MackinHung" target="_blank" title="GitHub"><i
+                  class="fa-brands fa-github"></i></a>
+              <a href="#" target="_blank" title="Discord"><i class="fa-brands fa-discord"></i></a>
+              <a href="mailto:mackinhung@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <a href="disclaimer.html"
+            style="color: inherit; text-decoration: none; display: flex; align-items: center; justify-content: center; transition: color 0.2s;">
+            <i class="fa-solid fa-triangle-exclamation" style="margin-right: 8px; color: #94a3b8;"></i>
+            <span>免責聲明：本網站所展示之內容均為演示模擬資料，因系統仍仍在實驗階段，仍有不少功能變動，點擊了解詳細展示說明與系統差異條款。</span>
+          </a>
+        </div>
+        <div class="footer-copyright">
+          &copy; 2026 OceanRAG 企業AI治理系統 | Developed by @MackinHung
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

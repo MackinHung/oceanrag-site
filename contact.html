@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>合作聊聊 — OceanRAG 企業安全 AI 顧問</title>
+  <meta name="description" content="預約 OceanRAG POC 展示、產品諮詢或技術討論，讓我們聊聊如何讓 AI 進駐你的企業。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="contact.css">
+</head>
+
+<body>
+  <div class="mesh-bg"></div>
+  <div class="ambient-bg">
+    <div class="ambient-blob"></div>
+    <div class="ambient-blob"></div>
+    <div class="ambient-blob"></div>
+  </div>
+
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="header-logo">
+        <img src="OceanRAG-LOG.svg" alt="OceanRAG Icon" style="height: 32px;">
+        <span>OceanRAG</span>
+      </a>
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="docs.html">深入了解</a></li>
+          <li><a href="developer.html">開發者</a></li>
+          <li><a href="contact.html" class="active-nav">合作聊聊</a></li>
+        </ul>
+      </nav>
+      <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="contact-hero reveal-wrapper">
+    <div class="container reveal-item">
+      <h1 class="gradient-text">合作聊聊</h1>
+      <p>選個時間，讓我們聊聊如何讓 AI 進駐你的企業</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <section class="contact-main reveal-wrapper">
+    <div class="container">
+      <div class="contact-grid reveal-item">
+
+        <!-- Left: Calendar + Time Slots -->
+        <div class="contact-left">
+          <div class="calendar-card">
+            <div class="calendar-header">
+              <button class="cal-nav" id="calPrev" aria-label="上個月">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+              <div class="cal-title" id="calTitle"></div>
+              <button class="cal-nav" id="calNext" aria-label="下個月">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+            <div class="calendar-weekdays">
+              <span>日</span><span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span>
+            </div>
+            <div class="calendar-days" id="calDays"></div>
+          </div>
+
+          <!-- Time Slots (hidden until date selected) -->
+          <div class="timeslot-card" id="timeslotCard" style="display: none;">
+            <div class="timeslot-title" id="timeslotTitle"></div>
+            <div class="timeslot-grid" id="timeslotGrid"></div>
+          </div>
+        </div>
+
+        <!-- Right: Contact Form -->
+        <div class="contact-right">
+          <div class="form-card">
+            <h2 class="form-title">
+              <i class="fa-solid fa-paper-plane"></i>
+              聯繫資訊
+            </h2>
+
+            <form id="contactForm" novalidate>
+              <!-- Selected datetime display -->
+              <div class="selected-datetime" id="selectedDatetime" style="display: none;">
+                <i class="fa-regular fa-calendar-check"></i>
+                <span id="selectedDatetimeText"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="contactName">姓名 <span class="required">*</span></label>
+                <input type="text" id="contactName" placeholder="您的姓名" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactCompany">公司 / 組織 <span class="required">*</span></label>
+                <input type="text" id="contactCompany" placeholder="公司或組織名稱" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactEmail">Email <span class="required">*</span></label>
+                <input type="email" id="contactEmail" placeholder="your@email.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactPhone">電話 <span class="required">*</span></label>
+                <input type="tel" id="contactPhone" placeholder="0912-345-678" pattern="[0-9\-+()]{7,20}" required>
+              </div>
+
+              <div class="form-group">
+                <label for="contactType">諮詢類型 <span class="required">*</span></label>
+                <select id="contactType" required>
+                  <option value="" disabled selected>請選擇諮詢類型</option>
+                  <option value="POC預約">POC 預約</option>
+                  <option value="產品展示">產品展示</option>
+                  <option value="部署諮詢">部署諮詢</option>
+                  <option value="技術問題">技術問題</option>
+                  <option value="其他">其他</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="contactMessage">訊息內容 <span class="required">*</span></label>
+                <textarea id="contactMessage" rows="5" placeholder="請簡述您的需求或想法..." required></textarea>
+              </div>
+
+              <button type="submit" class="btn-submit" id="submitBtn">
+                <i class="fa-solid fa-calendar-check"></i>
+                確認預約
+              </button>
+            </form>
+
+            <!-- Success notice (hidden) -->
+            <div class="submit-notice" id="submitNotice" style="display: none;">
+              <i class="fa-solid fa-circle-check"></i>
+              <p></p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+              <img src="OceanRAG-LOG.svg" alt="OceanRAG Logo" style="height: 36px;">
+              <span style="font-size: 1.4rem; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">OceanRAG</span>
+            </div>
+            <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">OceanRAG
+              專為企業打造的AI世代的知識助理，結合開源模型、精確溯源與本地化部署，讓您的企業資料發揮真正的核心價值。</p>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">核心產品</h4>
+          <ul class="footer-links">
+            <li><a href="index.html#features">功能特色</a></li>
+            <li><a href="index.html#permission">權限管理系統</a></li>
+            <li><a href="contact.html">虛擬顧問問答</a></li>
+            <li><a href="index.html#faq">常見問題</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">資源與文件</h4>
+          <ul class="footer-links">
+            <li><a href="docs.html">深入了解</a></li>
+            <li><a href="developer.html">開發者</a></li>
+            <li><a href="disclaimer.html">免責聲明</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 class="footer-title">開發者</h4>
+          <div class="developer-card">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <img src="devloppp.jpg" alt="Developer Avatar" class="developer-avatar">
+              <div style="font-size: 0.9rem; font-weight: 600; color: #1e293b;">@MackinHung</div>
+            </div>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px;">有想法意見，歡迎私信</p>
+            <div class="developer-socials">
+              <a href="https://github.com/MackinHung" target="_blank" title="GitHub"><i
+                  class="fa-brands fa-github"></i></a>
+              <a href="#" target="_blank" title="Discord"><i class="fa-brands fa-discord"></i></a>
+              <a href="mailto:mackinhung@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <a href="disclaimer.html"
+            style="color: inherit; text-decoration: none; display: flex; align-items: center; justify-content: center; transition: color 0.2s;">
+            <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px; color: #94a3b8;"></i>
+            <span>免責聲明：本網站所展示之內容均為演示模擬資料，因系統仍在實驗階段，點擊了解詳細展示說明與系統差異條款。</span>
+          </a>
+        </div>
+        <div class="footer-copyright">
+          &copy; 2026 OceanRAG 企業AI治理系統 | Developed by @MackinHung
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="contact.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OceanRAG — 企業安全 AI 顧問</title>
+  <meta name="description" content="專為中小型企業設計的AI內部智慧體系統，零成本顧問進駐，100% 斷網私有化。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="mesh-bg"></div>
+  <div class="ambient-bg">
+    <div class="ambient-blob"></div>
+    <div class="ambient-blob"></div>
+    <div class="ambient-blob"></div>
+  </div>
+
+
+  <!-- Navigation Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="header-logo">
+        <img src="OceanRAG-LOG.svg" alt="OceanRAG Icon" style="height: 32px;">
+        <span>OceanRAG</span>
+      </a>
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html" class="active-nav">首頁</a></li>
+          <li><a href="docs.html">深入了解</a></li>
+          <li><a href="developer.html">開發者</a></li>
+          <li><a href="contact.html">合作聊聊</a></li>
+        </ul>
+      </nav>
+      <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1. 首屏 (Hero) -->
+  <section class="hero reveal-wrapper" id="hero">
+    <div class="circuit-bg">
+      <svg viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <radialGradient id="bg-glow" cx="50%" cy="50%" r="80%">
+            <stop offset="0%" stop-color="#ffffff" />
+            <stop offset="60%" stop-color="#f7fafd" />
+            <stop offset="100%" stop-color="#e8eff5" />
+          </radialGradient>
+
+          <radialGradient id="center-blinding-light" cx="50%" cy="50%" r="48%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="1" />
+            <stop offset="30%" stop-color="#ffffff" stop-opacity="1" />
+            <stop offset="65%" stop-color="#ffffff" stop-opacity="0.9" />
+            <stop offset="85%" stop-color="#f7fafd" stop-opacity="0.4" />
+            <stop offset="100%" stop-color="#e8eff5" stop-opacity="0" />
+          </radialGradient>
+
+          <filter id="glow-cyan" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="5" result="blur1" />
+            <feGaussianBlur stdDeviation="2" result="blur2" />
+            <feMerge>
+              <feMergeNode in="blur1" />
+              <feMergeNode in="blur2" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+
+          <path id="L1" pathLength="1000" d="M 110 210 L 250 250 L 450 250 L 600 360 L 700 360 L 800 420" />
+          <path id="L2" pathLength="1000" d="M 400 330 L 450 330 L 580 410 L 660 410 L 800 440" />
+          <path id="L3" pathLength="1000" d="M 110 590 L 250 550 L 450 550 L 580 480 L 680 480 L 800 450" />
+          <path id="L4" pathLength="1000" d="M 380 620 L 450 620 L 580 540 L 700 540 L 800 470" />
+          <path id="L5" pathLength="1000" d="M 140 760 L 300 700 L 500 700 L 650 580 L 750 580 L 800 510" />
+          <path id="L6" pathLength="1000" d="M 140 90 L 300 150 L 450 150 L 600 280 L 700 280 L 800 400" />
+
+          <path id="R1" pathLength="1000" d="M 1490 210 L 1350 250 L 1150 250 L 1000 360 L 900 360 L 800 420" />
+          <path id="R2" pathLength="1000" d="M 1200 330 L 1150 330 L 1020 410 L 940 410 L 800 440" />
+          <path id="R3" pathLength="1000" d="M 1490 590 L 1350 550 L 1150 550 L 1020 480 L 920 480 L 800 450" />
+          <path id="R4" pathLength="1000" d="M 1220 620 L 1150 620 L 1020 540 L 900 540 L 800 470" />
+          <path id="R5" pathLength="1000" d="M 1460 760 L 1300 700 L 1100 700 L 950 580 L 850 580 L 800 510" />
+          <path id="R6" pathLength="1000" d="M 1460 90 L 1300 150 L 1150 150 L 1000 280 L 900 280 L 800 400" />
+        </defs>
+
+        <rect width="100%" height="100%" fill="url(#bg-glow)" />
+
+        <g stroke="#ffffff" stroke-width="90" opacity="0.65" style="filter: blur(25px);" pointer-events="none">
+          <line x1="-300" y1="-100" x2="800" y2="450" />
+          <line x1="-300" y1="1000" x2="800" y2="450" />
+          <line x1="1900" y1="-100" x2="800" y2="450" />
+          <line x1="1900" y1="1000" x2="800" y2="450" />
+        </g>
+
+        <g id="base-circuits">
+          <use href="#L1" class="base-line-thick" />
+          <use href="#R1" class="base-line-thick" />
+          <use href="#L3" class="base-line-thick" />
+          <use href="#R3" class="base-line-thick" />
+          <use href="#L5" class="base-line-thick" />
+          <use href="#R5" class="base-line-thick" />
+
+          <use href="#L2" class="base-line-thin" />
+          <use href="#R2" class="base-line-thin" />
+          <use href="#L4" class="base-line-thin" />
+          <use href="#R4" class="base-line-thin" />
+          <use href="#L6" class="base-line-thin" />
+          <use href="#R6" class="base-line-thin" />
+        </g>
+
+        <g id="circuit-nodes">
+          <circle cx="110" cy="210" r="3" class="node" />
+          <circle cx="400" cy="330" r="3" class="node" />
+          <circle cx="110" cy="590" r="3" class="node" />
+          <circle cx="380" cy="620" r="3" class="node" />
+          <circle cx="140" cy="760" r="3" class="node" />
+          <circle cx="140" cy="90" r="3" class="node" />
+          <circle cx="250" cy="250" r="3" class="node" />
+          <circle cx="250" cy="550" r="3" class="node" />
+          <circle cx="1490" cy="210" r="3" class="node" />
+          <circle cx="1200" cy="330" r="3" class="node" />
+          <circle cx="1490" cy="590" r="3" class="node" />
+          <circle cx="1220" cy="620" r="3" class="node" />
+          <circle cx="1460" cy="760" r="3" class="node" />
+          <circle cx="1460" cy="90" r="3" class="node" />
+          <circle cx="1350" cy="250" r="3" class="node" />
+          <circle cx="1350" cy="550" r="3" class="node" />
+        </g>
+
+        <g id="animated-signals">
+          <use href="#L1" class="glow-signal d1" />
+          <use href="#L1" class="core-signal d1" />
+          <use href="#L4" class="glow-signal d2" />
+          <use href="#L4" class="core-signal d2" />
+          <use href="#R2" class="glow-signal d1-r" />
+          <use href="#R2" class="core-signal d1-r" />
+          <use href="#R5" class="glow-signal d2-r" />
+          <use href="#R5" class="core-signal d2-r" />
+        </g>
+
+        <rect width="100%" height="100%" fill="url(#center-blinding-light)" pointer-events="none" />
+      </svg>
+    </div>
+    <div class="container reveal-item">
+      <h1>讓零成本的顧問進駐你的企業</h1>
+      <p>
+        可斷網、低幻覺、快速部署<br>
+        專為中小型企業設計的 AI 內部智慧體系統
+      </p>
+      <a href="#intro" class="btn-primary">預約POC玩看看/想法提點</a>
+
+      <!-- System Preview Mockup -->
+      <div class="hero-mockup reveal-item" style="transition-delay: 0.5s;">
+        <div class="mockup-header">
+          <div class="mockup-dot red"></div>
+          <div class="mockup-dot yellow"></div>
+          <div class="mockup-dot green"></div>
+          <div style="flex:1; text-align:center; font-size:12px; color:#94a3b8;">OceanRAG Control Center</div>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-sidebar">
+            <div class="mockup-placeholder rounded"></div>
+            <div class="mockup-placeholder"></div>
+            <div class="mockup-placeholder"></div>
+            <div class="mockup-placeholder"></div>
+            <div class="mockup-placeholder short"></div>
+          </div>
+          <div class="mockup-main">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+              <div class="mockup-placeholder" style="width:120px; height:40px;"></div>
+              <div class="mockup-placeholder" style="width:120px; height:40px;"></div>
+            </div>
+            <div class="mockup-placeholder" style="height:200px; width:100%;"></div>
+            <div style="display:flex; gap:16px;">
+              <div class="mockup-placeholder" style="flex:1;"></div>
+              <div class="mockup-placeholder" style="flex:1;"></div>
+              <div class="mockup-placeholder" style="flex:1;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--備註:需要添增一個滿版的系統使用快速介面-->
+  <!-- 2. 第一段直擊恐懼 (Pain Cards) -->
+  <section class="section reveal-wrapper" id="features">
+    <div class="container">
+      <div class="section-header reveal-item">
+        <h2>解決企業導入 AI 的三大恐懼</h2>
+        <p>專為中小企業快速部屬的輕量獨立系統架構</p>
+      </div>
+      <div class="pain-grid">
+        <div class="pain-card c1 reveal-item">
+          <div class="pain-card-header">
+            <div class="pain-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-base)">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3>高隱私，資料主權</h3>
+          </div>
+          <p>可以做到 100% 地端部署，資料不連外，伺服器放自家機房。從根源斷絕商業機密、合約、財報外流至任何公有雲的風險。</p>
+        </div>
+        <div class="pain-card c2 reveal-item">
+          <div class="pain-card-header">
+            <div class="pain-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-success)">
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+              </svg>
+            </div>
+            <h3>低幻覺，可見信心度</h3>
+          </div>
+          <p>內建判斷語意矛盾、無關偵測，並且具備「明確的文件出處」，寧可不答也不亂造假數據，確保決策的真實性。</p>
+        </div>
+        <div class="pain-card c3 reveal-item">
+          <div class="pain-card-header">
+            <div class="pain-icon">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-warn)">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 8v8"></path>
+                <path d="M8 12h8"></path>
+              </svg>
+            </div>
+            <h3>高彈性，任用開源 AI</h3>
+          </div>
+          <p>只要有算力，企業的運作成本在系統上幾乎為零，並且可用自己的微調模型，讓輸出結果更符合自身企業特性。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 第二段對比表格 -->
+  <section class="section reveal-wrapper" id="comparison">
+    <div class="container reveal-item">
+      <div class="section-header">
+        <h2>OceanRAG 與一般方案的直接對比</h2>
+        <p>為什麼一般通用的雲端 AI 不適合做企業內部知識管理？</p>
+      </div>
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>企業痛點</th>
+            <th>一般通用 AI 方案</th>
+            <th>OceanRAG 專屬方案</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>資安焦慮</strong></td>
+            <td class="td-bad">機密合約、財報需上傳雲端，有變成開發商訓練資料外流的嚴重風險。</td>
+            <td class="td-good"><strong>可以完全私有化</strong>：可部署私有雲、內網主機，實體資料在家無疑慮且合規。</td>
+          </tr>
+          <tr>
+            <td><strong>信任危機</strong></td>
+            <td class="td-bad">無法清楚溯源訊息來源位置，員工沒有可依據的清楚來源而導致決策誤判。</td>
+            <td class="td-good"><strong>可信度展示</strong>：具備邏輯查核機制，可以清楚找到文件出處和推理根據。</td>
+          </tr>
+          <tr>
+            <td><strong>管理盲區</strong></td>
+            <td class="td-bad">無法追蹤員工到底問了什麼？有沒有人在下班時間大量調閱公司資料？</td>
+            <td class="td-good"><strong>清晰的管理後台</strong>：不可竄改的稽核日誌，詳實記錄一切存取軌跡。</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- 4. 長期規模效益對比圖 -->
+  <section class="section reveal-wrapper" id="chart">
+    <div class="container reveal-item">
+      <div class="section-header">
+        <h2>伴隨企業成長的穩定投資</h2>
+        <p>只要有算力(地端)，企業運行AI模型成本近乎為零，準確性穩定。以下對標API(雲端)方案帶來的成本壓力分析</p>
+      </div>
+      <div class="chart-container">
+        <div class="k3">
+          <div class="kc">
+            <div class="kc-l">一般AI應用｜單次查詢(千頁)</div>
+            <div class="kc-v" style="color:var(--accent-danger);">$2.25 / 次</div>
+            <div class="kc-n">450k tokens × $2.5 + output</div>
+          </div>
+          <div class="kc">
+            <div class="kc-l">OceanRAG｜單次查詢(千頁)</div>
+            <div class="kc-v" style="color:var(--accent-base);">$0.225 / 次</div>
+            <div class="kc-n">高效率混合推論架構(RAG3.0)</div>
+          </div>
+          <div class="kc">
+            <div class="kc-l">成本差距</div>
+            <div class="kc-v" style="color:var(--accent-warn);">省 80~90%</div>
+            <div class="kc-n">極低固定算力佔比</div>
+          </div>
+        </div>
+
+        <div class="leg">
+          <span><svg width="32" height="10">
+              <line x1="0" y1="5" x2="32" y2="5" stroke="#dc2626" stroke-width="3" />
+            </svg> 一般AI應用：成本</span>
+          <span><svg width="32" height="10">
+              <line x1="0" y1="5" x2="32" y2="5" stroke="#004d80" stroke-width="3" />
+            </svg> OceanRAG：成本</span>
+          <span><svg width="32" height="10">
+              <line x1="0" y1="5" x2="32" y2="5" stroke="#dc2626" stroke-width="2" stroke-dasharray="6,4" />
+            </svg> 一般AI應用：精準度</span>
+          <span><svg width="32" height="10">
+              <line x1="0" y1="5" x2="32" y2="5" stroke="#004d80" stroke-width="2" stroke-dasharray="6,4" />
+            </svg> OceanRAG：精準度</span>
+        </div>
+
+        <div
+          style="text-align: right; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; font-style: italic;">
+          *註：API-即用即付/額度消耗的預估差異，包含單次抓取的文字用量 (Tokens)
+        </div>
+
+        <div class="chart-grid-layout">
+          <div class="chart-y-axis left">
+            <div class="axis-title">USD</div>
+            <div class="axis-ticks">
+              <span style="color:#991b1b;">$2.5</span>
+              <span style="color:#b91c1c;">$2.0</span>
+              <span style="color:#dc2626;">$1.5</span>
+              <span style="color:#f87171;">$1.0</span>
+              <span style="color:#0284c7;">$0.5</span>
+              <span style="color:#004d80;">$0.0</span>
+            </div>
+          </div>
+          <div style="position:relative; width:100%; height:100%;"><canvas id="costChart"></canvas></div>
+          <div class="chart-y-axis right">
+            <div class="axis-title">精準度</div>
+            <div class="axis-ticks">
+              <span style="color:#004d80;">100%</span>
+              <span style="color:#004d80;">80%</span>
+              <span style="color:#64748b;">60%</span>
+              <span style="color:#ea580c;">40%</span>
+              <span style="color:#dc2626;">20%</span>
+              <span style="color:#991b1b;">0%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-x-labels">
+          <span>10頁<br><small>短文</small></span>
+          <span>100頁<br><small>短篇小說</small></span>
+          <span>400頁<br><small>長篇小說</small></span>
+          <span>800頁<br><small>教科書</small></span>
+          <span>1,300頁<br><small>百科全書</small></span>
+        </div>
+        <div class="chart-summary"
+          style="margin-top: 40px; padding: 24px; background: #f8fafc; border-radius: 12px; border: 1px solid var(--glass-border);">
+          <div style="margin-bottom: 12px;">
+            <strong style="color: var(--accent-danger);">● 一般方案：</strong> 人數越多訂閱費越高，難控管資料流向。
+          </div>
+          <div>
+            <strong style="color: var(--accent-base);">● OceanRAG：</strong> 開源模型零負擔，並握有資料主權。
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 權限隔離展示 (Advanced Dual-View Slider) -->
+  <section class="section reveal-wrapper" id="permission">
+    <div class="container reveal-item">
+      <div class="section-header">
+        <h2>精細的資料權限對齊，保護企業核心機密</h2>
+        <p class="perm-hint">橫向拖動滑桿，實時對比：不同權根在面對同一個問題時，系統如何過濾權限資訊量。</p>
+      </div>
+
+      <div class="perm-comparison-outer">
+        <div class="perm-container" id="permSliderContainer">
+
+          <!-- L4 Manager View (Bottom Layer) -->
+          <div class="view-layer manager">
+            <div class="perm-badge badge-manager">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+              L4 部門主管權限 (全局機密資料)
+            </div>
+
+            <div class="perm-main">
+              <div class="query-bubble">今年公司在海外的新據點有幾處，並且投資多少金額？</div>
+              <div class="response-card">
+                <div class="card-body">
+                  <div class="section-title">資料摘要</div>
+                  <div class="summary-box">
+                    根據最新的高階會議紀錄與董事會決議，今年公司計畫在海外新增 <span class="highlight-orange">3 處</span> 據點，戰略重心轉向東南亞，總投資金額核准為 <span
+                      class="highlight-orange">4,500 萬台幣</span>。
+                  </div>
+                  <div class="section-title">分析推論</div>
+                  <ol style="padding-left: 20px; color: #475569; line-height: 1.8;">
+                    <li>從 3月10日 的海外拓展戰略會議逐字稿中，可以明確得出精確的擴展計畫與資金分配。</li>
+                    <li>張總表示東南亞的佈局不能再拖，要求確定新增據點。</li>
+                    <li>王財務長確認預算，新加坡預估投入 2,500 萬，曼谷 1,200 萬，胡志明市 800 萬。總計 4,500 萬台幣。</li>
+                  </ol>
+                </div>
+                <div class="card-footer">
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5">
+                      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                      <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    <span style="color:#15803D; font-weight:700;">信心率 71%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="perm-side">
+              <div class="side-track">
+                <div class="track-icon">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                  </svg>
+                </div>
+                <div class="track-icon filter">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                  </svg>
+                </div>
+                <div class="track-icon target">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="6"></circle>
+                    <circle cx="12" cy="12" r="2"></circle>
+                  </svg>
+                </div>
+              </div>
+              <div class="side-content">
+                <!-- Upper Metadata (Restored & Updated) -->
+                <div class="query-box">
+                  <div class="meta-label">溯源查詢</div>
+                  <div style="font-size:14px; font-weight:700; color:#1e293b; margin-bottom:20px;">
+                    今年公司在海外的新據點有幾處，並且投資多少金額？</div>
+
+                  <div class="meta-label">理解信心度</div>
+                  <div class="meta-value">97%</div>
+
+                  <div class="meta-label">搜尋關鍵字</div>
+                  <div class="tag-list">
+                    <span class="tag">海外拓展</span><span class="tag">戰略會議</span><span class="tag">董事會決議</span>
+                    <span class="tag">預算核准</span><span class="tag">東南亞</span>
+                  </div>
+
+                  <div class="meta-label">文件類型</div>
+                  <div class="tag-list">
+                    <span class="tag finance">STRATEGY</span>
+                  </div>
+                </div>
+
+                <!-- Pipeline Section -->
+                <div class="meta-label">搜尋 & 擷取管線</div>
+                <div class="pipeline">
+                  <div class="pipe-step">打撈 <b>156</b></div>
+                  <div style="color:#cbd5e1;">→</div>
+                  <div class="pipe-step">精選 <b>82</b></div>
+                  <div style="color:#cbd5e1;">→</div>
+                  <div class="pipe-step">擷取 <b>35</b></div>
+                </div>
+
+                <div class="conf-row">
+                  <div class="conf-label">CONF</div>
+                  <div class="conf-bar-bg">
+                    <div class="conf-bar-fill" style="width:71%;"></div>
+                  </div>
+                  <div class="conf-warn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2.5">
+                      <path
+                        d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                      </path>
+                      <line x1="12" y1="9" x2="12" y2="13"></line>
+                      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="model-badge">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  Llama-3.1-8b-instant
+                </div>
+
+                <div class="meta-label">引用文件清單</div>
+                <div class="source-item">
+                  <div class="source-main">
+                    <div class="source-dot" style="background:#0ea5e9;"></div>
+                    <div class="source-id">MEETING-240310-TR</div>
+                  </div>
+                  <div class="source-info">
+                    <div class="source-page">p.1</div>
+                    <div class="source-match">22%</div>
+                  </div>
+                </div>
+                <div class="source-item" style="border-left-color: #3b82f6;">
+                  <div class="source-main">
+                    <div class="source-dot" style="background:#3b82f6;"></div>
+                    <div class="source-id">BOARD-RES-24-Q1</div>
+                  </div>
+                  <div class="source-info">
+                    <div class="source-page">p.3</div>
+                    <div class="source-match">23%</div>
+                  </div>
+                </div>
+                <div class="extract-preview">## 亞太市場拓展決議
+                  李策略長：「評估後確定新增 3 處。新加坡作為營運中心，曼谷體驗店。」</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- L2 Staff View (Top Clipped Layer) -->
+          <div class="view-layer staff" id="staffViewLayer">
+            <div class="staff-content-wrapper">
+              <div class="staff-overlay"></div>
+              <div class="perm-badge badge-staff">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                  </path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                L2 基層員工權限 (受限公開資料)
+              </div>
+
+              <div class="perm-main">
+                <div class="query-bubble">今年公司在海外的新據點有幾處，並且投資多少金額？</div>
+                <div class="response-card">
+                  <div class="card-body">
+                    <div class="section-title">資料摘要</div>
+                    <div class="summary-box">
+                      目前公司正在執行日本與韓國現有據點的春季推廣計畫。關於今年新增的海外據點數量與投資計畫，<span class="highlight-orange">目前未包含在目前的資料庫中</span>。
+                    </div>
+                    <div class="section-title">分析推論</div>
+                    <ol style="padding-left: 20px; color: #475569; line-height: 1.8;">
+                      <li>海外據點目前的行銷資源主要集中在既有據點的維護。</li>
+                      <li>根據去年財報，投資預估介於 1,350萬至 1,500萬台幣 之間。</li>
+                    </ol>
+                  </div>
+                  <div class="card-footer">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2.5">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                      <span style="color:#15803D; font-weight:700;">信心率 68%</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="perm-side">
+                <div class="side-track">
+                  <div class="track-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2.5">
+                      <circle cx="11" cy="11" r="8"></circle>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                  </div>
+                  <div class="track-icon filter">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2.5">
+                      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+                    </svg>
+                  </div>
+                  <div class="track-icon target">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                      stroke-width="2.5">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <circle cx="12" cy="12" r="6"></circle>
+                      <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                  </div>
+                </div>
+                <div class="side-content">
+                  <!-- Upper Metadata (Restored & Updated to L2 Limited View) -->
+                  <div class="query-box">
+                    <div class="meta-label">溯源查詢</div>
+                    <div style="font-size:14px; font-weight:700; color:#1e293b; margin-bottom:20px;">
+                      今年公司在海外的新據點有幾處，並且投資多少金額？</div>
+
+                    <div class="meta-label">理解信心度</div>
+                    <div class="meta-value">95%</div>
+
+                    <div class="meta-label">搜尋關鍵字</div>
+                    <div class="tag-list">
+                      <span class="tag">海外據點</span><span class="tag">年度報告</span><span class="tag">行銷企劃</span>
+                    </div>
+
+                    <div class="meta-label">文件類型</div>
+                    <div class="tag-list">
+                      <span class="tag">PUBLIC</span>
+                    </div>
+                  </div>
+
+                  <!-- Pipeline Section -->
+                  <div class="meta-label">搜尋 & 擷取管線</div>
+                  <div class="pipeline">
+                    <div class="pipe-step">打撈 <b>42</b></div>
+                    <div style="color:#cbd5e1;">→</div>
+                    <div class="pipe-step">精選 <b>15</b></div>
+                    <div style="color:#cbd5e1;">→</div>
+                    <div class="pipe-step">擷取 <b>4</b></div>
+                  </div>
+
+                  <div class="conf-row">
+                    <div class="conf-label">CONF</div>
+                    <div class="conf-bar-bg">
+                      <div class="conf-bar-fill" style="width:68%;"></div>
+                    </div>
+                    <div class="conf-warn">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.5">
+                        <path
+                          d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                        </path>
+                        <line x1="12" y1="9" x2="12" y2="13"></line>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                      </svg>
+                    </div>
+                  </div>
+
+                  <div class="model-badge">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    Llama-3.1-8b-instant
+                  </div>
+
+                  <div class="meta-label">引用文件清單</div>
+                  <div class="source-item">
+                    <div class="source-main">
+                      <div class="source-dot" style="background:#0ea5e9;"></div>
+                      <div class="source-id">DOC-8A9F231B</div>
+                    </div>
+                    <div class="source-info">
+                      <div class="source-page">p.1</div>
+                      <div class="source-match">22%</div>
+                    </div>
+                  </div>
+                  <div class="source-item" style="border-left-color: #a855f7;">
+                    <div class="source-main">
+                      <div class="source-dot" style="background:#a855f7;"></div>
+                      <div class="source-id">DOC-2B4C198D</div>
+                    </div>
+                    <div class="source-info">
+                      <div class="source-page">p.2</div>
+                      <div class="source-match">23%</div>
+                    </div>
+                  </div>
+                  <div class="extract-preview">## 歷史海外行銷預算
+                    此表反映了本公司在去年特定日期的預算。目前資源分配維持既有水準執行。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slider Handle -->
+          <div class="perm-slider-handle" id="permSliderHandle" style="left: 50%;">
+            <div class="handle-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="m9 18 6-6-6-6"></path>
+                <path d="m5 18 6-6-6-6"></path>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 最懂公司的虛擬顧問 (互動版本) -->
+  <section class="section reveal-wrapper" id="consultant">
+    <div class="container reveal-item">
+      <div class="section-header">
+        <h2>讓 AI 來回答、提出解決方案</h2>
+        <p>OceanRAG 可成為即時第一解決窗口，把時間還給有價值的工作</p>
+      </div>
+
+      <div class="consultant-grid" style="position: relative;">
+        <!-- 虛擬游標 (用於代理展示) -->
+        <div id="virtualCursor"
+          style="position: absolute; width: 24px; height: 24px; pointer-events: none; z-index: 9999; display: none; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
+          <svg viewBox="0 0 24 24" fill="white" stroke="#2563eb" stroke-width="1.5">
+            <path
+              d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.83-4.83 2.3 5.17c.14.33.52.48.84.34l2.11-.94c.32-.14.47-.52.33-.85l-2.3-5.17h6.67c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 0 0-.85.35z" />
+          </svg>
+        </div>
+
+        <!-- 固定大小的應用程式視窗 (完全對齊原版資料範例互動.txt) -->
+        <div id="appContainer"
+          style="width: 100%; height: 620px; background: white; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); display: flex; overflow: hidden; border: 1px solid #e2e8f0; position: relative;">
+
+          <!-- 左側：報告與資料面板 -->
+          <div id="reportPanel"
+            style="width: 100%; height: 100%; display: flex; flex-direction: column; background: #f9fafb; position: relative; border-right: 1px solid transparent; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
+
+            <!-- 釘選狀態的標題列 (預設隱藏) -->
+            <div id="pinnedHeader"
+              style="display:none; height: 48px; background: #2563eb; color: white; align-items: center; padding: 0 16px; flex-shrink: 0; font-size: 14px;">
+              <i class="fa-solid fa-thumbtack text-blue-200 mr-2 transform -rotate-45" style="margin-right: 8px;"></i>
+              <span class="font-medium">已釘選參考資料</span>
+            </div>
+
+            <div style="flex: 1; overflow-y: auto; padding: 24px;" id="reportScrollArea">
+              <!-- 初始使用者提問 -->
+              <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
+                <div style="max-width: 80%;">
+                  <div
+                    style="background: #dbeafe; border: 1px solid #bfdbfe; color: #1e3a8a; padding: 12px 20px; border-radius: 16px 16px 2px 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-size: 14px; line-height: 1.6;">
+                    幫我整理本季 ERP 進出貨狀況，以及受台灣因素影響導致的誤點情形。
+                  </div>
+                  <div style="text-align: right; font-size: 12px; color: #94a3b8; margin-top: 4px;">下午 02:15</div>
+                </div>
+              </div>
+
+              <!-- AI 報告本體 -->
+              <div
+                style="background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; overflow: hidden; margin-top: 16px;">
+                <div style="padding: 24px;">
+                  <h3 style="font-weight: 700; color: #1e293b; margin-bottom: 12px; font-size: 16px;">資料摘要</h3>
+                  <p style="font-size: 14px; color: #475569; line-height: 1.7; margin-bottom: 24px;">
+                    根據最新的 <span class="highlight-ref">ERP系統匯出資料</span>，本公司在當季期間整體進出貨量呈現波動。受 <span
+                      class="highlight-yellow-ref">台灣近期地震與颱風氣候影響</span>，導致 <span
+                      class="highlight-ref">高雄港與基隆港物流壅塞</span>，原物料進口與成品出口均發生延遲。目前主要在地供應商已啟動備援機制，產能正在逐步恢復。
+                  </p>
+
+                  <h3 style="font-weight: 700; color: #1e293b; margin-bottom: 12px; font-size: 16px;">分析推論</h3>
+                  <p style="font-size: 14px; color: #475569; margin-bottom: 12px;">根據提供的資料，我們可以分析出以下幾點：</p>
+                  <ol
+                    style="list-style: decimal; padding-left: 20px; font-size: 14px; color: #475569; margin-bottom: 24px;">
+                    <li style="margin-bottom: 8px;">本季進貨延遲平均約 <span
+                        class="highlight-ref">3-5個工作天</span>，主要是由於台灣本地陸運調度困難所致。</li>
+                    <li style="margin-bottom: 8px;">出貨端方面，國內客戶的訂單達交率下降了約 <span
+                        class="highlight-ref">12%</span>，這表明近期的不可抗力因素對供應鏈造成了實質衝擊。</li>
+                    <li>針對海外訂單，公司已緊急啟動空運替代方案，預計能將影響降至最低。</li>
+                  </ol>
+
+                  <div
+                    style="background: #f8fafc; padding: 16px; border-radius: 8px; font-size: 14px; color: #334155; border: 1px solid #f1f5f9; margin-bottom: 24px;">
+                    根據這些分析，我們可以得出結論：<strong>目前 ERP 庫存水位偏低，進出貨受台灣氣候與交通影響顯著，建議提高安全庫存並密切追蹤動態。</strong>
+                  </div>
+
+                  <!-- 信心度 -->
+                  <div
+                    style="background: rgba(255, 247, 237, 0.5); border: 1px solid #fed7aa; border-radius: 8px; padding: 12px; display: flex; align-items: center; margin-bottom: 24px;">
+                    <i class="fa-solid fa-triangle-exclamation" style="color: #fb923c; margin-right: 12px;"></i>
+                    <span style="color: #9a3412; font-weight: 500; font-size: 14px; margin-right: 16px;">信心度</span>
+                    <span
+                      style="color: #f97316; font-weight: 700; font-size: 18px; border-bottom: 2px dashed #fb923c;">75%</span>
+                  </div>
+
+                  <!-- 來源標籤 -->
+                  <div>
+                    <div
+                      style="display: flex; align-items: center; gap: 16px; font-size: 12px; color: #64748b; margin-bottom: 12px;">
+                      <span
+                        style="background: #eff6ff; color: #2563eb; padding: 2px 8px; border-radius: 4px;">繼續查看</span>
+                      <div style="display: flex; align-items: center;"><span
+                          style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; margin-right: 6px;"></span>外部環境
+                      </div>
+                      <div style="display: flex; align-items: center;"><span
+                          style="width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; margin-right: 6px;"></span>系統資料
+                      </div>
+                      <div style="display: flex; align-items: center;"><span
+                          style="width: 8px; height: 8px; border-radius: 50%; background: #fb923c; margin-right: 6px;"></span>待確認
+                      </div>
+                    </div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 12px;">
+                      <span
+                        style="border: 1px solid #e2e8f0; background: white; padding: 4px 10px; border-radius: 50px; color: #475569; display: flex; align-items: center;"><span
+                          style="width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; margin-right: 6px;"></span>[1]
+                        ERP-INV-Q3</span>
+                      <span
+                        style="border: 1px solid #e2e8f0; background: white; padding: 4px 10px; border-radius: 50px; color: #475569; display: flex; align-items: center;"><span
+                          style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; margin-right: 6px;"></span>[2]
+                        TW-LOGISTICS</span>
+                      <span
+                        style="border: 1px solid #e2e8f0; background: white; padding: 4px 10px; border-radius: 50px; color: #475569; display: flex; align-items: center;"><span
+                          style="width: 8px; height: 8px; border-radius: 50%; background: #fb923c; margin-right: 6px;"></span>[3]
+                        PORT-STATUS</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 左側底部操作列 -->
+            <div id="reportFooter"
+              style="background: white; padding: 16px 24px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
+              <div style="display: flex; gap: 8px;">
+                <button id="pinBtn" onclick="activateConsultantMode()"
+                  style="display: flex; align-items: center; gap: 8px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;">
+                  <i class="fa-solid fa-thumbtack"></i> 查詢釘選
+                </button>
+                <button
+                  style="display: flex; align-items: center; gap: 8px; background: white; border: 1px solid #e2e8f0; color: #94a3b8; padding: 8px 12px; border-radius: 8px; font-size: 14px; cursor: pointer;">
+                  <i class="fa-regular fa-flag"></i>
+                </button>
+              </div>
+              <div style="font-size: 12px; color: #94a3b8;">gemini-pro · 8.2s</div>
+            </div>
+          </div>
+
+          <!-- 右側：顧問對話面板 -->
+          <div id="chatPanel"
+            style="width: 0; flex-shrink: 0; display: flex; flex-direction: column; background: white; border-left: 1px solid #e2e8f0; opacity: 0; overflow: hidden; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;">
+
+            <!-- 對話視窗標題列 -->
+            <div
+              style="height: 56px; border-bottom: 1px solid #e2e8f0; background: white; display: flex; align-items: center; padding: 0 20px; flex-shrink: 0;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div
+                  style="width: 32px; height: 32px; border-radius: 50%; background: #2563eb; display: flex; align-items: center; justify-content: center; color: white;">
+                  <i class="fa-solid fa-robot" style="font-size: 14px;"></i>
+                </div>
+                <div>
+                  <h2 style="font-size: 14px; font-weight: 700; color: #1e293b; margin: 0;">查詢釘選問答</h2>
+                  <p style="font-size: 11px; color: #22c55e; display: flex; align-items: center; margin: 0;">
+                    <span
+                      style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; margin-right: 4px;"></span>在線支援
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 對話內容滾動區 -->
+            <div id="chatMessages"
+              style="flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; background: #f8fafc;">
+              <div style="text-align: center; margin: 8px 0; font-size: 12px; color: #64748b;">
+                <span style="background: #e2e8f0; padding: 4px 12px; border-radius: 50px;"><i
+                    class="fa-solid fa-thumbtack" style="margin-right: 4px;"></i> 查詢已釘選於左側，進入問答模式</span>
+              </div>
+
+              <div style="align-self: flex-start; width: 100%; max-width: 90%; display: flex; gap: 12px;"
+                class="msg-fade-in">
+                <div
+                  style="width: 28px; height: 28px; border-radius: 50%; background: #2563eb; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white;">
+                  <i class="fa-solid fa-robot" style="font-size: 12px;"></i>
+                </div>
+                <div
+                  style="background: white; border-radius: 12px; border-radius: 0 12px 12px 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; padding: 16px; font-size: 14px; color: #334155; line-height: 1.6;">
+                  已為您釘選此份報告。針對目前受台灣氣候與港口壅塞影響，導致的<span class="highlight-yellow-ref">「庫存水位偏低」</span>與交期延遲狀況，請輸入您欲進一步查詢的
+                  ERP 數據或現狀。
+
+                  <div
+                    style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #f1f5f9; display: flex; flex-direction: column; gap: 8px;">
+                    <div>
+                      <button
+                        style="display: flex; align-items: center; gap: 6px; background: white; border: 1px solid #e2e8f0; color: #94a3b8; padding: 4px 8px; border-radius: 4px; font-size: 12px; cursor: pointer;">
+                        <i class="fa-solid fa-flag" style="font-size: 10px;"></i> 回報
+                      </button>
+                    </div>
+                    <div style="font-size: 11px; color: #cbd5e1; font-family: monospace;">
+                      下午02:16 · llama-3.1-8b-instant · 1K/128 · 2.1s · #AUD-20260313-001a1b2c
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 底部對話輸入區 -->
+            <div style="padding: 16px; border-top: 1px solid #e2e8f0; background: white; flex-shrink: 0;">
+              <div style="position: relative; display: flex; align-items: center;">
+                <input type="text" id="consultantInput"
+                  style="width: 100%; border: 1px solid #d1d5db; background: #f9fafb; color: #111827; font-size: 14px; border-radius: 50px; padding: 12px 48px 12px 20px; outline: none; transition: box-shadow 0.2s;"
+                  placeholder="輸入問題與顧問對談..." readonly>
+                <button id="consultantSendBtn" onclick="nextChatStep()"
+                  style="position: absolute; right: 8px; color: white; background: #2563eb; border: none; border-radius: 50%; padding: 8px; width: 34px; height: 34px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s;">
+                  <i class="fa-solid fa-paper-plane"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 顧問效益底部欄 (現代化橫向排列) -->
+        <div class="consultant-footer-benefits">
+          <div class="footer-benefit-item">
+            <i class="fa-solid fa-bolt-lightning"></i>
+            <span>省下「老鳥帶菜鳥」的時間</span>
+          </div>
+          <span class="footer-separator">|</span>
+          <div class="footer-benefit-item">
+            <i class="fa-solid fa-network-wired"></i>
+            <span>控制跨部門資訊孤島問題</span>
+          </div>
+          <span class="footer-separator">|</span>
+          <div class="footer-benefit-item">
+            <i class="fa-solid fa-headset"></i>
+            <span>隨時問隨時答</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FAQ -->
+  <section class="section reveal-wrapper" id="faq">
+    <div class="container reveal-item">
+      <div class="section-header">
+        <h2>FAQ</h2>
+      </div>
+      <div class="faq-wrap">
+        <details class="faq-item">
+          <summary>運行零成本？</summary>
+          <p>
+            AI模型運行的零成本和靈活替換使用能力，關於軟體授權、定價頁未定價，目前為POC驗證階段。<br>
+            不過企業仍須負擔背景的 GPU 算力、電費與硬體等基礎建設攤提。<br><br>
+            OceanRAG 的價值，在於讓企業能輕易跑起開源模型，實現資料賦能與智慧化。<br>
+            我們打破大廠「按人頭計費」的訂閱壓力，協助企業將 AI 從「按月租賃」轉向真正的「公司資產」。<br><br>
+            <b>選擇權仍在企業手中：</b><br>
+            您可以選擇 100% 斷網的「隱私模式」，或是結合雲端 API 暢快使用。
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary>這需要企業IT改組或聘請 AI 專家進駐嗎？</summary>
+          <p>
+            這是未來企業競爭的進行式，但不需立即改組或轉型。<br><br>
+            OceanRAG 採用通用架構，未來可根據企業特性走向專精化與客製化。<br>
+            具備 AI 知識的專業人才可藉此系統「借力發揮」，釋放遠超傳統流程的潛能。<br><br>
+            這屬於企業的戰略性長期規劃，但即便目前沒有 AI 專才，<br>
+            本系統也能讓員工輕鬆上手，成為企業最簡單、實用的顧問。
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary>AI 如果斷章取義，出錯了責任歸誰？</summary>
+          <p>
+            沒有任何 AI 模型能保證 100% 的正確率。<br>
+            深入了解開源與閉源模型的差異，就能體會其技術邊界。<br><br>
+            本系統的核心價值在於：<b>「讓錯誤變透明，讓查證變簡單」</b>。<br>
+            系統提供的每個答案，都必須附上原始文件出處，方便即時檢核。<br><br>
+            AI 是強大的助理，而最終的商業決策與簽核權，依然由具備專業背景的您來掌握。
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary>它會取代原本的 ERP、CRM 系統嗎？</summary>
+          <p>
+            兩者是「戰友」而非「競爭者」，但在長遠未來（或許 5 年內）兩者界線將趨於模糊。<br><br>
+            ERP 負責記錄標準化的「數字死資料」；<br>
+            OceanRAG 則是賦予這些資料「說話的能力」。<br><br>
+            透過串接報表，老闆可以直接詢問：「幫我總結上個月的客訴趨勢？」<br>
+            這是傳統 ERP 系統難以實現的即時分析與洞察能力。
+          </p>
+        </details>
+        <details class="faq-item">
+          <summary>這套系統的未來價值在哪裡？</summary>
+          <p>
+            <b>當前重點：</b>資料隱私、運行成本。<br>
+            透過開源模型、嚴謹的權限管理與安全機制，確保所有員工與資料行為皆可溯源。<br><br>
+            <b>核心價值：</b>快速洞察資料關聯，提供量身打造的決策建議。<br><br>
+            <b>未來願景：</b>持續強化系統的可擴充性與跨平台相容能力。
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Column 1: Brand -->
+        <div class="footer-col">
+          <div class="footer-brand">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
+              <img src="OceanRAG-LOG.svg" alt="OceanRAG Logo" style="height: 36px;">
+              <span style="font-size: 1.4rem; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">OceanRAG</span>
+            </div>
+            <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">OceanRAG
+              專為企業打造的AI世代的知識助理，結合開源模型、精確溯源與本地化部署，讓您的企業資料發揮真正的核心價值。</p>
+          </div>
+        </div>
+
+        <!-- Column 2: Navigation -->
+        <div class="footer-col">
+          <h4 class="footer-title">核心產品</h4>
+          <ul class="footer-links">
+            <li><a href="#features">功能特色</a></li>
+            <li><a href="#permission">權限管理系統</a></li>
+            <li><a href="contact.html">虛擬顧問問答</a></li>
+            <li><a href="#faq">常見問題</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Resources -->
+        <div class="footer-col">
+          <h4 class="footer-title">資源與文件</h4>
+          <ul class="footer-links">
+            <li><a href="docs.html">深入了解</a></li>
+            <li><a href="developer.html">開發者</a></li>
+            <li><a href="disclaimer.html">免責聲明</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 4: Development -->
+        <div class="footer-col">
+          <h4 class="footer-title">開發者</h4>
+          <div class="developer-card">
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+              <img src="devloppp.jpg" alt="Developer Avatar" class="developer-avatar">
+              <div style="font-size: 0.9rem; font-weight: 600; color: #1e293b;">@MackinHung</div>
+            </div>
+            <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px;">有想法意見，歡迎私信</p>
+            <div class="developer-socials">
+              <a href="https://github.com/MackinHung" target="_blank" title="GitHub"><i
+                  class="fa-brands fa-github"></i></a>
+              <a href="#" target="_blank" title="Discord"><i class="fa-brands fa-discord"></i></a>
+              <a href="mailto:mackinhung@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Bottom -->
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <a href="disclaimer.html"
+            style="color: inherit; text-decoration: none; display: flex; align-items: center; justify-content: center; transition: color 0.2s;">
+            <i class="fa-solid fa-triangle-exclamation" style="margin-right: 6px; color: #94a3b8;"></i>
+            <span>免責聲明：本網站所展示之內容均為演示模擬資料，因系統仍在實驗階段，點擊了解詳細展示說明與系統差異條款。</span>
+          </a>
+        </div>
+        <div class="footer-copyright">
+          &copy; 2026 OceanRAG 企業AI治理系統 | Developed by @MackinHung
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深入了解 — OceanRAG 企業安全 AI 顧問</title>
+  <meta name="description" content="OceanRAG 企業安全 AI 顧問系統架構深入說明、技術規格與部署指南。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+
+<body>
+  <!-- Navigation Header -->
+  <header class="header docs-nav">
+    <div class="container">
+      <a href="index.html" class="header-logo">
+        <img src="OceanRAG-LOG.svg" alt="OceanRAG Icon" style="height: 32px;">
+        <span>OceanRAG</span>
+      </a>
+      <nav>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="index.html">首頁</a></li>
+          <li><a href="docs.html" class="active-nav">深入了解</a></li>
+          <li><a href="developer.html">開發者</a></li>
+          <li><a href="contact.html">合作聊聊</a></li>
+        </ul>
+      </nav>
+      <div class="menu-toggle" id="menuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </header>
+
+  <div class="control-bar">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <div class="control-left">
+        <button class="icon-btn" id="sidebarToggle" title="切換側邊欄"><i class="fa-solid fa-bars"></i></button>
+        <div class="control-left-info" style="font-size: 14px; font-weight: 600;">系統架構說明</div>
+      </div>
+      <div class="control-right">
+        <button class="icon-btn" id="copyLinkBtn" title="複製連結"><i class="fa-solid fa-link"></i></button>
+        <button class="toc-trigger" id="tocTrigger"><i class="fa-solid fa-list-ul"></i> <span>目錄導覽</span></button>
+        <button class="icon-btn" id="modeToggle" title="切換深色模式"><i class="fa-solid fa-moon"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOC Floating Panel -->
+  <div class="toc-panel" id="tocPanel">
+    <div class="toc-header">目錄導覽</div>
+    <div class="toc-body">
+      <a href="#intro" class="toc-link">快速介紹</a>
+      <a href="#features" class="toc-link">功能特色</a>
+      <a href="#effects" class="toc-link">核心效果對比</a>
+      <a href="#architecture" class="toc-link">四層模組架構</a>
+      <a href="#query-flow" class="toc-link">查詢流程</a>
+      <a href="#dual-rag" class="toc-link">雙 RAG 系統</a>
+      <a href="#security" class="toc-link">安全議題與設計</a>
+      <a href="#dashboard" class="toc-link">管理儀表板</a>
+      <a href="#logging" class="toc-link">雙日誌系統</a>
+      <a href="#roadmap" class="toc-link">開發計畫</a>
+      <a href="#models" class="toc-link">模型選擇</a>
+      <a href="#deployment" class="toc-link">部署升級</a>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <!-- Mobile Sidebar Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="nav-section">
+          <div class="nav-section-title">入門說明</div>
+          <a href="#intro" class="nav-item active">1. 快速介紹</a>
+          <a href="#features" class="nav-item">2. 功能特色</a>
+          <a href="#effects" class="nav-item">3. 核心效果</a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">系統架構</div>
+          <a href="#architecture" class="nav-item">1. 四層模組（零依賴）</a>
+          <a href="#query-flow" class="nav-item">2. 動態查詢流程</a>
+          <a href="#dual-rag" class="nav-item">3. 雙 RAG 系統</a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">管理課題</div>
+          <a href="#security" class="nav-item">1. 安全議題與設計</a>
+          <a href="#dashboard" class="nav-item">2. 管理儀表板</a>
+          <a href="#logging" class="nav-item">3. 雙日誌系統</a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">開發計畫</div>
+          <a href="#roadmap" class="nav-item">1. MCP 伺服器與未來</a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">模型選擇</div>
+          <a href="#models" class="nav-item">1. 模型角色總覽</a>
+        </div>
+        <div class="nav-section">
+          <div class="nav-section-title">部署升級</div>
+          <a href="#deployment" class="nav-item">1. 部署方式與相容性</a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-reader">
+      <div class="content-canvas">
+        <div class="article-meta">
+          <span>深入了解文件中心</span>
+          <span style="opacity: 0.3;">|</span>
+          <span>v0.5.1 Beta</span>
+        </div>
+
+        <section id="intro">
+          <h1>OceanRAG 系統說明</h1>
+          <p class="subtitle">專為中小企業設計的零外部依賴企業知識問答平台</p>
+
+          <!-- Version Switcher Toggle -->
+          <div class="version-toggle">
+            <button class="v-btn active" data-version="tech" id="techBtn">
+              <i class="fa-solid fa-code"></i> 技術版本
+            </button>
+            <button class="v-btn" data-version="client" id="clientBtn">
+              <i class="fa-solid fa-user-tie"></i> 客戶端說明
+            </button>
+          </div>
+
+          <div id="quickStartContent">
+            <!-- Technical Content (Initial) -->
+            <div id="techVersion">
+              <div class="alert alert-info">
+                <i class="fa-solid fa-circle-info" style="margin-top: 4px;"></i>
+                <div class="content">
+                  <strong>技術導向：</strong> OceanRAG 是一套企業內部 RAG 系統，設計目標是在零外部依賴的前提下，提供生產級的知識問答、權限控制與安全稽核能力。
+                </div>
+              </div>
+              <h3>核心技術定位</h3>
+              <ul>
+                <li><strong>向量檢索</strong>：Jina v5 (1024-dim)，存於 LanceDB</li>
+                <li><strong>LLM 生成</strong>：Groq（可熱切換，不鎖定 vendor）</li>
+                <li><strong>關聯式資料</strong>：SQLite 含 trigger 保護的稽核日誌，無需 Redis / PostgreSQL</li>
+                <li><strong>通訊安全</strong>：四獨立 Tier (T1-T4) 以 <code>X-Service-Token</code> 通訊，JWT RS256 認證</li>
+              </ul>
+              <p>技術版本為開發者提供完整的架構說明，包含向量搜尋、重排序 (Reranking) 與門控機制的細節。</p>
+            </div>
+
+            <!-- Client Content (Hidden) -->
+            <div id="clientVersion" style="display: none;">
+              <div class="alert alert-info">
+                <i class="fa-solid fa-lightbulb" style="margin-top: 4px;"></i>
+                <div class="content">
+                  <strong>核心概念：</strong> OceanRAG 讓員工可以直接「問問題」，不需要記關鍵字、不需要翻資料夾。只要用平常說話的方式提問，系統會從公司的文件庫裡找到答案，並告訴你答案來自哪份文件。
+                </div>
+              </div>
+              <h3>為什麼選擇 OceanRAG？</h3>
+              <ul>
+                <li><strong>資料不出境</strong>：安裝在企業自己的伺服器，文件資料全程留在公司內部。</li>
+                <li><strong>精確權限控制</strong>：每份文件都有機密等級和部門歸屬，員工只能查到被授權的資料。</li>
+                <li><strong>安全可追溯</strong>：所有操作記錄不可刪除、不可竄改，隨時可供稽核。</li>
+              </ul>
+              <p>客戶端說明聚焦於系統如何協助企業管理知識資產，讓 AI 成為企業最實用的顧問。</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="features">
+          <h2>功能特色</h2>
+
+          <h3>1. 智慧問答引擎</h3>
+          <p>採用 SSE（Server-Sent Events）即時串流回答。支援多輪對話，查詢前執行意圖分類與 <strong>查詢改寫（Query Rewriting）</strong>，再進入向量搜尋流程。核心技術包含 <strong>Jina v5 (1024-dim)</strong> 向量模型與 <strong>Groq LLM</strong> 生成引擎，首 token 回應延遲約 500ms 起。</p>
+          <p>每個回答都會標示引用來源 <strong>[1][2]</strong> 標籤，點擊可直接查看原始文件段落，含 PDF bounding box 精準定位。</p>
+          <ul>
+            <li><strong>三層門控（3-layer）</strong>：意圖分類、向量閾值、NLI 信心評分，層層把關不符合的查詢。</li>
+            <li><strong>來源追溯</strong>：每個回答附帶引用來源 <code>[1][2]</code> 標籤，點擊可查看原始文件段落。</li>
+            <li><strong>信心查核</strong>：逐句分析回答是否有文件依據，標示需要注意的推論內容，採用 NLI 事實查核。</li>
+          </ul>
+
+          <h3>2. 事實查核引擎（NLI Pipeline）</h3>
+          <p>採用 <code>Erlangshen-Roberta-330M-NLI</code> 模型進行 NLI 推論，對 LLM 回答逐句拆分為可驗證的聲明（Claim），再與原始文件比對，輸出三級結果：</p>
+          <ul>
+            <li><strong>Entail（支持）</strong>：回答內容與原始文件一致，可信度高。</li>
+            <li><strong>Neutral（中性）</strong>：文件中找不到直接支持，可能是 LLM 推論產物，需要使用者自行確認。</li>
+            <li><strong>Contradict（矛盾）</strong>：回答與原始文件矛盾，AI 幻覺可能性高，BLOCK 級別直接攔截回答。</li>
+          </ul>
+          <p>最終輸出三級信心結果：<strong>PASS</strong>（多數 Entail）、<strong>WARN</strong>（Neutral 居多）、<strong>BLOCK</strong>（Contradict），BLOCK 級別的回答不會顯示給使用者，改為提示資訊不足。</p>
+
+          <h3>3. 三層門控機制（Gatekeeping）</h3>
+          <p>三層門控是 OceanRAG 在 LLM 生成回答前的多重品質把關機制：</p>
+          <ul>
+            <li><strong>A-layer（意圖分類）</strong>：判斷查詢是否為知識庫問題，約 10%～15% 的非相關查詢在此被攔截。</li>
+            <li><strong>B-layer（品質閾值）</strong>：向量相似度閾值 0.4 + Reranker 精排閾值 0.6，雙重把關，不達標不送 LLM。實測約 <strong>30%～50%</strong> 的查詢在此被攔截，有效降低成本。</li>
+            <li><strong>C-layer（NLI 信心評分）</strong>：對生成結果逐句驗證，BLOCK 級別直接攔截，約 5%～10% 的回答在此被過濾。</li>
+          </ul>
+
+          <h3>4. 文件 ETL Pipeline（8 階段）</h3>
+          <p>文件上傳後自動進入全自動化處理流程：</p>
+          <ol>
+            <li><strong>解析</strong>：偵測檔案類型並解析，支援 PDF.js / mammoth.js / SheetJS，含 magic number 格式驗證。</li>
+            <li><strong>清洗</strong>：去除冗餘格式、特殊字元，保留語義完整性。</li>
+            <li><strong>切塊（Chunking）</strong>：依語意段落分割，預設 512 tokens/chunk，overlap 64 tokens。</li>
+            <li><strong>摘要</strong>：對每個 chunk 產生語義摘要，輔助 reranker 精準比對。</li>
+            <li><strong>向量化</strong>：透過 Jina v5 embedding API 生成 1024-dim 語義向量。</li>
+            <li><strong>品質檢測</strong>：5 維度品質分數，滿分 100，60 分以下警示，通過才可入庫。</li>
+            <li><strong>入庫</strong>：向量寫入 LanceDB，metadata 寫入 SQLite，atomic transaction 確保一致性。</li>
+            <li><strong>通知</strong>：處理完成後通知管理員進行審閱。</li>
+          </ol>
+
+          <h3>5. 四層授權架構（RBAC Pre-filter）</h3>
+          <p>每個請求依序通過以下四層驗證：</p>
+          <ol>
+            <li><strong>JWT Cookie + Session 驗證</strong>：未認證回傳 401。</li>
+            <li><strong>角色檢查</strong>：<code>employee</code> / <code>dept_admin</code> / <code>master_admin</code> 三級角色，不符合回傳 403。</li>
+            <li><strong>機密等級比對</strong>：用戶 <code>clearance_level</code> 必須大於等於文件 <code>clearance_level</code>，否則不回傳任何資料（<code>null</code> 值強制轉型，防止繞過）。</li>
+            <li><strong>部門歸屬 + 功能權限矩陣</strong>：跨部門存取需授權，功能權限矩陣控制各項操作。</li>
+          </ol>
+          <p>RBAC pre-filter 在 LanceDB 向量搜尋前執行，確保超出權限的資料根本不會被搜尋到。</p>
+
+          <h3>6. 其他功能模組</h3>
+          <ul>
+            <li><strong>用量統計與儀表板</strong>：三層 drill-down（部門 → 使用者 → 查詢），Chart.js 圖表，KPI 計算，CSV 匯出。</li>
+            <li><strong>AI 模型管理</strong>：generation / embedding / reranker / routing 各自可切換，健康探測 endpoint，熱切換不重啟。</li>
+            <li><strong>文件審閱</strong>：PDF.js 即時預覽、mammoth.js Word 渲染，支援批量操作、品質分數。</li>
+            <li><strong>風險監控</strong>：EXP_DECAY 加權風險分數（滿分 100，60 分警示 / 80 分嚴重警報），冷卻機制 4 小時。</li>
+          </ul>
+        </section>
+
+        <section id="effects">
+          <h2>核心效果對比</h2>
+          <p>以下對比展示 OceanRAG 與傳統 RAG 方案在各項關鍵指標上的差異，突顯系統的設計優勢。</p>
+          <table>
+            <thead>
+              <tr>
+                <th>比較面向</th>
+                <th>傳統 RAG 方案</th>
+                <th>OceanRAG 方案</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>查詢理解</strong></td>
+                <td>單輪 keyword 搜尋</td>
+                <td>意圖識別 + 查詢改寫 + 多輪上下文</td>
+              </tr>
+              <tr>
+                <td><strong>答案驗證</strong></td>
+                <td>無（直接輸出）</td>
+                <td>NLI 逐 claim 比對（Entail / Neutral / Contradict 三級）</td>
+              </tr>
+              <tr>
+                <td><strong>幻覺防護</strong></td>
+                <td>無</td>
+                <td>三層門控 + BLOCK 直接攔截，信心不足不輸出回答</td>
+              </tr>
+              <tr>
+                <td><strong>文件處理</strong></td>
+                <td>需人工整理</td>
+                <td>全自動 8 階段 ETL + 5 維品質分數</td>
+              </tr>
+              <tr>
+                <td><strong>權限控制</strong></td>
+                <td>全員可見或簡易 ACL</td>
+                <td>RBAC Pre-filter，向量搜尋前執行，不可繞過</td>
+              </tr>
+              <tr>
+                <td><strong>部署依賴</strong></td>
+                <td>需 5+ 外部服務（Redis、Elasticsearch 等）</td>
+                <td>SQLite + LanceDB，零外部依賴</td>
+              </tr>
+              <tr>
+                <td><strong>Token 安全</strong></td>
+                <td>localStorage 儲存（XSS 風險）</td>
+                <td>httpOnly Cookie + JWT RSA-2048 非對稱加密</td>
+              </tr>
+              <tr>
+                <td><strong>稽核日誌</strong></td>
+                <td>可刪除 / 可竄改</td>
+                <td>SQLite DELETE trigger 保護 + SHA-256 雜湊鏈</td>
+              </tr>
+              <tr>
+                <td><strong>LLM 成本</strong></td>
+                <td>GPT-4 等（$10+/百萬 tokens）</td>
+                <td>Groq 推論，約為 GPT-4 的 1/10～1/20</td>
+              </tr>
+              <tr>
+                <td><strong>無效查詢過濾</strong></td>
+                <td>全部送 LLM</td>
+                <td>B-layer 攔截 30%～50%，大幅節省 token</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h3>成本結構分析</h3>
+          <p>OceanRAG 在成本控制上具備顯著優勢。相比 Groq 或 OpenAI 等 token 付費方案，OceanRAG 搭配 B-layer 門控可攔截約 30%～50% 的無效查詢，避免消耗 LLM 呼叫成本。同時 Embedding 只在文件入庫時執行一次，查詢只做 query embedding，不會重複消耗。</p>
+          <div class="alert alert-info">
+            <i class="fa-solid fa-circle-info" style="margin-top: 4px;"></i>
+            <div>
+              <strong>補充說明：</strong> 在完全地端運行模式下，OceanRAG 使用開源 LLM 模型，成本可降至 GPT-4 方案的 <strong>5%～10%</strong>。即使在使用雲端 API 的混合模式下，B-layer 門控仍能將傳統方案的成本壓低 <strong>30%～50%</strong>。
+            </div>
+          </div>
+        </section>
+
+        <section id="architecture">
+          <h2>系統架構（Tiered Architecture）</h2>
+          <p>OceanRAG 採用四層獨立架構，層間以 <code>X-Service-Token</code> 通訊，IP CIDR 白名單保護，限流 30 req/min/IP。</p>
+          <pre>
+T1 前端介面     | HTML/JS，auth-guard.js 權限控管，SSE 即時串流
+T2 RAG 引擎     | 向量搜尋 + RBAC Pre-filter + LLM 管理 + NLI 驗證
+T3 文件處理     | 8 階段 ETL Pipeline（解析→清洗→切塊→摘要→向量化→品質檢測→入庫→通知）
+T4 平台管理     | 使用者管理、認證授權、安全事件、系統設定</pre>
+          <p><strong>為什麼不用 PostgreSQL / Redis？</strong> OceanRAG 刻意選擇 SQLite 而非 PostgreSQL，因為在 1,000 名用戶以下的企業場景，SQLite 的效能已經足夠，且零部署依賴大幅降低維運成本。同理 LanceDB 取代 Pinecone / Weaviate，以本地檔案形式儲存向量，不需要額外的向量資料庫服務。關於<a href="#deployment">資料庫升級分支</a>的細節請參閱部署章節。</p>
+        </section>
+
+        <section id="query-flow">
+          <h3>查詢流程（11 步驟）</h3>
+          <p>以下為一次完整查詢的處理流程：</p>
+          <ol>
+            <li><strong>請求發送</strong> — T1 前端發出查詢，攜帶 JWT httpOnly Cookie 與 <code>session_id</code>。</li>
+            <li><strong>身份驗證</strong> — T4 驗證 JWT 簽章、角色權限、機密等級、部門歸屬。</li>
+            <li><strong>A-layer 意圖分類</strong> — 判斷是否為知識庫相關查詢，非相關查詢提早攔截。</li>
+            <li><strong>查詢改寫</strong> — 根據 session 歷史對話改寫查詢，提升檢索精準度。</li>
+            <li><strong>RBAC Pre-filter</strong> — 根據使用者 <code>clearance_level</code> 與 <code>department_id</code> 過濾，超出權限的文件完全不參與搜尋。</li>
+            <li><strong>向量搜尋</strong> — LanceDB 搜尋 top-K 候選（預設 K=20），向量相似度閾值 0.4。</li>
+            <li><strong>Reranker 精排</strong> — 對 top-K 結果重排序（閾值 0.6），不達標不送 LLM（B-layer 門控）。</li>
+            <li><strong>LLM 生成</strong> — 將 B-layer 通過的 Context 送入 Groq LLM，SSE 串流回傳至 T1。</li>
+            <li><strong>NLI 事實查核（C-layer）</strong> — 對生成結果逐句拆分為 claim，比對 NLI 模型，輸出 PASS / WARN / BLOCK。</li>
+            <li><strong>結果輸出</strong> — PASS/WARN 的結果附帶引用來源回傳，BLOCK 則回傳提示訊息。</li>
+            <li><strong>稽核記錄</strong> — 完整查詢鏈路寫入 <code>audit_logs</code>。</li>
+          </ol>
+        </section>
+
+        <section id="dual-rag">
+          <h3>雙 RAG 系統</h3>
+          <p>OceanRAG 支援兩種查詢模式，可動態切換：</p>
+          <ul>
+            <li><strong>標準模式（Standard RAG）</strong>：文件庫內精準搜尋，top-K 預設 5 筆，適合已知範圍的快速問答。</li>
+            <li><strong>深入模式（Deep RAG）</strong>：跨文件跨時間深度搜尋，top-K 預設 20 筆，搭配意圖識別與查詢改寫，適合需要交叉比對多份文件的複雜查詢（如「比較 2023 與 2024 的營收差異」）。搭配釘選模式可進行多輪深度問答。</li>
+          </ul>
+        </section>
+
+        <section id="security">
+          <h2>安全議題與設計</h2>
+          <p>OceanRAG 採用多層縱深防禦（Defence in Depth）策略，每一層獨立運作，確保單點失守不會導致整體安全崩潰。</p>
+
+          <table>
+            <thead>
+              <tr><th>安全措施</th><th>OceanRAG 做法</th><th>對應威脅</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>資料主權</strong></td>
+                <td>SQLite + LanceDB 完全地端，文件不出境。Groq 僅接收查詢摘要 + 向量檢索結果，不接觸原始文件。</td>
+                <td>資料外洩至第三方 API</td>
+              </tr>
+              <tr>
+                <td><strong>JWT RS256 非對稱加密</strong></td>
+                <td>T2 不持有私鑰，僅從 proxy 轉發的 JWT payload 提取使用者身份，無法偽造 token。</td>
+                <td>Token 偽造與竄改</td>
+              </tr>
+              <tr>
+                <td><strong>httpOnly + SameSite=Strict Cookie</strong></td>
+                <td>JWT token 完全無法透過 JavaScript 存取，阻斷 XSS 竊取。</td>
+                <td>OWASP Top 10: XSS、CSRF</td>
+              </tr>
+              <tr>
+                <td><strong>文件機密等級 L1～L5</strong></td>
+                <td>每份文件設定機密等級，clearance_level 不足直接回傳空結果（非隱藏，是根本不搜尋）。</td>
+                <td>未授權存取敏感文件</td>
+              </tr>
+              <tr>
+                <td><strong>RBAC 三級角色 + 部門隔離</strong></td>
+                <td>master_admin / dept_admin / employee，跨部門需授權。</td>
+                <td>水平與垂直越權攻擊</td>
+              </tr>
+              <tr>
+                <td><strong>不可竄改稽核日誌</strong></td>
+                <td>audit_logs 設有 SQLite DELETE trigger 保護，SHA-256 雜湊鏈驗證，即使 master_admin 也無法刪除或竄改。</td>
+                <td>稽核合規要求（ISO 27001）</td>
+              </tr>
+              <tr>
+                <td><strong>Session 管理</strong></td>
+                <td>角色或機密等級變更後立即撤銷所有 session（防 session fixation）。</td>
+                <td>防止權限變更後的殘留存取</td>
+              </tr>
+              <tr>
+                <td><strong>檔案上傳驗證</strong></td>
+                <td>magic number 驗證（PDF: <code>%PDF</code>、DOCX: <code>PK</code> header），不信任副檔名。</td>
+                <td>防止偽裝檔案上傳 WebShell</td>
+              </tr>
+              <tr>
+                <td><strong>時序攻擊防護</strong></td>
+                <td>帳號不存在時仍執行 dummy bcrypt，確保回應時間一致，無法透過回應時間判斷帳號是否存在。</td>
+                <td>Timing Attack、帳號列舉</td>
+              </tr>
+              <tr>
+                <td><strong>限流（Rate Limiting）</strong></td>
+                <td>30 req/min/IP，超出回傳 429 Too Many Requests。</td>
+                <td>DDoS、暴力破解</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="dashboard">
+          <h2>管理儀表板</h2>
+
+          <h3>用量統計</h3>
+          <p>儀表板提供三層 drill-down 分析：<strong>部門總覽</strong>（各部門 token 消耗與查詢次數）→ <strong>使用者明細</strong>（個別使用者用量趨勢）→ <strong>查詢記錄</strong>（每筆查詢的 token、文件來源、門控結果）。可匯出 CSV 供財務或管理層分析。</p>
+          <ul>
+            <li><strong>KPI 指標</strong>：當日查詢數、B-layer 與 NLI BLOCK 比例、平均回應時間。</li>
+            <li><strong>配額管理</strong>：對每個部門設定查詢上限，超過配額自動暫停，防止預算超支。</li>
+            <li><strong>警示線</strong>：當部門用量達到 80% 配額時自動通知管理員。</li>
+          </ul>
+
+          <h3>AI 模型管理</h3>
+          <p>OceanRAG 將 AI 模型依角色分類，每個角色可獨立切換，熱切換不需重啟服務。</p>
+          <table>
+            <thead>
+              <tr><th>模型角色</th><th>用途</th><th>預設選擇</th><th>可替換方案</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Generation</strong></td>
+                <td>LLM 回答生成</td>
+                <td>Groq (llama-3.3-70b)</td>
+                <td>OpenAI、Anthropic、本地 Ollama</td>
+              </tr>
+              <tr>
+                <td><strong>Embedding</strong></td>
+                <td>文件與查詢向量化</td>
+                <td>Jina v5 (1024-dim)</td>
+                <td>OpenAI text-embedding-3、BGE-M3</td>
+              </tr>
+              <tr>
+                <td><strong>Reranker</strong></td>
+                <td>候選文件精排</td>
+                <td>Jina Reranker v2</td>
+                <td>Cohere Rerank、BGE Reranker</td>
+              </tr>
+              <tr>
+                <td><strong>Routing / NLI</strong></td>
+                <td>意圖分類 + 事實查核</td>
+                <td>Erlangshen-Roberta-330M-NLI</td>
+                <td>未來可替換為更大模型</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>每個角色都有<strong>獨立的健康探測 endpoint</strong>，可即時檢查模型是否正常運作，切換模型後 30 秒內自動驗證可用性。</p>
+        </section>
+
+        <section id="logging">
+          <h2>雙日誌系統</h2>
+          <p>OceanRAG 建立兩套互補的日誌系統，確保完整的可追溯性：</p>
+
+          <h3>1. 對話紀錄（Conversation Logs）</h3>
+          <p>記錄每筆查詢的完整鏈路，包含原始問題、LLM 回答、NLI 評分結果，以 <code>session_id</code> 串聯，方便使用者回顧歷史對話。</p>
+          <ul>
+            <li>標記是否觸發 B-layer 門控（檢索品質不足）。</li>
+            <li>記錄 NLI WARN/BLOCK 事件，追蹤 LLM 幻覺發生頻率。</li>
+            <li>保存查詢改寫前後的 Prompt 記錄。</li>
+          </ul>
+
+          <h3>2. 稽核日誌（Audit Logs）</h3>
+          <p>記錄所有系統操作：登入 / 登出、文件上傳 / 審閱 / 下架、權限變更等。每筆記錄不可刪除、不可竄改。</p>
+          <ul>
+            <li><strong>SQLite DELETE trigger 保護</strong>：<code>audit_logs</code> 禁止 DELETE 操作，trigger 在任何刪除嘗試時自動回滾，確保記錄永久保存。</li>
+            <li><strong>SHA-256 雜湊鏈</strong>：每筆記錄的 hash 值包含前一筆記錄的 hash，形成不可竄改的鏈式結構，任何單筆竄改都會導致後續驗證失敗。</li>
+            <li><strong>稽核匯出 API</strong>：管理員可透過 <code>/api/audit/export</code> 匯出完整的稽核記錄（CSV / JSON），供法規遵循使用。</li>
+          </ul>
+        </section>
+
+        <section id="roadmap">
+          <h2>開發計畫</h2>
+
+          <h3>1. MCP 伺服器（Model Context Protocol）</h3>
+          <p>OceanRAG 計畫支援 <strong>MCP 伺服器</strong>，讓 OceanRAG 成為任何 AI Agent 的知識來源。Claude、GPT-4 等透過 MCP 協議直接查詢 OceanRAG 的文件庫，實現跨平台知識共享。</p>
+
+          <h3>2. API 與 Web 整合</h3>
+          <p>開放 RESTful API 供第三方系統整合，包含查詢、文件管理、使用者管理等端點。Web 搜尋整合允許在知識庫不足時，自動從網路搜尋補充答案。</p>
+
+          <h3>3. Agent Teams</h3>
+          <p>多 Agent 協作模式，讓不同角色的 AI Agent 分工處理複雜任務（如研究、分析、報告），每個 Agent 都受到 OceanRAG 的權限控制與稽核追蹤。</p>
+        </section>
+
+        <section id="models">
+          <h2>模型選擇指南</h2>
+          <p>OceanRAG 的核心理念是「開源可商用」，以下是各模型角色的選擇考量：</p>
+          <table>
+            <thead>
+              <tr><th>模型角色</th><th>推薦選擇</th><th>選擇理由</th><th>替換注意事項</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Embedding</strong></td>
+                <td>Jina v5 (1024-dim)</td>
+                <td>華語支援優秀，維度適中，效能穩定</td>
+                <td>更換後需重新向量化所有文件</td>
+              </tr>
+              <tr>
+                <td><strong>LLM</strong></td>
+                <td>Groq (llama-3.3-70b)</td>
+                <td>推論速度極快，成本為 GPT-4 的 1/10</td>
+                <td>可隨時熱切換，無需重新入庫</td>
+              </tr>
+              <tr>
+                <td><strong>Reranker</strong></td>
+                <td>Jina Reranker v2</td>
+                <td>對中文語義理解佳，與 embedding 同生態系</td>
+                <td>B-layer 門控閾值可能需微調</td>
+              </tr>
+              <tr>
+                <td><strong>NLI</strong></td>
+                <td>Erlangshen-Roberta-330M-NLI</td>
+                <td>中文 NLI 表現優秀，模型小巧可地端運行</td>
+                <td>更換需驗證 AB 測試與精準度</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section id="deployment">
+          <h2>部署升級</h2>
+
+          <h3>1. 相容性與環境需求</h3>
+          <ul>
+            <li><strong>作業系統</strong>：Windows / macOS / Linux 均可</li>
+            <li><strong>Python</strong>：3.10+</li>
+            <li><strong>GPU</strong>：NLI 模型建議有 GPU（CPU 也可但較慢）</li>
+            <li><strong>硬體最低</strong>：Mac Mini M4（約 2 萬台幣）即可運行完整系統</li>
+          </ul>
+
+          <h3>2. 部署方式</h3>
+          <ul>
+            <li><strong>本地伺服器</strong>：最簡單的部署方式，適合單一辦公室。四個 Tier 各自啟動，透過 proxy 統一入口。</li>
+            <li><strong>私有雲</strong>：適合多據點企業，可將 T2/T3/T4 部署在私有雲，T1 前端透過 VPN 存取。</li>
+          </ul>
+
+          <h3>3. 資料庫升級分支</h3>
+          <p>OceanRAG 目前使用 SQLite + LanceDB 作為零依賴方案。未來若使用者量超過 1,000 人，可考慮以下升級路徑：</p>
+          <ul>
+            <li><strong>SQLite → PostgreSQL</strong>：支援併發寫入、更精細的權限控制、更好的備份機制。</li>
+            <li><strong>LanceDB → Pinecone / Weaviate</strong>：支援分散式向量搜尋、更大規模的文件庫。</li>
+          </ul>
+          <p>架構設計已預留抽象層，切換資料庫不需修改業務邏輯。</p>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="docs.js"></script>
+</body>
+</html>

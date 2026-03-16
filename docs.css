@@ -72,7 +72,8 @@ body {
   flex-direction: row !important;
   background: transparent !important;
   backdrop-filter: none !important;
-  gap: 24px;
+  gap: 16px;
+  margin: 0 !important;
   padding: 0 !important;
   border-top: none !important;
 }

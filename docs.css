@@ -28,66 +28,16 @@ body {
   color: var(--text-main);
 }
 
-/* Header — match homepage visuals exactly, but use relative positioning
-   for the flex-column app layout (not a scrolling marketing page).
-   All properties are explicit to avoid cascade conflicts with style.css. */
+/* Header — inherit ALL styles from style.css .header,
+   only override position (fixed → relative) for flex-column layout. */
 .header.docs-nav {
-  position: relative !important;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
-  width: 100%;
-  height: var(--header-h);
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
   flex-shrink: 0;
-  z-index: 1000;
-  background: rgba(255, 255, 255, 0.95);
-  border: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-  display: flex;
-  align-items: center;
-  padding: 0;
-  margin: 0;
-  transform: none !important;
-  opacity: 1 !important;
-  transition: background 0.3s ease;
-  box-sizing: border-box;
-}
-
-.header.docs-nav .container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.header.docs-nav .nav-links {
-  position: static !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  transform: none !important;
-  flex-direction: row !important;
-  background: transparent !important;
-  backdrop-filter: none !important;
-  gap: 16px;
-  margin: 0 !important;
-  padding: 0 !important;
-  border-top: none !important;
-}
-
-.header.docs-nav .nav-links a {
-  font-family: var(--font-family);
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  text-decoration: none;
-}
-
-.header.docs-nav .menu-toggle {
-  display: none;
+  transform: none;
+  opacity: 1;
 }
 
 /* Control Bar — no own padding; the .container inside handles it,
@@ -452,48 +402,7 @@ body.dark-mode .nav-section-title { color: #64748b; }
 .sidebar-overlay.active { display: block; }
 
 @media (max-width: 900px) {
-  .header.docs-nav .menu-toggle {
-    display: flex !important;
-  }
-
-  .header.docs-nav .nav-links {
-    position: fixed !important;
-    top: var(--header-h) !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    background: rgba(255,255,255,0.98) !important;
-    backdrop-filter: blur(10px) !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    padding: 40px !important;
-    gap: 28px !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    transform: translateY(-16px) !important;
-    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease !important;
-    z-index: 1001 !important;
-    border-top: 1px solid var(--border) !important;
-  }
-  .header.docs-nav .nav-links.active {
-    opacity: 1 !important;
-    visibility: visible !important;
-    transform: translateY(0) !important;
-  }
-  .header.docs-nav .nav-links li {
-    width: 100%;
-    text-align: center;
-  }
-  .header.docs-nav .nav-links a {
-    font-size: 1.2rem;
-    display: block;
-    padding: 10px;
-  }
-
-  body.dark-mode .header.docs-nav .nav-links {
-    background: rgba(15, 23, 42, 0.98) !important;
-  }
+  /* nav-links mobile: inherited from style.css @media(max-width:900px) */
 
   .sidebar {
     position: fixed !important;

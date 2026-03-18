@@ -871,7 +871,7 @@
     </div>
   </section>
 
-  <!-- 3b. 效果與直接影響 — 最懂公司的虛擬顧問 (互動版本) -->
+  <!-- 3b. 查詢實例 + 運作原理圖解 -->
   <section class="section reveal-wrapper" id="consultant">
     <div class="container reveal-item">
       <div class="section-header">
@@ -879,219 +879,145 @@
         <p>OceanRAG 可成為即時第一解決窗口，把時間還給有價值的工作</p>
       </div>
 
-      <div class="consultant-grid" style="position: relative;">
-        <!-- 虛擬游標 (用於代理展示) -->
-        <div id="virtualCursor"
-          style="position: absolute; width: 24px; height: 24px; pointer-events: none; z-index: 9999; display: none; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));">
-          <svg viewBox="0 0 24 24" fill="white" stroke="#2563eb" stroke-width="1.5">
-            <path
-              d="M5.5 3.21V20.8c0 .45.54.67.85.35l4.83-4.83 2.3 5.17c.14.33.52.48.84.34l2.11-.94c.32-.14.47-.52.33-.85l-2.3-5.17h6.67c.45 0 .67-.54.35-.85L6.35 2.85a.5.5 0 0 0-.85.35z" />
-          </svg>
-        </div>
-
-        <!-- 固定大小的應用程式視窗 (完全對齊原版資料範例互動.txt) -->
-        <div id="appContainer"
-          style="width: 100%; height: 620px; background: white; border-radius: 16px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1); display: flex; overflow: hidden; border: 1px solid #e2e8f0; position: relative;">
-
-          <!-- 左側：報告與資料面板 -->
-          <div id="reportPanel"
-            style="width: 100%; height: 100%; display: flex; flex-direction: column; background: #f9fafb; position: relative; border-right: 1px solid transparent; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);">
-
-            <!-- 釘選狀態的標題列 (預設隱藏) -->
-            <div id="pinnedHeader"
-              style="display:none; height: 48px; background: #2563eb; color: white; align-items: center; padding: 0 16px; flex-shrink: 0; font-size: 14px;">
-              <i class="fa-solid fa-thumbtack text-blue-200 mr-2 transform -rotate-45" style="margin-right: 8px;"></i>
-              <span class="font-medium">已釘選參考資料</span>
+      <div class="demo-split">
+        <!-- ─ 左側：查詢與回應 ─ -->
+        <div class="demo-chat">
+          <!-- 使用者提問 -->
+          <div class="demo-query">
+            <div class="demo-query-bubble">
+              幫我整理本季 ERP 進出貨狀況，以及受台灣因素影響導致的誤點情形。
             </div>
-
-            <div style="flex: 1; overflow-y: auto; padding: 24px;" id="reportScrollArea">
-              <!-- 初始使用者提問 -->
-              <div style="display: flex; justify-content: flex-end; margin-bottom: 24px;">
-                <div style="max-width: 80%;">
-                  <div
-                    style="background: #dbeafe; border: 1px solid #bfdbfe; color: #1e3a8a; padding: 12px 20px; border-radius: 16px 16px 2px 16px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); font-size: 14px; line-height: 1.6;">
-                    幫我整理本季 ERP 進出貨狀況，以及受台灣因素影響導致的誤點情形。
-                  </div>
-                  <div style="text-align: right; font-size: 12px; color: #94a3b8; margin-top: 4px;">下午 02:15</div>
-                </div>
-              </div>
-
-              <!-- AI 報告本體 -->
-              <div
-                style="background: white; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); border: 1px solid #e2e8f0; overflow: hidden; margin-top: 16px;">
-                <div style="padding: 24px;">
-                  <h3 style="font-weight: 700; color: #1e293b; margin-bottom: 12px; font-size: 16px;">資料摘要</h3>
-                  <p style="font-size: 14px; color: #475569; line-height: 1.7; margin-bottom: 24px;">
-                    根據最新的 <span class="highlight-ref">ERP系統匯出資料</span>，本公司在當季期間整體進出貨量呈現波動。受 <span
-                      class="highlight-yellow-ref">台灣近期地震與颱風氣候影響</span>，導致 <span
-                      class="highlight-ref">高雄港與基隆港物流壅塞</span>，原物料進口與成品出口均發生延遲。目前主要在地供應商已啟動備援機制，產能正在逐步恢復。
-                  </p>
-
-                  <h3 style="font-weight: 700; color: #1e293b; margin-bottom: 12px; font-size: 16px;">分析推論</h3>
-                  <p style="font-size: 14px; color: #475569; margin-bottom: 12px;">根據提供的資料，我們可以分析出以下幾點：</p>
-                  <ol
-                    style="list-style: decimal; padding-left: 20px; font-size: 14px; color: #475569; margin-bottom: 24px;">
-                    <li style="margin-bottom: 8px;">本季進貨延遲平均約 <span
-                        class="highlight-ref">3-5個工作天</span>，主要是由於台灣本地陸運調度困難所致。</li>
-                    <li style="margin-bottom: 8px;">出貨端方面，國內客戶的訂單達交率下降了約 <span
-                        class="highlight-ref">12%</span>，這表明近期的不可抗力因素對供應鏈造成了實質衝擊。</li>
-                    <li>針對海外訂單，公司已緊急啟動空運替代方案，預計能將影響降至最低。</li>
-                  </ol>
-
-                  <div
-                    style="background: #f8fafc; padding: 16px; border-radius: 8px; font-size: 14px; color: #334155; border: 1px solid #f1f5f9; margin-bottom: 24px;">
-                    根據這些分析，我們可以得出結論：<strong>目前 ERP 庫存水位偏低，進出貨受台灣氣候與交通影響顯著，建議提高安全庫存並密切追蹤動態。</strong>
-                  </div>
-
-                  <!-- 信心度 -->
-                  <div
-                    style="background: rgba(255, 247, 237, 0.5); border: 1px solid #fed7aa; border-radius: 8px; padding: 12px; display: flex; align-items: center; margin-bottom: 24px;">
-                    <i class="fa-solid fa-triangle-exclamation" style="color: #fb923c; margin-right: 12px;"></i>
-                    <span style="color: #9a3412; font-weight: 500; font-size: 14px; margin-right: 16px;">信心度</span>
-                    <span
-                      style="color: #f97316; font-weight: 700; font-size: 18px; border-bottom: 2px dashed #fb923c;">75%</span>
-                  </div>
-
-                  <!-- 來源標籤 -->
-                  <div>
-                    <div
-                      style="display: flex; align-items: center; gap: 16px; font-size: 12px; color: #64748b; margin-bottom: 12px;">
-                      <span
-                        style="background: #eff6ff; color: #2563eb; padding: 2px 8px; border-radius: 4px;">繼續查看</span>
-                      <div style="display: flex; align-items: center;"><span
-                          style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; margin-right: 6px;"></span>外部環境
-                      </div>
-                      <div style="display: flex; align-items: center;"><span
-                          style="width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; margin-right: 6px;"></span>系統資料
-                      </div>
-                      <div style="display: flex; align-items: center;"><span
-                          style="width: 8px; height: 8px; border-radius: 50%; background: #fb923c; margin-right: 6px;"></span>待確認
-                      </div>
-                    </div>
-                    <div style="display: flex; flex-wrap: wrap; gap: 8px; font-size: 12px;">
-                      <span
-                        style="border: 1px solid #e2e8f0; background: white; padding: 4px 10px; border-radius: 50px; color: #475569; display: flex; align-items: center;"><span
-                          style="width: 8px; height: 8px; border-radius: 50%; background: #3b82f6; margin-right: 6px;"></span>[1]
-                        ERP-INV-Q3</span>
-                      <span
-                        style="border: 1px solid #e2e8f0; background: white; padding: 4px 10px; border-radius: 50px; color: #475569; display: flex; align-items: center;"><span
-                          style="width: 8px; height: 8px; border-radius: 50%; background: #10b981; margin-right: 6px;"></span>[2]
-                        TW-LOGISTICS</span>
-                      <span
-                        style="border: 1px solid #e2e8f0; background: white; padding: 4px 10px; border-radius: 50px; color: #475569; display: flex; align-items: center;"><span
-                          style="width: 8px; height: 8px; border-radius: 50%; background: #fb923c; margin-right: 6px;"></span>[3]
-                        PORT-STATUS</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- 左側底部操作列 -->
-            <div id="reportFooter"
-              style="background: white; padding: 16px 24px; border-top: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;">
-              <div style="display: flex; gap: 8px;">
-                <button id="pinBtn" onclick="activateConsultantMode()"
-                  style="display: flex; align-items: center; gap: 8px; background: #eff6ff; border: 1px solid #bfdbfe; color: #1d4ed8; padding: 8px 20px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;">
-                  <i class="fa-solid fa-thumbtack"></i> 查詢釘選
-                </button>
-                <button
-                  style="display: flex; align-items: center; gap: 8px; background: white; border: 1px solid #e2e8f0; color: #94a3b8; padding: 8px 12px; border-radius: 8px; font-size: 14px; cursor: pointer;">
-                  <i class="fa-regular fa-flag"></i>
-                </button>
-              </div>
-              <div style="font-size: 12px; color: #94a3b8;">AI 引擎 · 8.2s</div>
-            </div>
+            <div class="demo-time">下午 02:15</div>
           </div>
 
-          <!-- 右側：顧問對話面板 -->
-          <div id="chatPanel"
-            style="width: 0; flex-shrink: 0; display: flex; flex-direction: column; background: white; border-left: 1px solid #e2e8f0; opacity: 0; overflow: hidden; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s;">
-
-            <!-- 對話視窗標題列 -->
-            <div
-              style="height: 56px; border-bottom: 1px solid #e2e8f0; background: white; display: flex; align-items: center; padding: 0 20px; flex-shrink: 0;">
-              <div style="display: flex; align-items: center; gap: 12px;">
-                <div
-                  style="width: 32px; height: 32px; border-radius: 50%; background: #2563eb; display: flex; align-items: center; justify-content: center; color: white;">
-                  <i class="fa-solid fa-robot" style="font-size: 14px;"></i>
-                </div>
-                <div>
-                  <h2 style="font-size: 14px; font-weight: 700; color: #1e293b; margin: 0;">查詢釘選問答</h2>
-                  <p style="font-size: 11px; color: #22c55e; display: flex; align-items: center; margin: 0;">
-                    <span
-                      style="width: 6px; height: 6px; border-radius: 50%; background: #22c55e; margin-right: 4px;"></span>在線支援
-                  </p>
-                </div>
-              </div>
+          <!-- AI 回應 -->
+          <div class="demo-response">
+            <div class="demo-response-header">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:#2563eb;flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>AI 引擎 · 8.2s</span>
             </div>
 
-            <!-- 對話內容滾動區 -->
-            <div id="chatMessages"
-              style="flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; background: #f8fafc;">
-              <div style="text-align: center; margin: 8px 0; font-size: 12px; color: #64748b;">
-                <span style="background: #e2e8f0; padding: 4px 12px; border-radius: 50px;"><i
-                    class="fa-solid fa-thumbtack" style="margin-right: 4px;"></i> 查詢已釘選於左側，進入問答模式</span>
-              </div>
+            <h4 class="demo-section-title">資料摘要</h4>
+            <p class="demo-text">
+              根據最新的 <span class="highlight-ref">ERP 系統匯出資料</span>，本公司在當季期間整體進出貨量呈現波動。受
+              <span class="highlight-yellow-ref">台灣近期地震與颱風氣候影響</span>，導致
+              <span class="highlight-ref">高雄港與基隆港物流壅塞</span>，原物料進口與成品出口均發生延遲。
+            </p>
 
-              <div style="align-self: flex-start; width: 100%; max-width: 90%; display: flex; gap: 12px;"
-                class="msg-fade-in">
-                <div
-                  style="width: 28px; height: 28px; border-radius: 50%; background: #2563eb; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: white;">
-                  <i class="fa-solid fa-robot" style="font-size: 12px;"></i>
-                </div>
-                <div
-                  style="background: white; border-radius: 12px; border-radius: 0 12px 12px 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; padding: 16px; font-size: 14px; color: #334155; line-height: 1.6;">
-                  已為您釘選此份報告。針對目前受台灣氣候與港口壅塞影響，導致的<span class="highlight-yellow-ref">「庫存水位偏低」</span>與交期延遲狀況，請輸入您欲進一步查詢的
-                  ERP 數據或現狀。
+            <h4 class="demo-section-title">分析推論</h4>
+            <ol class="demo-list">
+              <li>本季進貨延遲平均約 <span class="highlight-ref">3-5 個工作天</span>，台灣本地陸運調度困難所致。</li>
+              <li>出貨端方面，國內客戶的訂單達交率下降了約 <span class="highlight-ref">12%</span>。</li>
+              <li>針對海外訂單，公司已緊急啟動空運替代方案。</li>
+            </ol>
 
-                  <div
-                    style="margin-top: 16px; padding-top: 12px; border-top: 1px solid #f1f5f9; display: flex; flex-direction: column; gap: 8px;">
-                    <div>
-                      <button
-                        style="display: flex; align-items: center; gap: 6px; background: white; border: 1px solid #e2e8f0; color: #94a3b8; padding: 4px 8px; border-radius: 4px; font-size: 12px; cursor: pointer;">
-                        <i class="fa-solid fa-flag" style="font-size: 10px;"></i> 回報
-                      </button>
-                    </div>
-                    <div style="font-size: 11px; color: #cbd5e1; font-family: monospace;">
-                      下午02:16 · AI 引擎 · 1K/128 · 2.1s · #AUD-20260313-001a1b2c
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="demo-conclusion">
+              <strong>結論：</strong>目前庫存水位偏低，建議提高安全庫存並密切追蹤動態。
             </div>
 
-            <!-- 底部對話輸入區 -->
-            <div style="padding: 16px; border-top: 1px solid #e2e8f0; background: white; flex-shrink: 0;">
-              <div style="position: relative; display: flex; align-items: center;">
-                <input type="text" id="consultantInput"
-                  style="width: 100%; border: 1px solid #d1d5db; background: #f9fafb; color: #111827; font-size: 14px; border-radius: 50px; padding: 12px 48px 12px 20px; outline: none; transition: box-shadow 0.2s;"
-                  placeholder="輸入問題與顧問對談..." readonly>
-                <button id="consultantSendBtn" onclick="nextChatStep()"
-                  style="position: absolute; right: 8px; color: white; background: #2563eb; border: none; border-radius: 50%; padding: 8px; width: 34px; height: 34px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s;">
-                  <i class="fa-solid fa-paper-plane"></i>
-                </button>
+            <!-- 信心度 -->
+            <div class="demo-confidence">
+              <div class="demo-conf-left">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.5"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <span>信心度</span>
               </div>
+              <span class="demo-conf-score">75%</span>
+            </div>
+
+            <!-- 來源標籤 -->
+            <div class="demo-sources">
+              <span class="demo-source-tag"><span class="demo-dot" style="background:#3b82f6"></span>[1] ERP-INV-Q3</span>
+              <span class="demo-source-tag"><span class="demo-dot" style="background:#10b981"></span>[2] TW-LOGISTICS</span>
+              <span class="demo-source-tag"><span class="demo-dot" style="background:#fb923c"></span>[3] PORT-STATUS</span>
             </div>
           </div>
         </div>
 
-        <!-- 顧問效益底部欄 (現代化橫向排列) -->
-        <div class="consultant-footer-benefits">
-          <div class="footer-benefit-item">
-            <i class="fa-solid fa-bolt-lightning"></i>
-            <span>省下「老鳥帶菜鳥」的時間</span>
+        <!-- ─ 右側：運作原理圖解 ─ -->
+        <div class="demo-pipeline" id="demoPipeline">
+          <div class="pipeline-title">OceanRAG 運作原理</div>
+
+          <div class="pipe-step-card" data-step="1">
+            <div class="pipe-step-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            </div>
+            <div class="pipe-step-body">
+              <div class="pipe-step-label">文件安全入庫</div>
+              <div class="pipe-step-desc">企業文件留在內部，切割成知識碎片並建立向量索引</div>
+            </div>
+            <div class="pipe-step-badge">100% 地端</div>
           </div>
-          <span class="footer-separator">|</span>
-          <div class="footer-benefit-item">
-            <i class="fa-solid fa-network-wired"></i>
-            <span>控制跨部門資訊孤島問題</span>
+
+          <div class="pipe-connector"><div class="pipe-connector-line"></div></div>
+
+          <div class="pipe-step-card" data-step="2">
+            <div class="pipe-step-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </div>
+            <div class="pipe-step-body">
+              <div class="pipe-step-label">智慧語意搜尋</div>
+              <div class="pipe-step-desc">理解問題意圖，從文件庫精準比對相關段落</div>
+            </div>
+            <div class="pipe-step-counter">
+              <span class="counter-num">156</span> → <span class="counter-num">82</span> → <span class="counter-num highlight">35</span>
+            </div>
           </div>
-          <span class="footer-separator">|</span>
-          <div class="footer-benefit-item">
-            <i class="fa-solid fa-headset"></i>
-            <span>隨時問隨時答</span>
+
+          <div class="pipe-connector"><div class="pipe-connector-line"></div></div>
+
+          <div class="pipe-step-card" data-step="3">
+            <div class="pipe-step-icon accent">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="pipe-step-body">
+              <div class="pipe-step-label">三道品質門控</div>
+              <div class="pipe-gates">
+                <div class="pipe-gate">
+                  <div class="gate-bar gate-1"></div>
+                  <span>語意理解</span>
+                </div>
+                <div class="pipe-gate">
+                  <div class="gate-bar gate-2"></div>
+                  <span>權限過濾</span>
+                </div>
+                <div class="pipe-gate">
+                  <div class="gate-bar gate-3"></div>
+                  <span>信心把關</span>
+                </div>
+              </div>
+            </div>
           </div>
+
+          <div class="pipe-connector"><div class="pipe-connector-line"></div></div>
+
+          <div class="pipe-step-card" data-step="4">
+            <div class="pipe-step-icon success">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div class="pipe-step-body">
+              <div class="pipe-step-label">溯源輸出</div>
+              <div class="pipe-step-desc">每個答案附文件出處與信心度，錯誤透明、查證簡單</div>
+            </div>
+            <div class="pipe-step-badge success">信心 75%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 效益底部欄 -->
+      <div class="consultant-footer-benefits">
+        <div class="footer-benefit-item">
+          <i class="fa-solid fa-bolt-lightning"></i>
+          <span>省下「老鳥帶菜鳥」的時間</span>
+        </div>
+        <span class="footer-separator">|</span>
+        <div class="footer-benefit-item">
+          <i class="fa-solid fa-network-wired"></i>
+          <span>控制跨部門資訊孤島問題</span>
+        </div>
+        <span class="footer-separator">|</span>
+        <div class="footer-benefit-item">
+          <i class="fa-solid fa-headset"></i>
+          <span>隨時問隨時答</span>
         </div>
       </div>
     </div>

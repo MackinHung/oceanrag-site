@@ -55,8 +55,8 @@ body {
 }
 
 .control-bar > .container {
-  max-width: var(--max-width);
-  margin: 0 auto;
+  max-width: none;
+  margin: 0;
   padding: 0 24px;
   display: flex;
   justify-content: space-between;

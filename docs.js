@@ -254,11 +254,24 @@ document.addEventListener('DOMContentLoaded', () => {
     const clientNav = document.getElementById('clientNav');
     const techNav = document.getElementById('techNav');
 
+    // ─── 12. Version Toggle Smooth Transition ────────────────────
+    function animateVersionSwitch(showEl, hideEl) {
+        if (!showEl || !hideEl) return;
+        hideEl.style.opacity = '0';
+        setTimeout(() => {
+            hideEl.style.display = 'none';
+            showEl.style.display = 'block';
+            showEl.style.opacity = '0';
+            requestAnimationFrame(() => {
+                showEl.style.transition = 'opacity 0.3s ease';
+                showEl.style.opacity = '1';
+            });
+        }, 150);
+    }
+
     function showClientView() {
-        if (clientIntro) clientIntro.style.display = 'block';
-        if (techIntro) techIntro.style.display = 'none';
-        if (clientContent) clientContent.style.display = 'block';
-        if (techContent) techContent.style.display = 'none';
+        animateVersionSwitch(clientIntro, techIntro);
+        animateVersionSwitch(clientContent, techContent);
         if (clientNav) clientNav.style.display = 'block';
         if (techNav) techNav.style.display = 'none';
         if (clientBtn) clientBtn.classList.add('active');
@@ -266,10 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function showTechView() {
-        if (techIntro) techIntro.style.display = 'block';
-        if (clientIntro) clientIntro.style.display = 'none';
-        if (techContent) techContent.style.display = 'block';
-        if (clientContent) clientContent.style.display = 'none';
+        animateVersionSwitch(techIntro, clientIntro);
+        animateVersionSwitch(techContent, clientContent);
         if (techNav) techNav.style.display = 'block';
         if (clientNav) clientNav.style.display = 'none';
         if (techBtn) techBtn.classList.add('active');
@@ -338,4 +349,49 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // ─── 9. Reading Progress Bar ─────────────────────────────────
+    const progressBar = document.getElementById('readingProgress');
+    if (progressBar && mainReader) {
+        mainReader.addEventListener('scroll', () => {
+            const scrollTop = mainReader.scrollTop;
+            const scrollHeight = mainReader.scrollHeight - mainReader.clientHeight;
+            const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+            progressBar.style.width = progress + '%';
+        }, { passive: true });
+    }
+
+    // ─── 10. Section Reveal on Scroll ────────────────────────────
+    const docsRevealElements = document.querySelectorAll('.docs-reveal');
+    if (docsRevealElements.length > 0 && mainReader) {
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            root: mainReader,
+            rootMargin: '0px 0px -80px 0px',
+            threshold: 0.05
+        });
+        docsRevealElements.forEach(el => revealObserver.observe(el));
+    }
+
+    // ─── 11. Back to Top Button ──────────────────────────────────
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop && mainReader) {
+        mainReader.addEventListener('scroll', () => {
+            if (mainReader.scrollTop > 400) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }, { passive: true });
+
+        backToTop.addEventListener('click', () => {
+            mainReader.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
 });

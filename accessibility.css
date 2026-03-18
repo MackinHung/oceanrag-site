@@ -46,10 +46,15 @@
   }
 
   .ambient-blob,
-  .glow-signal,
-  .core-signal,
   .mockup-placeholder {
     animation: none !important;
+  }
+
+  /* Hero circuit signals: essential branding — slow down, don't kill */
+  .glow-signal,
+  .core-signal {
+    animation-duration: 15s !important;
+    animation-iteration-count: infinite !important;
   }
 
   .reveal-wrapper {

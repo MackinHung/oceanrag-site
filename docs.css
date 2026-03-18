@@ -911,6 +911,7 @@ body.dark-mode .risk-badge.green { background: #052e16; border-color: #065f46; c
   align-items: center;
   font-size: 14px;
 }
+.flow-diagram.flow-sm { font-size: 13px; }
 
 /* ─── Gate Card Group ─── */
 .gate-card-group {

@@ -31,6 +31,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="accessibility.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js" defer></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -280,39 +281,214 @@
     </div>
   </section>
 
-  <!-- 成本優勢 -->
+  <!-- 成本優勢 — 地端/雲端切換 -->
   <section class="section reveal-wrapper" id="cost">
     <div class="container">
       <div class="section-header reveal-item">
-        <h2>即使用雲端 API，費用也只要主流方案的一小部分</h2>
-        <p>三道智慧門控自動攔截無效查詢，讓每一次 API 呼叫都花在刀口上</p>
+        <h2>雲端地端皆可用，長文本仍保高精準</h2>
+        <p id="costSubtitle">只需要花 2 萬元的硬體，你就有 24 小時的數位員工</p>
       </div>
 
-      <!-- 數字亮點 -->
-      <div class="stats-grid reveal-item">
-        <div class="stat-card">
-          <div class="stat-number">50-70%</div>
-          <div class="stat-label">雲端 API 費用節省</div>
-          <div class="stat-desc">門控攔截 + 按需推論</div>
+      <!-- 切換按鈕 -->
+      <div class="cost-toggle reveal-item">
+        <button class="cost-toggle-btn active" data-mode="local" id="toggleLocal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+          地端模式
+        </button>
+        <button class="cost-toggle-btn" data-mode="cloud" id="toggleCloud">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>
+          雲端模式
+        </button>
+      </div>
+
+      <!-- ═══ 地端模式內容 ═══ -->
+      <div class="cost-panel active" id="panelLocal">
+        <!-- 數字亮點 -->
+        <div class="stats-grid reveal-item">
+          <div class="stat-card">
+            <div class="stat-number accent">~2 萬</div>
+            <div class="stat-label">一次性硬體投資</div>
+            <div class="stat-desc">Mac Mini 即可運行</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number accent">0 元</div>
+            <div class="stat-label">AI 模型月費</div>
+            <div class="stat-desc">開源模型自由運行</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">24hr</div>
+            <div class="stat-label">全天候待命</div>
+            <div class="stat-desc">不請假、不離職</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">完全斷網運作</div>
+            <div class="stat-desc">資料零外流風險</div>
+          </div>
         </div>
-        <div class="stat-card">
-          <div class="stat-number accent">0 元</div>
-          <div class="stat-label">地端模型月費</div>
-          <div class="stat-desc">開源模型自由運行</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">3 道</div>
-          <div class="stat-label">智慧門控攔截</div>
-          <div class="stat-desc">無效查詢不浪費額度</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number accent">100%</div>
-          <div class="stat-label">文件留地端</div>
-          <div class="stat-desc">僅查詢送雲端 API</div>
+
+        <!-- 三方對比表 -->
+        <div class="reveal-item" style="margin-top: 32px;">
+          <table class="compare-table compare-table-3col">
+            <thead>
+              <tr>
+                <th>比較項目</th>
+                <th>其它 AI 應用</th>
+                <th>OceanRAG 雲端</th>
+                <th>OceanRAG 地端</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>初期投入</td>
+                <td class="td-bad">$0（訂閱制綁定）</td>
+                <td class="td-mid">$0（按量計費）</td>
+                <td class="td-good"><strong>~2 萬元</strong>硬體一次性</td>
+              </tr>
+              <tr>
+                <td>每月費用</td>
+                <td class="td-bad">$20-60 USD/人/月</td>
+                <td class="td-mid">按用量，門控省 50-70%</td>
+                <td class="td-good"><strong>0 元</strong>（電費除外）</td>
+              </tr>
+              <tr>
+                <td>資料隱私</td>
+                <td class="td-bad">資料上傳雲端</td>
+                <td class="td-mid">文件留地端，查詢送雲端</td>
+                <td class="td-good"><strong>100% 斷網</strong>可運作</td>
+              </tr>
+              <tr>
+                <td>模型選擇</td>
+                <td class="td-bad">綁定供應商</td>
+                <td class="td-mid">自由切換任意模型</td>
+                <td class="td-good">自由切換 + <strong>可微調</strong></td>
+              </tr>
+              <tr>
+                <td>幻覺控制</td>
+                <td class="td-bad">依賴模型本身</td>
+                <td class="td-mid">三層信心度 + 文件溯源</td>
+                <td class="td-good"><strong>三層信心度</strong> + 文件溯源</td>
+              </tr>
+              <tr>
+                <td>擴展費用</td>
+                <td class="td-bad">人數 × 單價線性成長</td>
+                <td class="td-mid">固定 API 用量成本</td>
+                <td class="td-good"><strong>固定算力</strong>，人數無上限</td>
+              </tr>
+              <tr>
+                <td>適合場景</td>
+                <td class="td-bad">一般個人使用</td>
+                <td class="td-mid">快速驗證 / 小團隊</td>
+                <td class="td-good"><strong>長期部署</strong> / 企業核心</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
-      <!-- 精準度說明 -->
+      <!-- ═══ 雲端模式內容 ═══ -->
+      <div class="cost-panel" id="panelCloud">
+        <!-- 數字亮點 -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number">50-70%</div>
+            <div class="stat-label">API 費用節省</div>
+            <div class="stat-desc">門控攔截 + 按需推論</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number accent">3 道</div>
+            <div class="stat-label">智慧門控攔截</div>
+            <div class="stat-desc">無效查詢不浪費額度</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">文件留地端</div>
+            <div class="stat-desc">僅查詢送雲端 API</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number accent">穩定</div>
+            <div class="stat-label">長文本精準度</div>
+            <div class="stat-desc">RAG 架構不受文長影響</div>
+          </div>
+        </div>
+
+        <!-- 成本 × 精準度曲線圖 -->
+        <div class="chart-container" style="margin-top: 32px;">
+          <div class="k3">
+            <div class="kc">
+              <div class="kc-l">一般 AI 方案｜單次查詢成本</div>
+              <div class="kc-v" style="color:var(--accent-danger);">按量計費</div>
+              <div class="kc-n">用量越大，費用越高</div>
+            </div>
+            <div class="kc">
+              <div class="kc-l">OceanRAG｜單次查詢成本</div>
+              <div class="kc-v" style="color:var(--accent-base);">大幅節省</div>
+              <div class="kc-n">高效混合推論架構</div>
+            </div>
+            <div class="kc">
+              <div class="kc-l">成本差距</div>
+              <div class="kc-v" style="color:var(--accent-warn);">省 80~90%</div>
+              <div class="kc-n">含門控攔截節省</div>
+            </div>
+          </div>
+
+          <div class="leg">
+            <span><svg width="32" height="10"><line x1="0" y1="5" x2="32" y2="5" stroke="#dc2626" stroke-width="3"/></svg> 一般AI應用：成本</span>
+            <span><svg width="32" height="10"><line x1="0" y1="5" x2="32" y2="5" stroke="#004d80" stroke-width="3"/></svg> OceanRAG：成本</span>
+            <span><svg width="32" height="10"><line x1="0" y1="5" x2="32" y2="5" stroke="#dc2626" stroke-width="2" stroke-dasharray="6,4"/></svg> 一般AI應用：精準度</span>
+            <span><svg width="32" height="10"><line x1="0" y1="5" x2="32" y2="5" stroke="#004d80" stroke-width="2" stroke-dasharray="6,4"/></svg> OceanRAG：精準度</span>
+          </div>
+
+          <div style="text-align: right; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 8px; font-style: italic;">
+            *註：API 即用即付的預估差異，包含單次抓取的文字用量 (Tokens)
+          </div>
+
+          <div class="chart-grid-layout">
+            <div class="chart-y-axis left">
+              <div class="axis-title">USD</div>
+              <div class="axis-ticks">
+                <span style="color:#991b1b;">$2.5</span>
+                <span style="color:#b91c1c;">$2.0</span>
+                <span style="color:#dc2626;">$1.5</span>
+                <span style="color:#f87171;">$1.0</span>
+                <span style="color:#0284c7;">$0.5</span>
+                <span style="color:#004d80;">$0.0</span>
+              </div>
+            </div>
+            <div style="position:relative; width:100%; height:100%;"><canvas id="costChart"></canvas></div>
+            <div class="chart-y-axis right">
+              <div class="axis-title">精準度</div>
+              <div class="axis-ticks">
+                <span style="color:#004d80;">100%</span>
+                <span style="color:#004d80;">80%</span>
+                <span style="color:#64748b;">60%</span>
+                <span style="color:#ea580c;">40%</span>
+                <span style="color:#dc2626;">20%</span>
+                <span style="color:#991b1b;">0%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="chart-x-labels">
+            <span>10頁<br><small>短文</small></span>
+            <span>100頁<br><small>短篇小說</small></span>
+            <span>400頁<br><small>長篇小說</small></span>
+            <span>800頁<br><small>教科書</small></span>
+            <span>1,300頁<br><small>百科全書</small></span>
+          </div>
+
+          <div style="margin-top: 40px; padding: 24px; background: #f8fafc; border-radius: 12px; border: 1px solid var(--glass-border);">
+            <div style="margin-bottom: 12px;">
+              <strong style="color: var(--accent-danger);">● 一般方案：</strong> 文本越長成本越高，精準度卻急速下降。
+            </div>
+            <div>
+              <strong style="color: var(--accent-base);">● OceanRAG：</strong> 門控攔截壓低成本，RAG 架構維持長文本高精準。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 精準度說明（共用） -->
       <div class="accuracy-banner reveal-item">
         <div class="accuracy-icon">⚖️</div>
         <div>
@@ -322,54 +498,6 @@
             企業可以先用雲端 API 快速驗證，再無縫切換地端，品質零損耗。
           </div>
         </div>
-      </div>
-
-      <!-- 對比表 -->
-      <div class="reveal-item" style="margin-top: 32px;">
-        <table class="compare-table">
-          <thead>
-            <tr>
-              <th>比較項目</th>
-              <th>主流雲端 AI 方案</th>
-              <th>OceanRAG（雲端 API 模式）</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>月費結構</td>
-              <td class="td-bad">按人頭訂閱，$20-60 USD/人/月</td>
-              <td class="td-good"><strong>按量計費</strong>，門控攔截省 50-70%</td>
-            </tr>
-            <tr>
-              <td>資料隱私</td>
-              <td class="td-bad">資料上傳雲端</td>
-              <td class="td-good">文件 <strong>100% 留地端</strong>，僅查詢送雲端</td>
-            </tr>
-            <tr>
-              <td>模型鎖定</td>
-              <td class="td-bad">綁定供應商模型</td>
-              <td class="td-good"><strong>自由切換</strong>任意模型</td>
-            </tr>
-            <tr>
-              <td>幻覺控制</td>
-              <td class="td-bad">依賴模型本身</td>
-              <td class="td-good"><strong>三層信心度把關</strong> + 文件溯源</td>
-            </tr>
-            <tr>
-              <td>精準度一致性</td>
-              <td class="td-bad">依模型版本而異</td>
-              <td class="td-good">地端 / 雲端<strong>精準度完全一致</strong></td>
-            </tr>
-            <tr>
-              <td>擴展費用</td>
-              <td class="td-bad">人數 × 單價線性成長</td>
-              <td class="td-good"><strong>固定算力成本</strong>，人數無上限</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="compare-note">
-          * 費用數據基於 OceanRAG 門控攔截與按需推論機制的內部測試結果
-        </p>
       </div>
     </div>
   </section>

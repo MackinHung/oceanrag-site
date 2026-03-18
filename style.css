@@ -633,6 +633,73 @@ h1, h2, h3, h4 {
   line-height: 1.7;
 }
 
+/* ─── Cost Toggle ─── */
+.cost-toggle {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 48px;
+}
+
+.cost-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 2px solid var(--glass-border);
+  border-radius: 50px;
+  background: #fff;
+  color: var(--text-secondary);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.cost-toggle-btn:hover {
+  border-color: var(--accent-base);
+  color: var(--accent-base);
+}
+
+.cost-toggle-btn.active {
+  background: var(--accent-base);
+  border-color: var(--accent-base);
+  color: #fff;
+  box-shadow: 0 4px 14px var(--accent-glow);
+}
+
+.cost-toggle-btn.active svg { stroke: #fff; }
+
+/* ─── Cost Panels ─── */
+.cost-panel {
+  display: none;
+  animation: panelFadeIn 0.4s ease-out;
+}
+
+.cost-panel.active { display: block; }
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── 3-column compare table ─── */
+.compare-table-3col th:last-child {
+  color: #fff;
+  background: var(--accent-base);
+}
+
+.compare-table-3col th:nth-child(3) {
+  color: var(--accent-base);
+  background: #eff6ff;
+}
+
+.td-mid {
+  color: var(--accent-base);
+  background: rgba(0, 77, 128, 0.02);
+  font-size: 0.95rem;
+}
+
 /* 對比表腳註 */
 .compare-note {
   text-align: center;
@@ -1399,6 +1466,8 @@ details.faq-item > p {
   }
 
   .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .cost-toggle-btn { padding: 10px 20px; font-size: 0.9rem; }
+  .compare-table-3col { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .pain-grid { grid-template-columns: 1fr; }
   .split-view { flex-direction: column; }
   .split-col.left { border-right: none; border-bottom: 1px solid var(--glass-border); }

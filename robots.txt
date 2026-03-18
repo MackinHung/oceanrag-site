@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://oceanrag-site.pages.dev/sitemap.xml

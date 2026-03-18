@@ -1,0 +1,84 @@
+/* ============================================================
+   OceanRAG — accessibility.css
+   Global accessibility enhancements (load last)
+   ============================================================ */
+
+/* Skip Link — visually hidden until focused */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 16px;
+  z-index: 10000;
+  padding: 12px 24px;
+  background: #004d80;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Global Focus Ring */
+:focus-visible {
+  outline: 2px solid #004d80;
+  outline-offset: 2px;
+}
+
+/* Remove default outline for mouse users */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Reduced Motion — stop all animations and transitions */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .ambient-blob,
+  .glow-signal,
+  .core-signal,
+  .mockup-placeholder {
+    animation: none !important;
+  }
+
+  .reveal-wrapper {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .reveal-item {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Smooth Scroll — only when user has no motion preference */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Ensure all clickable elements have pointer cursor */
+button,
+[role="button"],
+summary,
+.cal-nav,
+.slot-btn,
+.icon-btn,
+.v-btn,
+.nav-item,
+.cal-day:not(.past):not(.empty) {
+  cursor: pointer;
+}

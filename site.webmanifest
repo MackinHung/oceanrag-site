@@ -1,0 +1,21 @@
+{
+  "name": "OceanRAG — 企業安全 AI 顧問",
+  "short_name": "OceanRAG",
+  "description": "專為中小型企業設計的AI內部智慧體系統，零成本顧問進駐，100% 斷網私有化。",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#004d80",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "type": "image/svg+xml",
+      "sizes": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "type": "image/png",
+      "sizes": "180x180"
+    }
+  ]
+}

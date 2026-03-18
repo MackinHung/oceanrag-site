@@ -1,18 +1,110 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OceanRAG — 企業安全 AI 顧問</title>
   <meta name="description" content="專為中小型企業設計的AI內部智慧體系統，零成本顧問進駐，100% 斷網私有化。">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#004d80">
+  <link rel="canonical" href="https://oceanrag-site.pages.dev/">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="OceanRAG — 企業安全 AI 顧問">
+  <meta property="og:description" content="專為中小型企業設計的AI內部智慧體系統，零成本顧問進駐，100% 斷網私有化。">
+  <meta property="og:url" content="https://oceanrag-site.pages.dev/">
+  <meta property="og:image" content="https://oceanrag-site.pages.dev/og-image.png">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:site_name" content="OceanRAG">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OceanRAG — 企業安全 AI 顧問">
+  <meta name="twitter:description" content="專為中小型企業設計的AI內部智慧體系統，零成本顧問進駐，100% 斷網私有化。">
+  <meta name="twitter:image" content="https://oceanrag-site.pages.dev/og-image.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="accessibility.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "OceanRAG",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "description": "專為中小型企業設計的AI內部智慧體系統，零成本顧問進駐，100% 斷網私有化。",
+    "url": "https://oceanrag-site.pages.dev/",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "TWD",
+      "description": "AI模型運行零成本，目前為POC驗證階段"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "MackinHung",
+      "url": "https://github.com/MackinHung"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "運行零成本？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "AI模型運行的零成本和靈活替換使用能力。企業仍須負擔背景的GPU算力、電費與硬體等基礎建設攤提。OceanRAG的價值在於讓企業能輕易跑起開源模型，打破大廠按人頭計費的訂閱壓力。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "這需要企業IT改組或聘請AI專家進駐嗎？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "不需立即改組或轉型。OceanRAG採用通用架構，即便目前沒有AI專才，本系統也能讓員工輕鬆上手，成為企業最簡單、實用的顧問。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "AI如果斷章取義，出錯了責任歸誰？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "本系統的核心價值在於讓錯誤變透明，讓查證變簡單。系統提供的每個答案都附上原始文件出處，方便即時檢核。AI是強大的助理，最終的商業決策由您來掌握。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "它會取代原本的ERP、CRM系統嗎？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "兩者是戰友而非競爭者。ERP負責記錄數字死資料，OceanRAG則是賦予這些資料說話的能力。透過串接報表，可以直接詢問即時分析問題。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "這套系統的未來價值在哪裡？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "當前重點是資料隱私和運行成本。核心價值是快速洞察資料關聯，提供量身打造的決策建議。未來願景是持續強化系統的可擴充性與跨平台相容能力。"
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 
 <body>
+  <a href="#main" class="skip-link">跳到主要內容</a>
   <div class="mesh-bg"></div>
   <div class="ambient-bg">
     <div class="ambient-blob"></div>
@@ -25,7 +117,7 @@
   <header class="header">
     <div class="container">
       <a href="index.html" class="header-logo">
-        <img src="OceanRAG-LOG.svg" alt="OceanRAG Icon" style="height: 32px;">
+        <img src="OceanRAG-LOG.svg" alt="OceanRAG Icon" width="32" height="32">
         <span>OceanRAG</span>
       </a>
       <nav>
@@ -44,6 +136,7 @@
     </div>
   </header>
 
+  <main id="main">
   <!-- 1. 首屏 (Hero) -->
   <section class="hero reveal-wrapper" id="hero">
     <div class="circuit-bg">
@@ -541,7 +634,7 @@
           </div>
 
           <!-- Slider Handle -->
-          <div class="perm-slider-handle" id="permSliderHandle" style="left: 50%;">
+          <div class="perm-slider-handle" id="permSliderHandle" style="left: 50%;" role="slider" aria-label="權限等級比較滑桿" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" tabindex="0">
             <div class="handle-circle">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"
                 stroke-linecap="round" stroke-linejoin="round">
@@ -842,6 +935,8 @@
     </div>
   </section>
 
+  </main>
+
   <!-- Footer -->
   <footer class="footer">
     <div class="container">
@@ -850,7 +945,7 @@
         <div class="footer-col">
           <div class="footer-brand">
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px;">
-              <img src="OceanRAG-LOG.svg" alt="OceanRAG Logo" style="height: 36px;">
+              <img src="OceanRAG-LOG.svg" alt="OceanRAG Logo" width="36" height="36">
               <span style="font-size: 1.4rem; font-weight: 800; color: #0f172a; letter-spacing: -0.5px;">OceanRAG</span>
             </div>
             <p style="color: #64748b; font-size: 0.95rem; line-height: 1.6;">OceanRAG
@@ -884,14 +979,14 @@
           <h4 class="footer-title">開發者</h4>
           <div class="developer-card">
             <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-              <img src="devloppp.jpg" alt="Developer Avatar" class="developer-avatar">
+              <img src="devloppp.jpg" alt="Developer Avatar" class="developer-avatar" loading="lazy" width="44" height="44" decoding="async">
               <div style="font-size: 0.9rem; font-weight: 600; color: #1e293b;">@MackinHung</div>
             </div>
             <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 12px;">有想法意見，歡迎私信</p>
             <div class="developer-socials">
-              <a href="https://github.com/MackinHung" target="_blank" title="GitHub"><i
+              <a href="https://github.com/MackinHung" target="_blank" rel="noopener noreferrer" title="GitHub"><i
                   class="fa-brands fa-github"></i></a>
-              <a href="#" target="_blank" title="Discord"><i class="fa-brands fa-discord"></i></a>
+              <a href="#" target="_blank" rel="noopener noreferrer" title="Discord"><i class="fa-brands fa-discord"></i></a>
               <a href="mailto:mackinhung@gmail.com" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
           </div>

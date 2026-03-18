@@ -64,6 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       staffView.style.clipPath = `inset(0 ${100 - percentage}% 0 0)`;
       sliderHandle.style.left = percentage + '%';
+      sliderHandle.setAttribute('aria-valuenow', Math.round(percentage));
     };
 
     const onMouseDown = (e) => {
@@ -263,6 +264,16 @@ document.addEventListener('DOMContentLoaded', () => {
   window.runConsultantDemo = function() {
       if (demoRunOnce) return;
       demoRunOnce = true;
+
+      // Respect prefers-reduced-motion: skip animation, show final state
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.activateConsultantMode();
+        setTimeout(() => { window.nextChatStep(); }, 100);
+        setTimeout(() => { window.nextChatStep(); }, 300);
+        const input = document.getElementById('consultantInput');
+        if (input) input.placeholder = "Demo結束，此環節有使用外網蒐資料";
+        return;
+      }
 
       const cursor = document.getElementById('virtualCursor');
       const pinBtn = document.getElementById('pinBtn');

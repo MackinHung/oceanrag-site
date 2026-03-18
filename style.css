@@ -9,7 +9,8 @@
   --bg-gradient: linear-gradient(145deg, #ffffff 0%, #f3f6f9 100%);
   --text-main: #1e293b;
   --text-secondary: #475569;
-  --text-muted: #94a3b8;
+  --text-muted: #6b7280;
+  --text-decorative: #94a3b8;
 
   --accent-base: #004d80; /* Deep Sea Blue */
   --accent-glow: rgba(0, 77, 128, 0.2);
@@ -24,7 +25,7 @@
   --shadow-md: 0 10px 30px rgba(0, 0, 0, 0.05);
 
   /* Layout */
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", "PingFang TC", "Helvetica Neue", Arial, sans-serif;
   --max-width: 1100px;
   --spacing-section: 120px;
   --radius-lg: 16px;
@@ -35,11 +36,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-/* Removed global scroll-behavior: smooth to prevent conflicts with snap scrolling */
-#hero {
-  scroll-behavior: smooth; /* Keep for direct anchor links if needed specifically */
 }
 
 body {
@@ -356,6 +352,7 @@ h1, h2, h3, h4 {
 .hero h1 {
   font-size: 4rem;
   margin-bottom: 24px;
+  line-height: 1.25;
 }
 .hero p {
   font-size: 1.25rem;
@@ -379,6 +376,9 @@ h1, h2, h3, h4 {
 .btn-primary:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px var(--accent-glow);
+}
+.btn-primary:active {
+  transform: translateY(0);
 }
 
 /* Hero Mockup Visualization */
@@ -707,6 +707,7 @@ h1, h2, h3, h4 {
     cursor: ew-resize;
     user-select: none;
     background: #fff;
+    touch-action: none;
 }
 
 /* Layer Styles */
@@ -1135,12 +1136,33 @@ summary::after {
   color: var(--text-secondary);
   font-size: 1.5rem;
   line-height: 1;
+  transition: transform 0.3s ease;
 }
-details[open] summary::after { content: '-'; color: var(--accent-base); }
+details[open] summary::after {
+  content: '+';
+  color: var(--accent-base);
+  transform: rotate(45deg);
+}
 .faq-item p {
   padding: 0 24px 24px 24px;
   color: var(--text-secondary);
   line-height: 1.7;
+}
+
+details.faq-item > p {
+  overflow: hidden;
+  animation: faqExpand 0.3s ease-out;
+}
+
+@keyframes faqExpand {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 500px;
+  }
 }
 
 /* Footer */
@@ -1456,5 +1478,45 @@ details[open] summary::after { content: '-'; color: var(--accent-base); }
     .header .container { padding: 0 12px; }
     .chart-summary { padding: 16px !important; }
     .hero-mockup { margin-top: 24px; }
+  }
+}
+
+/* iPhone SE (375px) */
+@media (max-width: 375px) {
+  .hero h1 {
+    font-size: 1.9rem;
+  }
+  .section-header h2 {
+    font-size: 1.5rem;
+  }
+  .btn-primary {
+    padding: 12px 24px;
+    font-size: 0.95rem;
+  }
+  .pain-card {
+    padding: 28px 20px;
+  }
+  .consultant-footer-benefits {
+    padding: 16px;
+    gap: 12px;
+  }
+  .footer-benefit-item {
+    font-size: 13px;
+  }
+}
+
+/* Large screens (1440px+) */
+@media (min-width: 1440px) {
+  :root {
+    --max-width: 1280px;
+  }
+  .hero h1 {
+    font-size: 4.5rem;
+  }
+  .section-header h2 {
+    font-size: 3rem;
+  }
+  .perm-comparison-outer {
+    height: 780px;
   }
 }

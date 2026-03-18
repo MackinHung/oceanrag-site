@@ -560,6 +560,87 @@ h1, h2, h3, h4 {
   font-size: 0.95rem;
 }
 
+/* ─── Stats Grid ─── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 16px;
+}
+
+.stat-card {
+  text-align: center;
+  padding: 32px 20px;
+  background: #ffffff;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-number {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+
+.stat-number.accent { color: var(--accent-base); }
+
+.stat-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
+
+.stat-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+/* ─── 精準度橫幅 ─── */
+.accuracy-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 28px 32px;
+  background: linear-gradient(135deg, #eff6ff 0%, #f0fdf4 100%);
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius-lg);
+  margin-top: 48px;
+}
+
+.accuracy-icon { font-size: 2rem; flex-shrink: 0; }
+
+.accuracy-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.accuracy-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* 對比表腳註 */
+.compare-note {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 16px;
+}
+
 /* Compare Table */
 .compare-table {
   width: 100%;
@@ -1317,6 +1398,7 @@ details.faq-item > p {
     padding: 12px;
   }
 
+  .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .pain-grid { grid-template-columns: 1fr; }
   .split-view { flex-direction: column; }
   .split-col.left { border-right: none; border-bottom: 1px solid var(--glass-border); }
@@ -1478,6 +1560,12 @@ details.faq-item > p {
   #chatPanel.active {
     height: 400px;
     opacity: 1;
+  }
+
+  /* Stats Grid: single column on small screens */
+  @media (max-width: 480px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat-number { font-size: 2.2rem; }
   }
 
   /* Extra Small Font Scaling */

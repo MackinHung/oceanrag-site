@@ -279,6 +279,101 @@
       </div>
     </div>
   </section>
+
+  <!-- 成本優勢 -->
+  <section class="section reveal-wrapper" id="cost">
+    <div class="container">
+      <div class="section-header reveal-item">
+        <h2>即使用雲端 API，費用也只要主流方案的一小部分</h2>
+        <p>三道智慧門控自動攔截無效查詢，讓每一次 API 呼叫都花在刀口上</p>
+      </div>
+
+      <!-- 數字亮點 -->
+      <div class="stats-grid reveal-item">
+        <div class="stat-card">
+          <div class="stat-number">50-70%</div>
+          <div class="stat-label">雲端 API 費用節省</div>
+          <div class="stat-desc">門控攔截 + 按需推論</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number accent">0 元</div>
+          <div class="stat-label">地端模型月費</div>
+          <div class="stat-desc">開源模型自由運行</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3 道</div>
+          <div class="stat-label">智慧門控攔截</div>
+          <div class="stat-desc">無效查詢不浪費額度</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number accent">100%</div>
+          <div class="stat-label">文件留地端</div>
+          <div class="stat-desc">僅查詢送雲端 API</div>
+        </div>
+      </div>
+
+      <!-- 精準度說明 -->
+      <div class="accuracy-banner reveal-item">
+        <div class="accuracy-icon">⚖️</div>
+        <div>
+          <div class="accuracy-title">無論地端或雲端，精準度完全一致</div>
+          <div class="accuracy-desc">
+            OceanRAG 的三道門控、信心度評分、文件溯源機制是架構層面的設計，不因部署模式改變。
+            企業可以先用雲端 API 快速驗證，再無縫切換地端，品質零損耗。
+          </div>
+        </div>
+      </div>
+
+      <!-- 對比表 -->
+      <div class="reveal-item" style="margin-top: 32px;">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>比較項目</th>
+              <th>主流雲端 AI 方案</th>
+              <th>OceanRAG（雲端 API 模式）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>月費結構</td>
+              <td class="td-bad">按人頭訂閱，$20-60 USD/人/月</td>
+              <td class="td-good"><strong>按量計費</strong>，門控攔截省 50-70%</td>
+            </tr>
+            <tr>
+              <td>資料隱私</td>
+              <td class="td-bad">資料上傳雲端</td>
+              <td class="td-good">文件 <strong>100% 留地端</strong>，僅查詢送雲端</td>
+            </tr>
+            <tr>
+              <td>模型鎖定</td>
+              <td class="td-bad">綁定供應商模型</td>
+              <td class="td-good"><strong>自由切換</strong>任意模型</td>
+            </tr>
+            <tr>
+              <td>幻覺控制</td>
+              <td class="td-bad">依賴模型本身</td>
+              <td class="td-good"><strong>三層信心度把關</strong> + 文件溯源</td>
+            </tr>
+            <tr>
+              <td>精準度一致性</td>
+              <td class="td-bad">依模型版本而異</td>
+              <td class="td-good">地端 / 雲端<strong>精準度完全一致</strong></td>
+            </tr>
+            <tr>
+              <td>擴展費用</td>
+              <td class="td-bad">人數 × 單價線性成長</td>
+              <td class="td-good"><strong>固定算力成本</strong>，人數無上限</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="compare-note">
+          * 費用數據基於 OceanRAG 門控攔截與按需推論機制的內部測試結果
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- 2. 系統特色 (Feature Cards) -->
   <section class="section reveal-wrapper" id="features">
     <div class="container">
@@ -957,6 +1052,7 @@
         <div class="footer-col">
           <h4 class="footer-title">核心產品</h4>
           <ul class="footer-links">
+            <li><a href="#cost">成本對比</a></li>
             <li><a href="#features">功能特色</a></li>
             <li><a href="#permission">權限管理系統</a></li>
             <li><a href="contact.html">虛擬顧問問答</a></li>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-Hant">
+<html lang="zh-Hant-TW">
 
 <head>
   <meta charset="UTF-8">
@@ -67,35 +67,70 @@
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
-        <div class="nav-section">
-          <div class="nav-section-title">入門說明</div>
-          <a href="#intro" class="nav-item active">1. 快速介紹</a>
-          <a href="#features" class="nav-item">2. 功能特色</a>
-          <a href="#effects" class="nav-item">3. 核心效果</a>
+        <!-- Management Nav (default) -->
+        <div id="clientNav">
+          <div class="nav-section">
+            <div class="nav-section-title">入門</div>
+            <a href="#intro" class="nav-item active">系統概覽</a>
+            <a href="#c-why" class="nav-item">為什麼選擇 OceanRAG</a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">核心功能</div>
+            <a href="#c-how" class="nav-item">系統如何運作</a>
+            <a href="#c-quality" class="nav-item">品質把關機制</a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">安全與管理</div>
+            <a href="#c-security" class="nav-item">安全防護</a>
+            <a href="#c-rbac" class="nav-item">權限管理</a>
+            <a href="#c-audit" class="nav-item">稽核日誌</a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">部署與未來</div>
+            <a href="#c-deploy" class="nav-item">部署方式</a>
+            <a href="#c-roadmap" class="nav-item">發展藍圖</a>
+          </div>
         </div>
-        <div class="nav-section">
-          <div class="nav-section-title">系統架構</div>
-          <a href="#architecture" class="nav-item">1. 四層模組（零依賴）</a>
-          <a href="#query-flow" class="nav-item">2. 動態查詢流程</a>
-          <a href="#dual-rag" class="nav-item">3. 雙 RAG 系統</a>
-        </div>
-        <div class="nav-section">
-          <div class="nav-section-title">管理課題</div>
-          <a href="#security" class="nav-item">1. 安全議題與設計</a>
-          <a href="#dashboard" class="nav-item">2. 管理儀表板</a>
-          <a href="#logging" class="nav-item">3. 雙日誌系統</a>
-        </div>
-        <div class="nav-section">
-          <div class="nav-section-title">開發計畫</div>
-          <a href="#roadmap" class="nav-item">1. MCP 伺服器與未來</a>
-        </div>
-        <div class="nav-section">
-          <div class="nav-section-title">模型選擇</div>
-          <a href="#models" class="nav-item">1. 模型角色總覽</a>
-        </div>
-        <div class="nav-section">
-          <div class="nav-section-title">部署升級</div>
-          <a href="#deployment" class="nav-item">1. 部署方式與相容性</a>
+        <!-- Tech Nav (hidden by default) -->
+        <div id="techNav" style="display: none;">
+          <div class="nav-section">
+            <div class="nav-section-title">入門說明</div>
+            <a href="#intro" class="nav-item active">技術概覽</a>
+            <a href="#t-why" class="nav-item">方案比較</a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">系統架構</div>
+            <a href="#t-architecture" class="nav-item">四層模組</a>
+            <a href="#t-pipeline" class="nav-item">查詢管線</a>
+            <a href="#t-hybrid" class="nav-item">混合檢索</a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">信心度與準確性</div>
+            <a href="#t-gates" class="nav-item">三層門控</a>
+            <a href="#t-confidence" class="nav-item">信心管線</a>
+            <a href="#t-decay" class="nav-item">版本衰減</a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">模型與知識庫</div>
+            <a href="#t-models" class="nav-item">模型角色與備援</a>
+            <a href="#t-etl" class="nav-item">文件 ETL</a>
+            <a href="#t-sessions" class="nav-item">多輪對話</a>
+            <a href="#t-websearch" class="nav-item">聯網搜尋</a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">安全與稽核</div>
+            <a href="#t-security" class="nav-item">縱深防禦</a>
+            <a href="#t-loginsec" class="nav-item">登入安全</a>
+            <a href="#t-risk" class="nav-item">風險評分與異常偵測</a>
+            <a href="#t-rbac" class="nav-item">權限 RBAC</a>
+            <a href="#t-audit" class="nav-item">稽核日誌</a>
+          </div>
+          <div class="nav-section">
+            <div class="nav-section-title">部署與擴充</div>
+            <a href="#t-deploy" class="nav-item">部署方式</a>
+            <a href="#t-dbupgrade" class="nav-item">升級路徑</a>
+            <a href="#t-roadmap" class="nav-item">開發藍圖</a>
+          </div>
         </div>
       </div>
     </aside>
@@ -106,440 +141,906 @@
         <div class="article-meta">
           <span>深入了解文件中心</span>
           <span style="opacity: 0.3;">|</span>
-          <span>v0.5.1 Beta</span>
+          <span>v0.5.4</span>
         </div>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- 共用入門區塊（含切換按鈕）                                -->
+        <!-- ═══════════════════════════════════════════════════════ -->
 
         <section id="intro">
           <h1>OceanRAG 系統說明</h1>
-          <p class="subtitle">專為中小企業設計的零外部依賴企業知識問答平台</p>
+          <p class="subtitle">專為台灣中小企業打造，零外部依賴的企業知識問答平台</p>
 
-          <!-- Version Switcher Toggle -->
           <div class="version-toggle">
-            <button class="v-btn active" data-version="tech" id="techBtn">
-              <i class="fa-solid fa-code"></i> 技術版本
+            <button class="v-btn active" data-version="client" id="clientBtn">
+              <i class="fa-solid fa-user-tie"></i> 主管 / 決策者（預設）
             </button>
-            <button class="v-btn" data-version="client" id="clientBtn">
-              <i class="fa-solid fa-user-tie"></i> 客戶端說明
+            <button class="v-btn" data-version="tech" id="techBtn">
+              <i class="fa-solid fa-code"></i> 技術同仁
             </button>
           </div>
 
-          <div id="quickStartContent">
-            <!-- Technical Content (Initial) -->
-            <div id="techVersion">
-              <div class="alert alert-info">
-                <i class="fa-solid fa-circle-info" style="margin-top: 4px;"></i>
-                <div class="content">
-                  <strong>技術導向：</strong> OceanRAG 是一套企業內部 RAG 系統，設計目標是在零外部依賴的前提下，提供生產級的知識問答、權限控制與安全稽核能力。
+          <!-- Management Intro (shown by default) -->
+          <div id="clientIntro">
+            <div class="alert alert-info">
+              <i class="fa-solid fa-lightbulb" style="margin-top: 4px;"></i>
+              <div class="content">
+                <strong>一句話說明：</strong> OceanRAG 就像公司裡面的 ChatGPT，但資料不會外洩、每個人只看得到自己被授權的內容，而且 AI 回答會自動標明「根據哪份文件」。
+              </div>
+            </div>
+            <h3>為什麼公司需要 OceanRAG？</h3>
+            <ul>
+              <li><strong>資料不出境</strong>：裝在公司自己的機器上，文件不會傳到任何外部服務，符合台灣個資法要求。</li>
+              <li><strong>誰看什麼，清清楚楚</strong>：每份文件都有機密等級和部門歸屬。業務看不到人資的薪資單，人資看不到研發的專利文件。</li>
+              <li><strong>操作紀錄全留底</strong>：誰查了什麼、什麼時候查的，紀錄不可刪除、不可竄改，稽核的時候直接匯出。</li>
+              <li><strong>像 LINE 一樣追問</strong>：問完一個問題可以繼續追問，系統會記住前面的對話內容，不用每次重新描述。</li>
+              <li><strong>知識庫找不到就上網查</strong>：公司文件沒有答案時，可以自動從網路搜尋補充，但會標明「這是網路來源」。</li>
+              <li><strong>AI 不會亂講話</strong>：三道關卡把關，信心不夠就不回答，避免 AI 瞎掰（幻覺）誤導同仁。</li>
+            </ul>
+            <p>簡單來說：<strong>讓同仁用「問問題」取代「翻資料夾」</strong>，省下的時間拿來做更有價值的事。</p>
+          </div>
+
+          <!-- Tech Intro (hidden by default) -->
+          <div id="techIntro" style="display: none;">
+            <div class="alert alert-info">
+              <i class="fa-solid fa-circle-info" style="margin-top: 4px;"></i>
+              <div class="content">
+                <strong>技術導向：</strong> OceanRAG 是一套企業內部 RAG 系統，採用嵌入式資料庫方案，不需要額外部署外部服務。適合 MIS 或研發團隊快速導入。
+              </div>
+            </div>
+            <h3>核心技術定位</h3>
+            <ul>
+              <li><strong>混合檢索</strong>：語意向量搜尋 + BM25 中文分詞，融合排序</li>
+              <li><strong>LLM 生成</strong>：大型語言模型 + 自動備援鏈（支援多家供應商切換）</li>
+              <li><strong>統一信心管線</strong>：多維度信心評分 + 條件觸發 NLI 事實查核，附繁體中文解釋</li>
+              <li><strong>資料儲存</strong>：嵌入式資料庫，多輪對話持久化 + trigger 保護的稽核日誌</li>
+              <li><strong>通訊安全</strong>：四獨立 Tier (T1-T4) 以服務令牌通訊，非對稱加密簽章</li>
+            </ul>
+            <p>技術版本提供完整的架構說明，包含混合檢索、信心管線與門控機制。</p>
+          </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- 主管 / 決策者 內容（預設顯示）                            -->
+        <!-- ═══════════════════════════════════════════════════════ -->
+
+        <div id="clientContent">
+
+          <section id="c-why">
+            <h2>為什麼選擇 OceanRAG</h2>
+            <p>跟市面上其他方案比較，OceanRAG 的核心差異：</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>比較面向</th>
+                  <th>一般 AI 方案</th>
+                  <th>OceanRAG</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>資料安全</strong></td>
+                  <td>機密文件上傳雲端，有外洩風險</td>
+                  <td>可完全私有化部署，資料不離開公司</td>
+                </tr>
+                <tr>
+                  <td><strong>回答品質</strong></td>
+                  <td>無法驗證，可能產生錯誤資訊</td>
+                  <td>三道品質關卡自動把關，信心不足不回答</td>
+                </tr>
+                <tr>
+                  <td><strong>權限管控</strong></td>
+                  <td>全公司看同樣內容，或只有簡單分類</td>
+                  <td>文件等級 × 部門 × 角色，精確到每份文件</td>
+                </tr>
+                <tr>
+                  <td><strong>稽核追蹤</strong></td>
+                  <td>查詢紀錄可刪改，或根本沒有紀錄</td>
+                  <td>所有操作不可竄改，隨時可匯出</td>
+                </tr>
+                <tr>
+                  <td><strong>外部依賴</strong></td>
+                  <td>需安裝多種外部服務才能運作</td>
+                  <td>零外部依賴，裝完就能用</td>
+                </tr>
+                <tr>
+                  <td><strong>使用成本</strong></td>
+                  <td>按人頭按月收費，規模越大越貴</td>
+                  <td>AI 模型運行近乎零成本</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="alert alert-info">
+              <i class="fa-solid fa-circle-info" style="margin-top: 4px;"></i>
+              <div>
+                <strong>費用優勢：</strong> 使用開源模型在公司機器上運行，AI 運行費用接近零。即使搭配雲端 API，品質把關機制也能攔截不必要的查詢，整體費用比傳統方案省 <strong>50%～70%</strong>。
+              </div>
+            </div>
+          </section>
+
+          <section id="c-how">
+            <h2>系統如何運作</h2>
+            <p>同仁只需要「問問題」，系統在背後自動完成所有搜尋、驗證和回答的工作。</p>
+
+            <!-- 簡化流程圖 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 24px 0; align-items: center; font-size: 14px;">
+              <span style="background: #dbeafe; color: #1e40af; padding: 8px 16px; border-radius: 8px; font-weight: 600;">同仁提問</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #fef3c7; color: #92400e; padding: 8px 16px; border-radius: 8px; font-weight: 600;">理解意圖</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #d1fae5; color: #065f46; padding: 8px 16px; border-radius: 8px; font-weight: 600;">搜尋知識庫</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #fee2e2; color: #991b1b; padding: 8px 16px; border-radius: 8px; font-weight: 600;">品質把關</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #e0e7ff; color: #3730a3; padding: 8px 16px; border-radius: 8px; font-weight: 600;">回答 + 出處</span>
+            </div>
+
+            <div class="img-placeholder" style="background:#f1f5f9; border:2px dashed #cbd5e1; border-radius:12px; padding:40px; text-align:center; color:#64748b; margin:24px 0;">
+              <i class="fa-solid fa-image" style="font-size:2rem; margin-bottom:8px; display:block;"></i>
+              （圖片：系統查詢主畫面截圖）
+            </div>
+
+            <h3>自動文件處理</h3>
+            <p>上傳檔案後，系統自動完成解析、切割、品質檢測和入庫，不需要人工整理。支援 PDF、Word、Excel 等常見格式。</p>
+
+            <h3>連續追問</h3>
+            <p>像 LINE 聊天一樣連續追問，系統記住前面的對話內容。閒置超過半小時自動開新對話，不會把不相關的舊話題混進來。</p>
+
+            <h3>找不到答案時</h3>
+            <p>公司知識庫沒有答案時，系統可自動上網搜尋補充資料，但會清楚標明「這是網路來源」，讓同仁分辨資訊來源。</p>
+          </section>
+
+          <section id="c-quality">
+            <h2>品質把關機制</h2>
+            <p>OceanRAG 設了三道關卡，確保不該回答的問題不會回答、品質不夠的答案不會送出：</p>
+
+            <div style="display: flex; flex-direction: column; gap: 16px; margin: 28px 0;">
+              <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px;">
+                <div style="min-width: 48px; height: 48px; background: #991b1b; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">1</div>
+                <div>
+                  <div style="font-weight: 700; color: #991b1b; margin-bottom: 4px;">問題過濾</div>
+                  <div style="font-size: 14px; color: #334155;">跟公司知識庫無關的問題（閒聊、寫程式等）直接攔截。約 10%～15% 的查詢在這裡就被擋住，節省系統資源。</div>
                 </div>
               </div>
-              <h3>核心技術定位</h3>
-              <ul>
-                <li><strong>向量檢索</strong>：Jina v5 (1024-dim)，存於 LanceDB</li>
-                <li><strong>LLM 生成</strong>：Groq（可熱切換，不鎖定 vendor）</li>
-                <li><strong>關聯式資料</strong>：SQLite 含 trigger 保護的稽核日誌，無需 Redis / PostgreSQL</li>
-                <li><strong>通訊安全</strong>：四獨立 Tier (T1-T4) 以 <code>X-Service-Token</code> 通訊，JWT RS256 認證</li>
-              </ul>
-              <p>技術版本為開發者提供完整的架構說明，包含向量搜尋、重排序 (Reranking) 與門控機制的細節。</p>
-            </div>
-
-            <!-- Client Content (Hidden) -->
-            <div id="clientVersion" style="display: none;">
-              <div class="alert alert-info">
-                <i class="fa-solid fa-lightbulb" style="margin-top: 4px;"></i>
-                <div class="content">
-                  <strong>核心概念：</strong> OceanRAG 讓員工可以直接「問問題」，不需要記關鍵字、不需要翻資料夾。只要用平常說話的方式提問，系統會從公司的文件庫裡找到答案，並告訴你答案來自哪份文件。
+              <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: #fef3c7; border: 1px solid #fde68a; border-radius: 12px;">
+                <div style="min-width: 48px; height: 48px; background: #92400e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">2</div>
+                <div>
+                  <div style="font-weight: 700; color: #92400e; margin-bottom: 4px;">搜尋品質檢查</div>
+                  <div style="font-size: 14px; color: #334155;">系統檢查搜尋到的資料是否足夠。品質不夠好時會嘗試其他方式；真的找不到就告訴同仁「資訊不足」，不硬掰答案。</div>
                 </div>
               </div>
-              <h3>為什麼選擇 OceanRAG？</h3>
-              <ul>
-                <li><strong>資料不出境</strong>：安裝在企業自己的伺服器，文件資料全程留在公司內部。</li>
-                <li><strong>精確權限控制</strong>：每份文件都有機密等級和部門歸屬，員工只能查到被授權的資料。</li>
-                <li><strong>安全可追溯</strong>：所有操作記錄不可刪除、不可竄改，隨時可供稽核。</li>
-              </ul>
-              <p>客戶端說明聚焦於系統如何協助企業管理知識資產，讓 AI 成為企業最實用的顧問。</p>
+              <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px;">
+                <div style="min-width: 48px; height: 48px; background: #1e40af; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">3</div>
+                <div>
+                  <div style="font-weight: 700; color: #1e40af; margin-bottom: 4px;">回答驗證</div>
+                  <div style="font-size: 14px; color: #334155;">AI 回答後自動評估可信度：高信心直接送出、中等信心標示提醒、信心不足直接擋掉。六成以上查詢一次通過，只有低信心回答才觸發更深入的逐句事實查核。</div>
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
 
-        <section id="features">
-          <h2>功能特色</h2>
+            <p>每個回答都會附上一段人看得懂的信心說明，讓同仁知道 AI 為什麼有信心回答，不是黑箱作業。</p>
 
-          <h3>1. 智慧問答引擎</h3>
-          <p>採用 SSE（Server-Sent Events）即時串流回答。支援多輪對話，查詢前執行意圖分類與 <strong>查詢改寫（Query Rewriting）</strong>，再進入向量搜尋流程。核心技術包含 <strong>Jina v5 (1024-dim)</strong> 向量模型與 <strong>Groq LLM</strong> 生成引擎，首 token 回應延遲約 500ms 起。</p>
-          <p>每個回答都會標示引用來源 <strong>[1][2]</strong> 標籤，點擊可直接查看原始文件段落，含 PDF bounding box 精準定位。</p>
-          <ul>
-            <li><strong>三層門控（3-layer）</strong>：意圖分類、向量閾值、NLI 信心評分，層層把關不符合的查詢。</li>
-            <li><strong>來源追溯</strong>：每個回答附帶引用來源 <code>[1][2]</code> 標籤，點擊可查看原始文件段落。</li>
-            <li><strong>信心查核</strong>：逐句分析回答是否有文件依據，標示需要注意的推論內容，採用 NLI 事實查核。</li>
-          </ul>
+            <h3>舊文件自動降權</h3>
+            <p>公司文件會過時。系統自動讓舊文件的搜尋排序降低，優先呈現最新版本。同仁也可以主動回報文件內容有誤，管理員確認後該文件會被大幅降權。</p>
+          </section>
 
-          <h3>2. 事實查核引擎（NLI Pipeline）</h3>
-          <p>採用 <code>Erlangshen-Roberta-330M-NLI</code> 模型進行 NLI 推論，對 LLM 回答逐句拆分為可驗證的聲明（Claim），再與原始文件比對，輸出三級結果：</p>
-          <ul>
-            <li><strong>Entail（支持）</strong>：回答內容與原始文件一致，可信度高。</li>
-            <li><strong>Neutral（中性）</strong>：文件中找不到直接支持，可能是 LLM 推論產物，需要使用者自行確認。</li>
-            <li><strong>Contradict（矛盾）</strong>：回答與原始文件矛盾，AI 幻覺可能性高，BLOCK 級別直接攔截回答。</li>
-          </ul>
-          <p>最終輸出三級信心結果：<strong>PASS</strong>（多數 Entail）、<strong>WARN</strong>（Neutral 居多）、<strong>BLOCK</strong>（Contradict），BLOCK 級別的回答不會顯示給使用者，改為提示資訊不足。</p>
+          <section id="c-security">
+            <h2>安全防護</h2>
+            <p>假設你的公司有 30 位同仁，分成業務部、人資部、研發部。以下是 OceanRAG 在日常營運中如何保護你的企業：</p>
 
-          <h3>3. 三層門控機制（Gatekeeping）</h3>
-          <p>三層門控是 OceanRAG 在 LLM 生成回答前的多重品質把關機制：</p>
-          <ul>
-            <li><strong>A-layer（意圖分類）</strong>：判斷查詢是否為知識庫問題，約 10%～15% 的非相關查詢在此被攔截。</li>
-            <li><strong>B-layer（品質閾值）</strong>：向量相似度閾值 0.4 + Reranker 精排閾值 0.6，雙重把關，不達標不送 LLM。實測約 <strong>30%～50%</strong> 的查詢在此被攔截，有效降低成本。</li>
-            <li><strong>C-layer（NLI 信心評分）</strong>：對生成結果逐句驗證，BLOCK 級別直接攔截，約 5%～10% 的回答在此被過濾。</li>
-          </ul>
+            <h3>「公司機密文件會不會外洩？」</h3>
+            <p>不會。系統完全部署在公司自己的機器上，所有文件、對話紀錄、搜尋索引都存在本地。即使 AI 模型也可以選擇跑在本地，完全不需要把資料傳到外部服務。符合台灣個資法對資料在地化的要求。</p>
 
-          <h3>4. 文件 ETL Pipeline（8 階段）</h3>
-          <p>文件上傳後自動進入全自動化處理流程：</p>
-          <ol>
-            <li><strong>解析</strong>：偵測檔案類型並解析，支援 PDF.js / mammoth.js / SheetJS，含 magic number 格式驗證。</li>
-            <li><strong>清洗</strong>：去除冗餘格式、特殊字元，保留語義完整性。</li>
-            <li><strong>切塊（Chunking）</strong>：依語意段落分割，預設 512 tokens/chunk，overlap 64 tokens。</li>
-            <li><strong>摘要</strong>：對每個 chunk 產生語義摘要，輔助 reranker 精準比對。</li>
-            <li><strong>向量化</strong>：透過 Jina v5 embedding API 生成 1024-dim 語義向量。</li>
-            <li><strong>品質檢測</strong>：5 維度品質分數，滿分 100，60 分以下警示，通過才可入庫。</li>
-            <li><strong>入庫</strong>：向量寫入 LanceDB，metadata 寫入 SQLite，atomic transaction 確保一致性。</li>
-            <li><strong>通知</strong>：處理完成後通知管理員進行審閱。</li>
-          </ol>
+            <h3>「人資的薪資單會不會被業務看到？」</h3>
+            <p>不會。每份文件都有機密等級（L1～L5）和部門歸屬。業務部的同仁搜尋時，人資的薪資文件<strong>根本不會出現在搜尋結果裡</strong> — 不是搜到後才隱藏，而是連搜都不搜。即使有人嘗試直接用連結存取，系統也會擋回來。</p>
 
-          <h3>5. 四層授權架構（RBAC Pre-filter）</h3>
-          <p>每個請求依序通過以下四層驗證：</p>
-          <ol>
-            <li><strong>JWT Cookie + Session 驗證</strong>：未認證回傳 401。</li>
-            <li><strong>角色檢查</strong>：<code>employee</code> / <code>dept_admin</code> / <code>master_admin</code> 三級角色，不符合回傳 403。</li>
-            <li><strong>機密等級比對</strong>：用戶 <code>clearance_level</code> 必須大於等於文件 <code>clearance_level</code>，否則不回傳任何資料（<code>null</code> 值強制轉型，防止繞過）。</li>
-            <li><strong>部門歸屬 + 功能權限矩陣</strong>：跨部門存取需授權，功能權限矩陣控制各項操作。</li>
-          </ol>
-          <p>RBAC pre-filter 在 LanceDB 向量搜尋前執行，確保超出權限的資料根本不會被搜尋到。</p>
+            <h3>「有人一直猜密碼怎麼辦？」</h3>
+            <p>系統自動保護。連續輸錯密碼會自動鎖定帳號，同一 IP 短時間內太多登入嘗試直接擋回。外部 IP 登入自動標記為可疑，管理員會收到通知。而且攻擊者無法從回應速度判斷帳號是否存在。</p>
 
-          <h3>6. 其他功能模組</h3>
-          <ul>
-            <li><strong>用量統計與儀表板</strong>：三層 drill-down（部門 → 使用者 → 查詢），Chart.js 圖表，KPI 計算，CSV 匯出。</li>
-            <li><strong>AI 模型管理</strong>：generation / embedding / reranker / routing 各自可切換，健康探測 endpoint，熱切換不重啟。</li>
-            <li><strong>文件審閱</strong>：PDF.js 即時預覽、mammoth.js Word 渲染，支援批量操作、品質分數。</li>
-            <li><strong>風險監控</strong>：EXP_DECAY 加權風險分數（滿分 100，60 分警示 / 80 分嚴重警報），冷卻機制 4 小時。</li>
-          </ul>
-        </section>
+            <h3>「AI 會不會亂講話影響決策？」</h3>
+            <p>三道品質關卡：第一關攔截與公司知識庫無關的問題，第二關確認搜尋到的資料品質夠好，第三關驗證 AI 回答的可信度。信心不足就不回答。每個回答都附上出處和一段人看得懂的信心說明。</p>
 
-        <section id="effects">
-          <h2>核心效果對比</h2>
-          <p>以下對比展示 OceanRAG 與傳統 RAG 方案在各項關鍵指標上的差異，突顯系統的設計優勢。</p>
-          <table>
-            <thead>
-              <tr>
-                <th>比較面向</th>
-                <th>傳統 RAG 方案</th>
-                <th>OceanRAG 方案</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>查詢理解</strong></td>
-                <td>單輪 keyword 搜尋</td>
-                <td>意圖識別 + 查詢改寫 + 多輪上下文</td>
-              </tr>
-              <tr>
-                <td><strong>答案驗證</strong></td>
-                <td>無（直接輸出）</td>
-                <td>NLI 逐 claim 比對（Entail / Neutral / Contradict 三級）</td>
-              </tr>
-              <tr>
-                <td><strong>幻覺防護</strong></td>
-                <td>無</td>
-                <td>三層門控 + BLOCK 直接攔截，信心不足不輸出回答</td>
-              </tr>
-              <tr>
-                <td><strong>文件處理</strong></td>
-                <td>需人工整理</td>
-                <td>全自動 8 階段 ETL + 5 維品質分數</td>
-              </tr>
-              <tr>
-                <td><strong>權限控制</strong></td>
-                <td>全員可見或簡易 ACL</td>
-                <td>RBAC Pre-filter，向量搜尋前執行，不可繞過</td>
-              </tr>
-              <tr>
-                <td><strong>部署依賴</strong></td>
-                <td>需 5+ 外部服務（Redis、Elasticsearch 等）</td>
-                <td>SQLite + LanceDB，零外部依賴</td>
-              </tr>
-              <tr>
-                <td><strong>Token 安全</strong></td>
-                <td>localStorage 儲存（XSS 風險）</td>
-                <td>httpOnly Cookie + JWT RSA-2048 非對稱加密</td>
-              </tr>
-              <tr>
-                <td><strong>稽核日誌</strong></td>
-                <td>可刪除 / 可竄改</td>
-                <td>SQLite DELETE trigger 保護 + SHA-256 雜湊鏈</td>
-              </tr>
-              <tr>
-                <td><strong>LLM 成本</strong></td>
-                <td>GPT-4 等（$10+/百萬 tokens）</td>
-                <td>Groq 推論，約為 GPT-4 的 1/10～1/20</td>
-              </tr>
-              <tr>
-                <td><strong>無效查詢過濾</strong></td>
-                <td>全部送 LLM</td>
-                <td>B-layer 攔截 30%～50%，大幅節省 token</td>
-              </tr>
-            </tbody>
-          </table>
+            <h3>「同仁短時間下載大量文件？」</h3>
+            <p>系統自動偵測。每一次文件預覽和下載都有紀錄，短時間大量下載、跨部門存取、高機密文件存取都會自動標記，即時通知管理員。系統還會持續追蹤每位同仁的行為風險分數。</p>
 
-          <h3>成本結構分析</h3>
-          <p>OceanRAG 在成本控制上具備顯著優勢。相比 Groq 或 OpenAI 等 token 付費方案，OceanRAG 搭配 B-layer 門控可攔截約 30%～50% 的無效查詢，避免消耗 LLM 呼叫成本。同時 Embedding 只在文件入庫時執行一次，查詢只做 query embedding，不會重複消耗。</p>
-          <div class="alert alert-info">
-            <i class="fa-solid fa-circle-info" style="margin-top: 4px;"></i>
-            <div>
-              <strong>補充說明：</strong> 在完全地端運行模式下，OceanRAG 使用開源 LLM 模型，成本可降至 GPT-4 方案的 <strong>5%～10%</strong>。即使在使用雲端 API 的混合模式下，B-layer 門控仍能將傳統方案的成本壓低 <strong>30%～50%</strong>。
+            <h3>「同仁離職要怎麼處理？」</h3>
+            <p>管理員一鍵強制登出，所有登入狀態即時撤銷。但操作紀錄永久保留，不會因帳號停用而消失。角色或部門變更也會立刻讓舊的登入狀態失效。</p>
+
+            <h3>「還有哪些安全措施？」</h3>
+            <p>OceanRAG 採用「多層防禦」設計 — 每一層各自獨立，就算某層被突破，其他層還是照擋：通訊加密、檔案用特徵碼驗真偽、AI 有指令注入防護、網頁有安全標頭防護、所有操作紀錄用密碼雜湊鏈串連防竄改。</p>
+          </section>
+
+          <section id="c-rbac">
+            <h2>權限管理</h2>
+            <p>同樣以 30 人的公司為例，「誰能看什麼」是最常被問的問題。用三個實際場景來說明：</p>
+
+            <h3>場景一：新進業務同仁報到</h3>
+            <p>管理員建帳號時設定：角色「一般同仁」、部門「業務部」、機密等級「L2」。從此這位同仁只能搜到業務部 L2 以下的文件。人資的薪資單（L4）和研發的專利文件（L3）完全看不到。</p>
+
+            <h3>場景二：業務主管需要看跨部門資料</h3>
+            <p>系統管理員可以授權特定同仁看指定部門的指定等級文件。授權範圍精確控制，不是「全部打開」。</p>
+
+            <h3>場景三：同仁調部門或離職</h3>
+            <p>管理員修改部門或角色後，該同仁所有正在使用的登入狀態即時失效。重新登入後自動套用新權限，舊部門的文件立刻看不到了。</p>
+
+            <div class="img-placeholder" style="background:#f1f5f9; border:2px dashed #cbd5e1; border-radius:12px; padding:40px; text-align:center; color:#64748b; margin:24px 0;">
+              <i class="fa-solid fa-image" style="font-size:2rem; margin-bottom:8px; display:block;"></i>
+              （圖片：權限管理後台截圖）
             </div>
-          </div>
-        </section>
 
-        <section id="architecture">
-          <h2>系統架構（Tiered Architecture）</h2>
-          <p>OceanRAG 採用四層獨立架構，層間以 <code>X-Service-Token</code> 通訊，IP CIDR 白名單保護，限流 30 req/min/IP。</p>
-          <pre>
-T1 前端介面     | HTML/JS，auth-guard.js 權限控管，SSE 即時串流
-T2 RAG 引擎     | 向量搜尋 + RBAC Pre-filter + LLM 管理 + NLI 驗證
-T3 文件處理     | 8 階段 ETL Pipeline（解析→清洗→切塊→摘要→向量化→品質檢測→入庫→通知）
-T4 平台管理     | 使用者管理、認證授權、安全事件、系統設定</pre>
-          <p><strong>為什麼不用 PostgreSQL / Redis？</strong> OceanRAG 刻意選擇 SQLite 而非 PostgreSQL，因為在 1,000 名用戶以下的企業場景，SQLite 的效能已經足夠，且零部署依賴大幅降低維運成本。同理 LanceDB 取代 Pinecone / Weaviate，以本地檔案形式儲存向量，不需要額外的向量資料庫服務。關於<a href="#deployment">資料庫升級分支</a>的細節請參閱部署章節。</p>
-        </section>
+            <h3>三級角色</h3>
+            <ul>
+              <li><strong>系統管理員</strong>：看得到所有資料、管得到所有人。通常是 IT 主管或老闆。</li>
+              <li><strong>部門管理員</strong>：只管自己部門的文件和同仁。</li>
+              <li><strong>一般同仁</strong>：只能查詢，只看得到被授權的文件。</li>
+            </ul>
+          </section>
 
-        <section id="query-flow">
-          <h3>查詢流程（11 步驟）</h3>
-          <p>以下為一次完整查詢的處理流程：</p>
-          <ol>
-            <li><strong>請求發送</strong> — T1 前端發出查詢，攜帶 JWT httpOnly Cookie 與 <code>session_id</code>。</li>
-            <li><strong>身份驗證</strong> — T4 驗證 JWT 簽章、角色權限、機密等級、部門歸屬。</li>
-            <li><strong>A-layer 意圖分類</strong> — 判斷是否為知識庫相關查詢，非相關查詢提早攔截。</li>
-            <li><strong>查詢改寫</strong> — 根據 session 歷史對話改寫查詢，提升檢索精準度。</li>
-            <li><strong>RBAC Pre-filter</strong> — 根據使用者 <code>clearance_level</code> 與 <code>department_id</code> 過濾，超出權限的文件完全不參與搜尋。</li>
-            <li><strong>向量搜尋</strong> — LanceDB 搜尋 top-K 候選（預設 K=20），向量相似度閾值 0.4。</li>
-            <li><strong>Reranker 精排</strong> — 對 top-K 結果重排序（閾值 0.6），不達標不送 LLM（B-layer 門控）。</li>
-            <li><strong>LLM 生成</strong> — 將 B-layer 通過的 Context 送入 Groq LLM，SSE 串流回傳至 T1。</li>
-            <li><strong>NLI 事實查核（C-layer）</strong> — 對生成結果逐句拆分為 claim，比對 NLI 模型，輸出 PASS / WARN / BLOCK。</li>
-            <li><strong>結果輸出</strong> — PASS/WARN 的結果附帶引用來源回傳，BLOCK 則回傳提示訊息。</li>
-            <li><strong>稽核記錄</strong> — 完整查詢鏈路寫入 <code>audit_logs</code>。</li>
-          </ol>
-        </section>
+          <section id="c-audit">
+            <h2>稽核日誌</h2>
+            <p>當稽核人員來訪，或懷疑有資料被不當存取時，OceanRAG 能提供完整的追溯紀錄。</p>
 
-        <section id="dual-rag">
-          <h3>雙 RAG 系統</h3>
-          <p>OceanRAG 支援兩種查詢模式，可動態切換：</p>
-          <ul>
-            <li><strong>標準模式（Standard RAG）</strong>：文件庫內精準搜尋，top-K 預設 5 筆，適合已知範圍的快速問答。</li>
-            <li><strong>深入模式（Deep RAG）</strong>：跨文件跨時間深度搜尋，top-K 預設 20 筆，搭配意圖識別與查詢改寫，適合需要交叉比對多份文件的複雜查詢（如「比較 2023 與 2024 的營收差異」）。搭配釘選模式可進行多輪深度問答。</li>
-          </ul>
-        </section>
+            <h3>場景：稽核人員要看操作紀錄</h3>
+            <p>管理員直接從後台匯出 CSV 或 JSON，內容包含：誰、什麼時候、做了什麼、從哪個 IP 登入。這些紀錄<strong>不可刪除、不可竄改</strong> — 資料庫層級自動擋掉所有刪除操作，每筆紀錄用密碼雜湊鏈串連，改一筆就整條鏈驗證失敗。</p>
 
-        <section id="security">
-          <h2>安全議題與設計</h2>
-          <p>OceanRAG 採用多層縱深防禦（Defence in Depth）策略，每一層獨立運作，確保單點失守不會導致整體安全崩潰。</p>
+            <h3>場景：懷疑有人不當存取機密文件</h3>
+            <p>管理員可查詢特定同仁的所有紀錄：問了什麼、AI 怎麼回答、引用了哪些文件、信心分數、文件下載紀錄和行為風險分數，全部一目了然。</p>
 
-          <table>
-            <thead>
-              <tr><th>安全措施</th><th>OceanRAG 做法</th><th>對應威脅</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>資料主權</strong></td>
-                <td>SQLite + LanceDB 完全地端，文件不出境。Groq 僅接收查詢摘要 + 向量檢索結果，不接觸原始文件。</td>
-                <td>資料外洩至第三方 API</td>
-              </tr>
-              <tr>
-                <td><strong>JWT RS256 非對稱加密</strong></td>
-                <td>T2 不持有私鑰，僅從 proxy 轉發的 JWT payload 提取使用者身份，無法偽造 token。</td>
-                <td>Token 偽造與竄改</td>
-              </tr>
-              <tr>
-                <td><strong>httpOnly + SameSite=Strict Cookie</strong></td>
-                <td>JWT token 完全無法透過 JavaScript 存取，阻斷 XSS 竊取。</td>
-                <td>OWASP Top 10: XSS、CSRF</td>
-              </tr>
-              <tr>
-                <td><strong>文件機密等級 L1～L5</strong></td>
-                <td>每份文件設定機密等級，clearance_level 不足直接回傳空結果（非隱藏，是根本不搜尋）。</td>
-                <td>未授權存取敏感文件</td>
-              </tr>
-              <tr>
-                <td><strong>RBAC 三級角色 + 部門隔離</strong></td>
-                <td>master_admin / dept_admin / employee，跨部門需授權。</td>
-                <td>水平與垂直越權攻擊</td>
-              </tr>
-              <tr>
-                <td><strong>不可竄改稽核日誌</strong></td>
-                <td>audit_logs 設有 SQLite DELETE trigger 保護，SHA-256 雜湊鏈驗證，即使 master_admin 也無法刪除或竄改。</td>
-                <td>稽核合規要求（ISO 27001）</td>
-              </tr>
-              <tr>
-                <td><strong>Session 管理</strong></td>
-                <td>角色或機密等級變更後立即撤銷所有 session（防 session fixation）。</td>
-                <td>防止權限變更後的殘留存取</td>
-              </tr>
-              <tr>
-                <td><strong>檔案上傳驗證</strong></td>
-                <td>magic number 驗證（PDF: <code>%PDF</code>、DOCX: <code>PK</code> header），不信任副檔名。</td>
-                <td>防止偽裝檔案上傳 WebShell</td>
-              </tr>
-              <tr>
-                <td><strong>時序攻擊防護</strong></td>
-                <td>帳號不存在時仍執行 dummy bcrypt，確保回應時間一致，無法透過回應時間判斷帳號是否存在。</td>
-                <td>Timing Attack、帳號列舉</td>
-              </tr>
-              <tr>
-                <td><strong>限流（Rate Limiting）</strong></td>
-                <td>30 req/min/IP，超出回傳 429 Too Many Requests。</td>
-                <td>DDoS、暴力破解</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
+            <h3>兩套互補的紀錄</h3>
+            <ul>
+              <li><strong>對話紀錄</strong>：每一筆 AI 查詢的完整過程 — 問題、回答、引用文件、信心分數。</li>
+              <li><strong>操作紀錄</strong>：登入登出、上傳文件、審閱通過、權限變更等所有管理操作。</li>
+            </ul>
+          </section>
 
-        <section id="dashboard">
-          <h2>管理儀表板</h2>
+          <section id="c-deploy">
+            <h2>部署方式</h2>
 
-          <h3>用量統計</h3>
-          <p>儀表板提供三層 drill-down 分析：<strong>部門總覽</strong>（各部門 token 消耗與查詢次數）→ <strong>使用者明細</strong>（個別使用者用量趨勢）→ <strong>查詢記錄</strong>（每筆查詢的 token、文件來源、門控結果）。可匯出 CSV 供財務或管理層分析。</p>
-          <ul>
-            <li><strong>KPI 指標</strong>：當日查詢數、B-layer 與 NLI BLOCK 比例、平均回應時間。</li>
-            <li><strong>配額管理</strong>：對每個部門設定查詢上限，超過配額自動暫停，防止預算超支。</li>
-            <li><strong>警示線</strong>：當部門用量達到 80% 配額時自動通知管理員。</li>
-          </ul>
+            <h3>環境需求</h3>
+            <ul>
+              <li><strong>作業系統</strong>：Windows / macOS / Linux 都可以</li>
+              <li><strong>推薦硬體</strong>：Mac Mini（最新升級版，約兩萬台幣起）是最推薦的選擇，效能與性價比兼具</li>
+              <li><strong>外部依賴</strong>：零。不需要額外安裝資料庫或其他服務</li>
+            </ul>
 
-          <h3>AI 模型管理</h3>
-          <p>OceanRAG 將 AI 模型依角色分類，每個角色可獨立切換，熱切換不需重啟服務。</p>
-          <table>
-            <thead>
-              <tr><th>模型角色</th><th>用途</th><th>預設選擇</th><th>可替換方案</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Generation</strong></td>
-                <td>LLM 回答生成</td>
-                <td>Groq (llama-3.3-70b)</td>
-                <td>OpenAI、Anthropic、本地 Ollama</td>
-              </tr>
-              <tr>
-                <td><strong>Embedding</strong></td>
-                <td>文件與查詢向量化</td>
-                <td>Jina v5 (1024-dim)</td>
-                <td>OpenAI text-embedding-3、BGE-M3</td>
-              </tr>
-              <tr>
-                <td><strong>Reranker</strong></td>
-                <td>候選文件精排</td>
-                <td>Jina Reranker v2</td>
-                <td>Cohere Rerank、BGE Reranker</td>
-              </tr>
-              <tr>
-                <td><strong>Routing / NLI</strong></td>
-                <td>意圖分類 + 事實查核</td>
-                <td>Erlangshen-Roberta-330M-NLI</td>
-                <td>未來可替換為更大模型</td>
-              </tr>
-            </tbody>
-          </table>
-          <p>每個角色都有<strong>獨立的健康探測 endpoint</strong>，可即時檢查模型是否正常運作，切換模型後 30 秒內自動驗證可用性。</p>
-        </section>
+            <h3>怎麼上線</h3>
+            <ul>
+              <li><strong>辦公室內架機器</strong>：最簡單，四個模組各自啟動，前面放一個入口就好。</li>
+              <li><strong>私有雲部署</strong>：如果公司有多個據點，可以把後端放在私有雲，前端透過 VPN 連。</li>
+            </ul>
 
-        <section id="logging">
-          <h2>雙日誌系統</h2>
-          <p>OceanRAG 建立兩套互補的日誌系統，確保完整的可追溯性：</p>
+            <h3>規模變大怎麼辦？</h3>
+            <p>目前用嵌入式資料庫是因為中小企業不需要搞那麼複雜。但如果公司長大了（超過一千人同時用），架構設計有預留升級路徑，可以換成企業級資料庫，不用改商業邏輯。</p>
+          </section>
 
-          <h3>1. 對話紀錄（Conversation Logs）</h3>
-          <p>記錄每筆查詢的完整鏈路，包含原始問題、LLM 回答、NLI 評分結果，以 <code>session_id</code> 串聯，方便使用者回顧歷史對話。</p>
-          <ul>
-            <li>標記是否觸發 B-layer 門控（檢索品質不足）。</li>
-            <li>記錄 NLI WARN/BLOCK 事件，追蹤 LLM 幻覺發生頻率。</li>
-            <li>保存查詢改寫前後的 Prompt 記錄。</li>
-          </ul>
+          <section id="c-roadmap">
+            <h2>發展藍圖</h2>
+            <p>v0.6 即將推出以下重點功能：</p>
 
-          <h3>2. 稽核日誌（Audit Logs）</h3>
-          <p>記錄所有系統操作：登入 / 登出、文件上傳 / 審閱 / 下架、權限變更等。每筆記錄不可刪除、不可竄改。</p>
-          <ul>
-            <li><strong>SQLite DELETE trigger 保護</strong>：<code>audit_logs</code> 禁止 DELETE 操作，trigger 在任何刪除嘗試時自動回滾，確保記錄永久保存。</li>
-            <li><strong>SHA-256 雜湊鏈</strong>：每筆記錄的 hash 值包含前一筆記錄的 hash，形成不可竄改的鏈式結構，任何單筆竄改都會導致後續驗證失敗。</li>
-            <li><strong>稽核匯出 API</strong>：管理員可透過 <code>/api/audit/export</code> 匯出完整的稽核記錄（CSV / JSON），供法規遵循使用。</li>
-          </ul>
-        </section>
+            <div style="display: flex; flex-direction: column; gap: 16px; margin: 24px 0;">
+              <div style="border: 1px solid #dbeafe; border-radius: 12px; padding: 20px; background: #eff6ff;">
+                <div style="font-weight: 700; color: #1e40af; margin-bottom: 8px; font-size: 16px;"><i class="fa-solid fa-plug" style="margin-right: 8px;"></i>MCP 伺服器</div>
+                <p style="font-size: 14px; color: #334155; margin: 0;">讓各種 AI 工具（如 Claude、ChatGPT）都能直接查詢公司知識庫，把 OceanRAG 變成企業的「知識中樞」。</p>
+              </div>
+              <div style="border: 1px solid #d1fae5; border-radius: 12px; padding: 20px; background: #ecfdf5;">
+                <div style="font-weight: 700; color: #065f46; margin-bottom: 8px; font-size: 16px;"><i class="fa-solid fa-wand-magic-sparkles" style="margin-right: 8px;"></i>技能系統（Skill）</div>
+                <p style="font-size: 14px; color: #334155; margin: 0;">定義可重複執行的工作流程，讓 AI 按照步驟完成重複性任務，例如固定格式的報表彙整、資料摘要等。</p>
+              </div>
+              <div style="border: 1px solid #e0e7ff; border-radius: 12px; padding: 20px; background: #eef2ff;">
+                <div style="font-weight: 700; color: #3730a3; margin-bottom: 8px; font-size: 16px;"><i class="fa-solid fa-file-pen" style="margin-right: 8px;"></i>文件代理（Document Agent）</div>
+                <p style="font-size: 14px; color: #334155; margin: 0;">AI 主動協助整理、摘要、歸檔新進文件，減少人工處理負擔，讓知識庫始終保持最新狀態。</p>
+              </div>
+            </div>
+          </section>
 
-        <section id="roadmap">
-          <h2>開發計畫</h2>
+        </div>
 
-          <h3>1. MCP 伺服器（Model Context Protocol）</h3>
-          <p>OceanRAG 計畫支援 <strong>MCP 伺服器</strong>，讓 OceanRAG 成為任何 AI Agent 的知識來源。Claude、GPT-4 等透過 MCP 協議直接查詢 OceanRAG 的文件庫，實現跨平台知識共享。</p>
+        <!-- ═══════════════════════════════════════════════════════ -->
+        <!-- 技術同仁 內容（預設隱藏）                                 -->
+        <!-- ═══════════════════════════════════════════════════════ -->
 
-          <h3>2. API 與 Web 整合</h3>
-          <p>開放 RESTful API 供第三方系統整合，包含查詢、文件管理、使用者管理等端點。Web 搜尋整合允許在知識庫不足時，自動從網路搜尋補充答案。</p>
+        <div id="techContent" style="display: none;">
 
-          <h3>3. Agent Teams</h3>
-          <p>多 Agent 協作模式，讓不同角色的 AI Agent 分工處理複雜任務（如研究、分析、報告），每個 Agent 都受到 OceanRAG 的權限控制與稽核追蹤。</p>
-        </section>
+          <section id="t-why">
+            <h2>方案比較</h2>
+            <p>跟市面上其他 RAG 方案比較，OceanRAG 的差異化在哪裡？</p>
+            <table>
+              <thead>
+                <tr>
+                  <th>比較面向</th>
+                  <th>一般 RAG 方案</th>
+                  <th>OceanRAG</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>查詢理解</strong></td>
+                  <td>單輪關鍵字搜尋</td>
+                  <td>意圖辨識 + 查詢改寫 + 多輪持久化對話 + 事實萃取</td>
+                </tr>
+                <tr>
+                  <td><strong>精確檢索</strong></td>
+                  <td>純向量搜尋</td>
+                  <td>混合搜尋（語意向量 + BM25 關鍵字）+ 季度級時間篩選</td>
+                </tr>
+                <tr>
+                  <td><strong>答案驗證</strong></td>
+                  <td>沒有（直接輸出）</td>
+                  <td>雙層查核：NLI 事實比對 + 來源相似度，按需觸發</td>
+                </tr>
+                <tr>
+                  <td><strong>幻覺防護</strong></td>
+                  <td>沒有</td>
+                  <td>統一信心管線 + 三道門控 + 繁中信心解釋，信心不足直接擋</td>
+                </tr>
+                <tr>
+                  <td><strong>找不到答案時</strong></td>
+                  <td>回「我不知道」</td>
+                  <td>自動觸發聯網搜尋（快速搜尋 + 深度研究代理）</td>
+                </tr>
+                <tr>
+                  <td><strong>文件處理</strong></td>
+                  <td>要人工整理</td>
+                  <td>丟檔案就好，自動跑 ETL + 語料增強 + 品質評分</td>
+                </tr>
+                <tr>
+                  <td><strong>權限控管</strong></td>
+                  <td>全公司看得到或簡單 ACL</td>
+                  <td>RBAC 搜尋前過濾，向量 + BM25 雙通道同步管控</td>
+                </tr>
+                <tr>
+                  <td><strong>要裝哪些東西</strong></td>
+                  <td>多種外部服務</td>
+                  <td>嵌入式資料庫，零外部依賴</td>
+                </tr>
+                <tr>
+                  <td><strong>登入安全</strong></td>
+                  <td>localStorage（有 XSS 風險）</td>
+                  <td>安全 Cookie + 非對稱加密簽章</td>
+                </tr>
+                <tr>
+                  <td><strong>稽核日誌</strong></td>
+                  <td>可以刪、可以改</td>
+                  <td>資料庫 trigger 保護 + 密碼雜湊鏈，刪不掉改不了</td>
+                </tr>
+                <tr>
+                  <td><strong>LLM 費用</strong></td>
+                  <td>主流模型按量計費</td>
+                  <td>高效推論引擎 + 門控攔截省 50%～70%</td>
+                </tr>
+              </tbody>
+            </table>
 
-        <section id="models">
-          <h2>模型選擇指南</h2>
-          <p>OceanRAG 的核心理念是「開源可商用」，以下是各模型角色的選擇考量：</p>
-          <table>
-            <thead>
-              <tr><th>模型角色</th><th>推薦選擇</th><th>選擇理由</th><th>替換注意事項</th></tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Embedding</strong></td>
-                <td>Jina v5 (1024-dim)</td>
-                <td>華語支援優秀，維度適中，效能穩定</td>
-                <td>更換後需重新向量化所有文件</td>
-              </tr>
-              <tr>
-                <td><strong>LLM</strong></td>
-                <td>Groq (llama-3.3-70b)</td>
-                <td>推論速度極快，成本為 GPT-4 的 1/10</td>
-                <td>可隨時熱切換，無需重新入庫</td>
-              </tr>
-              <tr>
-                <td><strong>Reranker</strong></td>
-                <td>Jina Reranker v2</td>
-                <td>對中文語義理解佳，與 embedding 同生態系</td>
-                <td>B-layer 門控閾值可能需微調</td>
-              </tr>
-              <tr>
-                <td><strong>NLI</strong></td>
-                <td>Erlangshen-Roberta-330M-NLI</td>
-                <td>中文 NLI 表現優秀，模型小巧可地端運行</td>
-                <td>更換需驗證 AB 測試與精準度</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
+            <div class="alert alert-info">
+              <i class="fa-solid fa-circle-info" style="margin-top: 4px;"></i>
+              <div>
+                <strong>費用優勢：</strong> 地端模式的 LLM 費用可壓到主流方案的 5%～10%。即使用雲端 API，三道門控攔截不必要的查詢 + NLI 按需觸發，整體費用比傳統方案省 50%～70%。
+              </div>
+            </div>
+          </section>
 
-        <section id="deployment">
-          <h2>部署升級</h2>
+          <section id="t-architecture">
+            <h2>系統架構（四層獨立設計）</h2>
+            <p>OceanRAG 把系統拆成四個獨立的層級，層與層之間用服務驗證令牌通訊，搭配 IP 白名單 + 限流保護。</p>
 
-          <h3>1. 相容性與環境需求</h3>
-          <ul>
-            <li><strong>作業系統</strong>：Windows / macOS / Linux 均可</li>
-            <li><strong>Python</strong>：3.10+</li>
-            <li><strong>GPU</strong>：NLI 模型建議有 GPU（CPU 也可但較慢）</li>
-            <li><strong>硬體最低</strong>：Mac Mini M4（約 2 萬台幣）即可運行完整系統</li>
-          </ul>
+            <div style="display: flex; flex-direction: column; gap: 2px; margin: 28px 0; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
+              <div style="display: flex; align-items: stretch;">
+                <div style="background: #004d80; color: white; padding: 14px 20px; min-width: 130px; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-desktop" style="opacity: 0.7;"></i> T1 前端</div>
+                <div style="background: #eff6ff; padding: 14px 20px; flex: 1; font-size: 14px; color: #1e40af; border-bottom: 1px solid #dbeafe;">前端介面，權限控管，SSE 即時串流回答</div>
+              </div>
+              <div style="display: flex; align-items: stretch;">
+                <div style="background: #005a94; color: white; padding: 14px 20px; min-width: 130px; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-brain" style="opacity: 0.7;"></i> T2 RAG</div>
+                <div style="background: #eff6ff; padding: 14px 20px; flex: 1; font-size: 14px; color: #1e40af; border-bottom: 1px solid #dbeafe;">混合檢索 + RBAC 過濾 + LLM 管理 + 統一信心管線</div>
+              </div>
+              <div style="display: flex; align-items: stretch;">
+                <div style="background: #006aaa; color: white; padding: 14px 20px; min-width: 130px; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-file-lines" style="opacity: 0.7;"></i> T3 文件</div>
+                <div style="background: #eff6ff; padding: 14px 20px; flex: 1; font-size: 14px; color: #1e40af; border-bottom: 1px solid #dbeafe;">ETL Pipeline：解析 → 切塊 → 增強 → 向量化 → 品質檢測 → 入庫</div>
+              </div>
+              <div style="display: flex; align-items: stretch;">
+                <div style="background: #0078be; color: white; padding: 14px 20px; min-width: 130px; font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-shield-halved" style="opacity: 0.7;"></i> T4 管理</div>
+                <div style="background: #eff6ff; padding: 14px 20px; flex: 1; font-size: 14px; color: #1e40af;">帳號管理、認證授權、資安事件、系統設定</div>
+              </div>
+            </div>
 
-          <h3>2. 部署方式</h3>
-          <ul>
-            <li><strong>本地伺服器</strong>：最簡單的部署方式，適合單一辦公室。四個 Tier 各自啟動，透過 proxy 統一入口。</li>
-            <li><strong>私有雲</strong>：適合多據點企業，可將 T2/T3/T4 部署在私有雲，T1 前端透過 VPN 存取。</li>
-          </ul>
+            <p><strong>為什麼用嵌入式資料庫？</strong> 在一千人以下的公司，嵌入式資料庫就很夠用了，完全不需要額外部署資料庫服務。向量資料庫也是同樣概念 — 用本機檔案存向量，不需要另外架雲端向量服務。如果公司規模變大，也有<a href="#t-dbupgrade">升級路徑</a>可以走。</p>
+          </section>
 
-          <h3>3. 資料庫升級分支</h3>
-          <p>OceanRAG 目前使用 SQLite + LanceDB 作為零依賴方案。未來若使用者量超過 1,000 人，可考慮以下升級路徑：</p>
-          <ul>
-            <li><strong>SQLite → PostgreSQL</strong>：支援併發寫入、更精細的權限控制、更好的備份機制。</li>
-            <li><strong>LanceDB → Pinecone / Weaviate</strong>：支援分散式向量搜尋、更大規模的文件庫。</li>
-          </ul>
-          <p>架構設計已預留抽象層，切換資料庫不需修改業務邏輯。</p>
-        </section>
+          <section id="t-pipeline">
+            <h2>查詢管線（完整流程）</h2>
+            <p>當同仁按下「送出」後，系統在背後跑了以下步驟：</p>
+
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 24px 0; align-items: center; font-size: 13px;">
+              <span style="background: #fee2e2; color: #991b1b; padding: 6px 12px; border-radius: 8px; font-weight: 600;">配額檢查</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #fef3c7; color: #92400e; padding: 6px 12px; border-radius: 8px; font-weight: 600;">Session 載入</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 8px; font-weight: 600;">意圖分類 ∥ Embedding</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #fee2e2; color: #991b1b; padding: 6px 12px; border-radius: 8px; font-weight: 600;">A 門控</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #fef3c7; color: #92400e; padding: 6px 12px; border-radius: 8px; font-weight: 600;">查詢改寫</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #dbeafe; color: #1e40af; padding: 6px 12px; border-radius: 8px; font-weight: 600;">向量 ∥ BM25</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #d1fae5; color: #065f46; padding: 6px 12px; border-radius: 8px; font-weight: 600;">去重 + 精排</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #fee2e2; color: #991b1b; padding: 6px 12px; border-radius: 8px; font-weight: 600;">B 門控</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #e0e7ff; color: #3730a3; padding: 6px 12px; border-radius: 8px; font-weight: 600;">LLM 生成</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #fee2e2; color: #991b1b; padding: 6px 12px; border-radius: 8px; font-weight: 600;">C 門控</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #fef3c7; color: #92400e; padding: 6px 12px; border-radius: 8px; font-weight: 600;">Session 存檔</span>
+              <span style="color: #94a3b8;">→</span>
+              <span style="background: #f3e8ff; color: #6b21a8; padding: 6px 12px; border-radius: 8px; font-weight: 600;">稽核記錄</span>
+            </div>
+
+            <ol>
+              <li><strong>配額檢查</strong> — 確認部門 / 同仁的查詢額度還夠不夠，超額直接回 429。</li>
+              <li><strong>Session 載入</strong> — 撈最近 5 輪對話紀錄，包含之前萃取出的重點。</li>
+              <li><strong>並行：意圖分類 ∥ Query Embedding</strong> — 同時跑 Router 意圖辨識和查詢向量化，不浪費時間。</li>
+              <li><strong>A-layer 意圖門控</strong> — 跟公司知識庫無關的問題在這邊就擋掉（閒聊、寫程式等），大約擋 10%～15%。</li>
+              <li><strong>查詢改寫</strong> — 根據前幾輪對話改寫查詢，讓搜尋更精準。改寫信心達標時會重新做 embedding。</li>
+              <li><strong>並行：向量搜尋 ∥ BM25 搜尋</strong> — 兩路同時跑，語意搜尋抓意思相近的、BM25 抓精確關鍵字，最後用融合排序合併。</li>
+              <li><strong>版本去重 + 精排</strong> — 移除舊版重複的段落，精排模型對候選結果做精準排序。</li>
+              <li><strong>Chunk 打包 + 時間衰減</strong> — 舊文件自動降權，詳見<a href="#t-decay">版本衰減系統</a>。</li>
+              <li><strong>B-layer 檢索門控</strong> — 加權綜合評分（向量分 + 精排分），分數不夠就嘗試<a href="#t-websearch">上網找</a>。</li>
+              <li><strong>LLM 生成</strong> — 把通過的文件段落餵給 LLM，SSE 串流即時回傳到前端。</li>
+              <li><strong>C-layer 信心評分</strong> — 對回答打信心分數，太低就觸發 NLI 逐句查核，詳見<a href="#t-confidence">信心管線</a>。</li>
+              <li><strong>Session 更新</strong> — 自動從回答中萃取 top-5 重點事實，存回對話紀錄給下一輪用。</li>
+              <li><strong>稽核記錄</strong> — 整條查詢鏈路（含檢索分數）寫入稽核日誌，留底備查。</li>
+            </ol>
+          </section>
+
+          <section id="t-hybrid">
+            <h2>混合檢索</h2>
+            <p>v0.5.4 同時用「語意搜尋」和「關鍵字搜尋」兩路並行，合在一起排名，讓精確數字和專有名詞的命中率大幅提升。</p>
+
+            <div style="display: flex; gap: 16px; margin: 28px 0; flex-wrap: wrap;">
+              <div style="flex: 1; min-width: 200px; border: 1px solid #dbeafe; border-radius: 12px; padding: 20px; background: #eff6ff;">
+                <div style="font-weight: 700; color: #1e40af; margin-bottom: 8px; font-size: 15px;"><i class="fa-solid fa-brain" style="margin-right: 6px;"></i>Dense 語意通道</div>
+                <p style="font-size: 13.5px; margin: 0; color: #334155;">語意向量搜尋<br>擅長：「公司去年的營收表現如何」</p>
+              </div>
+              <div style="flex: 1; min-width: 200px; border: 1px solid #d1fae5; border-radius: 12px; padding: 20px; background: #ecfdf5;">
+                <div style="font-weight: 700; color: #065f46; margin-bottom: 8px; font-size: 15px;"><i class="fa-solid fa-magnifying-glass" style="margin-right: 6px;"></i>Sparse 關鍵字通道</div>
+                <p style="font-size: 13.5px; margin: 0; color: #334155;">BM25 + 中文分詞<br>擅長：「合約編號 A-2301」「Q3 營收 1.2 億」</p>
+              </div>
+            </div>
+            <div style="text-align: center; margin: -12px 0 20px; font-size: 14px; color: #64748b;">
+              <i class="fa-solid fa-arrow-down" style="margin-right: 6px;"></i> 融合排序：<strong style="color: #004d80;">語意通道 + 關鍵字通道加權合併</strong>（權重可調）
+            </div>
+
+            <div class="alert alert-info">
+              <i class="fa-solid fa-circle-info" style="margin-top: 4px;"></i>
+              <div>
+                <strong>實際效果：</strong> 像「2024 Q3 營收」「合約編號 A-2301」這類精確數值查詢，命中率比純向量搜尋提升 25%～40%。權限過濾 (RBAC) 同時套用在兩個通道上。
+              </div>
+            </div>
+          </section>
+
+          <section id="t-gates">
+            <h2>三層門控機制</h2>
+            <p>OceanRAG 在查詢的不同階段設了三道關卡，確保不該回答的問題不會回答、品質不夠的答案不會送出：</p>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; margin: 28px 0;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 18px; min-width: 160px; text-align: center;">
+                  <div style="font-weight: 700; color: #991b1b; font-size: 14px;">A-layer 意圖攔截</div>
+                  <div style="font-size: 12px; color: #b91c1c; margin-top: 4px;">擋掉 10～15%</div>
+                </div>
+                <div style="font-size: 13.5px; color: #334155;">Router 模型判斷「這個問題跟公司知識庫有沒有關係」，閒聊、寫程式碼這類直接擋。</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 18px; min-width: 160px; text-align: center;">
+                  <div style="font-weight: 700; color: #991b1b; font-size: 14px;">B-layer 檢索門控</div>
+                  <div style="font-size: 12px; color: #b91c1c; margin-top: 4px;">擋掉 30～50%</div>
+                </div>
+                <div style="font-size: 13.5px; color: #334155;">加權綜合評分（向量分 + 精排分），分數不夠就先<a href="#t-websearch">上網找</a>；真的找不到就回「資訊不足」。</div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 10px; padding: 12px 18px; min-width: 160px; text-align: center;">
+                  <div style="font-weight: 700; color: #991b1b; font-size: 14px;">C-layer 信心評分</div>
+                  <div style="font-size: 12px; color: #b91c1c; margin-top: 4px;">擋掉 5～10%</div>
+                </div>
+                <div style="font-size: 13.5px; color: #334155;">LLM 回答完後打信心分數，太低就觸發 NLI 逐句比對原始文件。詳見<a href="#t-confidence">信心管線</a>。</div>
+              </div>
+            </div>
+          </section>
+
+          <section id="t-confidence">
+            <h2>統一信心管線</h2>
+            <p>v0.5.4 把所有信心判斷統一成一條管線，不再各自為政：</p>
+
+            <div style="display: flex; flex-direction: column; gap: 8px; margin: 28px 0; font-size: 14px;">
+              <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                <div style="background: #dbeafe; border: 1px solid #93c5fd; border-radius: 8px; padding: 10px 16px; font-weight: 600; color: #1e40af;">B-layer 評分</div>
+                <span style="color: #94a3b8; font-size: 12px;">向量 + 精排加權</span>
+                <span style="color: #94a3b8;">→</span>
+                <div style="background: #e0e7ff; border: 1px solid #a5b4fc; border-radius: 8px; padding: 10px 16px; font-weight: 600; color: #3730a3;">C-layer 評分</div>
+                <span style="color: #94a3b8; font-size: 12px;">多維度綜合</span>
+                <span style="color: #94a3b8;">→</span>
+                <div style="background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 10px 16px; font-weight: 600; color: #92400e;">低於高門檻?</div>
+              </div>
+              <div style="display: flex; gap: 20px; margin-left: 40px; flex-wrap: wrap;">
+                <div style="font-size: 13px; color: #065f46;"><strong>否 →</strong> 直接輸出（跳過 NLI，省 2～5 秒）</div>
+                <div style="font-size: 13px; color: #991b1b;"><strong>是 →</strong> 觸發 NLI，取較低分</div>
+              </div>
+            </div>
+
+            <h3>三級結果</h3>
+            <ul>
+              <li><strong>PASS（高門檻以上）</strong>：高可信度，直接送出回答。六成以上的查詢在這邊就通過了，不用跑 NLI。</li>
+              <li><strong>WARN（中門檻以上）</strong>：中等可信度，回答照樣送出但會標一個黃色警示，提醒同仁再確認一下。</li>
+              <li><strong>BLOCK（低於中門檻）</strong>：信心不足，直接擋掉，改回「資料不足，建議換個問法」。</li>
+            </ul>
+
+            <h3>NLI 事實查核</h3>
+            <p>使用 NLI 事實查核模型（跑在公司機器上，不需要雲端），把 AI 的回答拆成一句一句，跟原始文件逐句比對。結果分三種：Entail（文件有支持）、Neutral（文件沒提到）、Contradict（跟文件矛盾）。</p>
+
+            <h3>繁體中文信心解釋</h3>
+            <p>每個回答都會附一段人看得懂的說明，例如：「高可信度：檢索相關性高，文件匹配度佳」。讓同仁知道 AI 為什麼有信心，不是黑箱。</p>
+
+            <h3>模型校正（Per-model Calibration）</h3>
+            <p>不同 LLM 對信心的偏差不一樣，可以對每個模型設定信心校正參數。像有些模型天生偏樂觀，就設個負向偏移拉回來。</p>
+          </section>
+
+          <section id="t-decay">
+            <h2>版本衰減系統</h2>
+            <p>公司文件會過時，版本衰減系統自動幫舊內容降權，讓同仁優先看到最新的資料。</p>
+
+            <h3>第一優先：人工回報</h3>
+            <p>同仁回報「這份文件內容有誤」後，管理員確認就會對該段落設定降權，在搜尋排序裡會被大幅降低。</p>
+
+            <h3>第二優先：自動版本覆蓋</h3>
+            <p>新版文件入庫時，系統自動比對新舊版的相似度。相似度足夠高的舊段落分數會被大幅降權，讓新版自動浮上來。</p>
+
+            <h3>第三優先：年齡遞減</h3>
+            <p>文件每放一年就降 5% 權重，最多降到 80%（不會降到零）。但金融法規、公司政策或標記「永久有效」的文件不受影響。</p>
+          </section>
+
+          <section id="t-models">
+            <h2>模型角色與備援鏈</h2>
+            <p>OceanRAG 把 AI 模型分成五個角色，每個角色都可以獨立切換，不會互相影響：</p>
+            <table>
+              <thead>
+                <tr><th>角色</th><th>說明</th><th>可替換性</th><th>部署方式</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>回答生成</strong></td>
+                  <td>大型語言模型，負責產生回答</td>
+                  <td>支援多家供應商，可熱切換</td>
+                  <td>雲端 / 地端</td>
+                </tr>
+                <tr>
+                  <td><strong>向量化</strong></td>
+                  <td>語意模型，將文字轉成向量</td>
+                  <td>換模型需重建向量索引</td>
+                  <td>雲端</td>
+                </tr>
+                <tr>
+                  <td><strong>精排序</strong></td>
+                  <td>精排模型，對候選結果做精準排序</td>
+                  <td>可獨立替換，門檻值可能需微調</td>
+                  <td>雲端</td>
+                </tr>
+                <tr>
+                  <td><strong>意圖辨識</strong></td>
+                  <td>輕量分類模型，判斷問題意圖</td>
+                  <td>支援 JSON 輸出即可</td>
+                  <td>雲端 / 地端</td>
+                </tr>
+                <tr>
+                  <td><strong>事實查核</strong></td>
+                  <td>NLI 模型，比對回答與原始文件</td>
+                  <td>支援 NLI 三分類即可</td>
+                  <td>地端</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>備援鏈（Fallback Chain）</h3>
+            <p>「回答生成」這個角色支援自動備援：主模型掛了就自動切到下一個，切換過程同仁完全無感。每個模型定期做健康檢查，連續失敗就跳過，恢復後自動加回來。</p>
+
+            <div style="display: flex; align-items: center; gap: 8px; margin: 20px 0; flex-wrap: wrap; font-size: 13.5px;">
+              <div style="background: #d1fae5; border: 1px solid #6ee7b7; border-radius: 8px; padding: 8px 14px; font-weight: 600; color: #065f46;">主模型</div>
+              <span style="color: #94a3b8;">→ 失敗 →</span>
+              <div style="background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 8px 14px; font-weight: 600; color: #92400e;">備選 A</div>
+              <span style="color: #94a3b8;">→ 失敗 →</span>
+              <div style="background: #fef3c7; border: 1px solid #fcd34d; border-radius: 8px; padding: 8px 14px; font-weight: 600; color: #92400e;">備選 B</div>
+              <span style="color: #94a3b8;">→ 失敗 →</span>
+              <div style="background: #fee2e2; border: 1px solid #fca5a5; border-radius: 8px; padding: 8px 14px; font-weight: 600; color: #991b1b;">地端模型</div>
+            </div>
+
+            <p>核心原則是「不綁死任何廠商」。每個角色都可以獨立替換，換模型只需要調整設定，不需要改程式碼。向量化模型更換時需要重建索引。</p>
+          </section>
+
+          <section id="t-etl">
+            <h2>文件 ETL Pipeline</h2>
+            <p>上傳檔案後，系統全自動跑完以下流程，不需要人工介入：</p>
+            <ol>
+              <li><strong>解析</strong>：自動偵測檔案類型（PDF / Word / Excel），用檔案特徵碼驗證不是偽裝檔案。</li>
+              <li><strong>清洗</strong>：去掉多餘的格式符號和亂碼，保留文字的語意完整性。</li>
+              <li><strong>切塊</strong>：按語意段落切成小段（預設 512 tokens/段，重疊 64 tokens 避免斷句）。</li>
+              <li><strong>摘要</strong>：幫每個小段落產生語意摘要，讓後面的精排序更準。</li>
+              <li><strong>語料增強</strong>：自動抓出公司名、日期、金額等重要資訊，加到段落前面當索引，提高搜尋命中率。</li>
+              <li><strong>向量化</strong>：透過語意模型把文字轉成向量。</li>
+              <li><strong>品質檢測</strong>：5 個維度打分（滿分 100），品質不過關不入庫。</li>
+              <li><strong>入庫</strong>：向量存到向量資料庫，同時建關鍵字索引，metadata 存到資料庫。整個過程是 atomic 的，不會只做一半。</li>
+              <li><strong>通知</strong>：處理完自動通知管理員去審閱。</li>
+            </ol>
+
+            <h3>Excel 處理</h3>
+            <p>Excel 會自動轉成 Markdown 表格格式入庫，保留表頭和 sheet 名稱。單一 sheet 最多處理一萬行，超過的部分會截斷並記錄警告。</p>
+          </section>
+
+          <section id="t-sessions">
+            <h2>多輪對話與記憶</h2>
+            <p>同仁可以像 LINE 聊天一樣連續追問，不用每次都重新描述背景。</p>
+
+            <h3>運作方式</h3>
+            <ul>
+              <li><strong>記住最近 5 輪</strong>：每次查詢都會載入前 5 輪的對話紀錄，作為改寫查詢和生成回答的參考。</li>
+              <li><strong>閒置 30 分鐘自動過期</strong>：離開超過半小時就開新的對話，不會把不相關的舊對話混進來。</li>
+              <li><strong>每輪都留紀錄</strong>：包含查詢摘要、意圖分類、回答重點、信心分數，方便追蹤。</li>
+            </ul>
+
+            <h3>自動萃取重點</h3>
+            <p>每次回答完，系統會自動從回答裡抓出 5 個最重要的事實（例如「Q3 營收 1.2 億」「合約到期日 2025/06/30」），注入下一輪的查詢改寫。這樣追問的時候，系統已經知道你前面問到了什麼。</p>
+
+            <h3>聊到別的話題自動切換</h3>
+            <p>如果新問題跟前面聊的完全不同（主題漂移 = severe），系統會自動不帶入舊對話的內容，避免舊話題污染新搜尋。</p>
+          </section>
+
+          <section id="t-websearch">
+            <h2>聯網搜尋</h2>
+            <p>公司文件找不到答案（B-layer 被擋）而且管理員有開啟聯網搜尋的時候，系統會自動上網找。</p>
+
+            <h3>快速搜尋模式</h3>
+            <p>透過開源搜尋引擎送查詢，抓回前幾筆結果，用語意評分過濾相關段落，合併進 LLM 的參考資料。適合簡單的事實性問題。</p>
+
+            <h3>深度研究模式</h3>
+            <p>兩層 AI 代理：第一層用 Chain-of-Thought 把問題拆成子問題，第二層用 ReAct 模式反覆搜尋、閱讀、推理。適合需要比對多個來源的複雜問題。</p>
+
+            <h3>資安防護</h3>
+            <p>上網抓資料有 SSRF 防護：自動擋掉內部網路位址（私有網段、迴環位址等），防止被利用來探測公司內網。</p>
+          </section>
+
+          <section id="t-security">
+            <h2>縱深防禦設計</h2>
+            <p>OceanRAG 的資安架構分為五層，每層各自獨立運作。以一間 30 人的中小企業為例，即使某一層被突破，其他層仍能有效防禦。</p>
+
+            <h3>五層安全架構</h3>
+            <div style="display: flex; flex-direction: column; gap: 2px; margin: 24px 0; border-radius: 12px; overflow: hidden; border: 1px solid #e2e8f0;">
+              <div style="display: flex; align-items: stretch;">
+                <div style="background: #991b1b; color: white; padding: 12px 18px; min-width: 130px; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-lock" style="opacity: 0.7;"></i> L1 傳輸層</div>
+                <div style="background: #fef2f2; padding: 12px 18px; flex: 1; font-size: 13px; color: #991b1b; border-bottom: 1px solid #fecaca;">HTTPS 強制、安全 Cookie（httpOnly + SameSite=strict）、安全標頭</div>
+              </div>
+              <div style="display: flex; align-items: stretch;">
+                <div style="background: #92400e; color: white; padding: 12px 18px; min-width: 130px; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-id-card" style="opacity: 0.7;"></i> L2 認證層</div>
+                <div style="background: #fef3c7; padding: 12px 18px; flex: 1; font-size: 13px; color: #92400e; border-bottom: 1px solid #fde68a;">三通道認證（Cookie / Bearer Token / 內部服務令牌）→ 非對稱加密簽章驗證</div>
+              </div>
+              <div style="display: flex; align-items: stretch;">
+                <div style="background: #1e40af; color: white; padding: 12px 18px; min-width: 130px; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-shield-halved" style="opacity: 0.7;"></i> L3 授權層</div>
+                <div style="background: #eff6ff; padding: 12px 18px; flex: 1; font-size: 13px; color: #1e40af; border-bottom: 1px solid #bfdbfe;">RBAC 角色 → 機密等級 → 部門歸屬 → 功能權限矩陣</div>
+              </div>
+              <div style="display: flex; align-items: stretch;">
+                <div style="background: #065f46; color: white; padding: 12px 18px; min-width: 130px; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-filter" style="opacity: 0.7;"></i> L4 輸入驗證</div>
+                <div style="background: #ecfdf5; padding: 12px 18px; flex: 1; font-size: 13px; color: #065f46; border-bottom: 1px solid #6ee7b7;">Schema 型別驗證 → 參數化查詢 → 資料庫約束檢查</div>
+              </div>
+              <div style="display: flex; align-items: stretch;">
+                <div style="background: #6b21a8; color: white; padding: 12px 18px; min-width: 130px; font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 6px;"><i class="fa-solid fa-clipboard-check" style="opacity: 0.7;"></i> L5 稽核監控</div>
+                <div style="background: #f3e8ff; padding: 12px 18px; flex: 1; font-size: 13px; color: #6b21a8;">不可變安全事件 + 雜湊鏈完整性驗證 + 風險評分 + 異常偵測</div>
+              </div>
+            </div>
+
+            <h3>傳統 Web 安全防護</h3>
+            <p>以下是針對中小企業常見攻擊面的防護措施：</p>
+            <table>
+              <thead>
+                <tr><th>防護措施</th><th>實作方式</th><th>防禦目標</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>資料不出境</strong></td>
+                  <td>嵌入式資料庫跑在公司機器，原始文件不傳出去</td>
+                  <td>資料外洩</td>
+                </tr>
+                <tr>
+                  <td><strong>認證安全</strong></td>
+                  <td>非對稱加密簽章 + 安全 Cookie（httpOnly, SameSite=strict）</td>
+                  <td>Token 偽造、XSS、CSRF</td>
+                </tr>
+                <tr>
+                  <td><strong>RBAC + 部門隔離</strong></td>
+                  <td>三級角色 + L1～L5 機密等級 + 部門歸屬，搜尋前過濾</td>
+                  <td>越權存取</td>
+                </tr>
+                <tr>
+                  <td><strong>登入防護</strong></td>
+                  <td>帳號鎖定 + IP 限流 + 等時回應（防列舉）+ 設備追蹤</td>
+                  <td>暴力破解、帳號列舉</td>
+                </tr>
+                <tr>
+                  <td><strong>權限即撤銷</strong></td>
+                  <td>角色或等級一改，舊 Session 立刻失效 + IDOR 防護</td>
+                  <td>殘留存取、冒用</td>
+                </tr>
+                <tr>
+                  <td><strong>稽核防竄改</strong></td>
+                  <td>資料庫 trigger 禁刪 + 雜湊鏈串連 + 定期完整性驗證</td>
+                  <td>稽核合規</td>
+                </tr>
+                <tr>
+                  <td><strong>檔案驗證 + 限流</strong></td>
+                  <td>Magic number 驗真偽 + IP 限流 + SSRF 防護</td>
+                  <td>偽裝上傳、內網探測</td>
+                </tr>
+                <tr>
+                  <td><strong>安全標頭</strong></td>
+                  <td>CSP + X-Frame-Options: DENY + nosniff + strict-origin</td>
+                  <td>XSS、Clickjacking</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <h3>LLM / RAG 特有安全風險</h3>
+            <p>除了傳統 Web 安全，RAG 系統還面對 AI 模型特有的攻擊面。以下是 OceanRAG 的防護策略：</p>
+            <table>
+              <thead>
+                <tr><th>風險類型</th><th>攻擊方式</th><th>防護措施</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>直接指令注入</strong></td>
+                  <td>使用者在查詢中嵌入惡意指令</td>
+                  <td>輸入長度限制 + Schema 驗證 + delimiter 隔離使用者輸入與系統指令</td>
+                </tr>
+                <tr>
+                  <td><strong>間接指令注入</strong></td>
+                  <td>惡意內容藏在文件中，被 RAG 檢索後注入 LLM</td>
+                  <td>RBAC 過濾 + 來源標記 + 輸出消毒</td>
+                </tr>
+                <tr>
+                  <td><strong>幻覺 / 虛假引用</strong></td>
+                  <td>AI 生成不存在的資訊或錯誤引用</td>
+                  <td>NLI 逐句事實查核 + 統一信心管線 + 來源連結驗證</td>
+                </tr>
+                <tr>
+                  <td><strong>跨權限資料洩漏</strong></td>
+                  <td>透過 LLM 輸出取得無權限的文件內容</td>
+                  <td>RBAC 在搜尋前過濾（LLM 完全看不到無權限的段落）+ 通用錯誤訊息</td>
+                </tr>
+                <tr>
+                  <td><strong>外部 MCP 回傳攻擊</strong></td>
+                  <td>惡意 MCP Server 回傳含注入的資料</td>
+                  <td>Schema 驗證 + 內容消毒 + 來源標記 + timeout 限制（v0.6 規劃中）</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="t-loginsec">
+            <h2>登入安全</h2>
+            <p>以 30 人中小企業為背景，登入安全涵蓋：暴力破解防護、異常偵測、Session 管理。</p>
+
+            <h3>暴力破解防護</h3>
+            <ul>
+              <li><strong>帳號鎖定</strong>：連續失敗達門檻自動鎖定（持久化在資料庫，重啟不解除），鎖定時間可由管理員調整。</li>
+              <li><strong>IP 限流</strong>：同一 IP 每分鐘登入請求數有上限，超過直接擋回。</li>
+              <li><strong>等時回應</strong>：帳號不存在也做等時處理，攻擊者無法推斷帳號存在與否。</li>
+              <li><strong>密碼政策</strong>：最少 8 字元，需含大小寫 + 數字，不可逆雜湊儲存。管理員重設密碼會記錄為高風險事件。</li>
+            </ul>
+
+            <h3>異常登入偵測</h3>
+            <p>系統自動判斷 IP 來源（內部 / VPN / 外部），外部 IP 登入標記可疑。記錄每次登入的裝置指紋，短時間多裝置登入觸發警示。所有登入事件（成功、失敗、登出、撤銷）完整留底。</p>
+
+            <h3>Session 管理</h3>
+            <p>Session 存在資料庫中（含登入時間、裝置、IP），不是純無狀態 Token。管理員可一鍵強制登出個人或全員，撤銷後 Token 立即失效。Session 歸屬嚴格驗證（IDOR 防護），閒置超時自動過期並定期清理。</p>
+          </section>
+
+          <section id="t-risk">
+            <h2>風險評分與異常偵測</h2>
+            <p>以 30 人公司為背景，OceanRAG 持續追蹤每位使用者的行為模式，在異常發生時即時警告管理員。</p>
+
+            <h3>風險評分模型</h3>
+            <p>系統用時間衰減模型計算每位使用者的風險分數（0～100），越近期的異常權重越高。評估維度包含：登入失敗次數、可疑登入（外部 IP / 新裝置）、高風險事件（權限變更、文件下架等）、異常查詢行為、短時間多裝置登入。</p>
+
+            <div style="display: flex; gap: 8px; margin: 16px 0; flex-wrap: wrap; font-size: 13px;">
+              <div style="background: #fee2e2; border: 1px solid #fecaca; border-radius: 8px; padding: 8px 14px; font-weight: 600; color: #991b1b;">≥ 80：嚴重 → 自動通知管理員（含冷卻時間）</div>
+              <div style="background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 8px 14px; font-weight: 600; color: #92400e;">≥ 60：警告 → 標記異常，儀表板可檢視</div>
+              <div style="background: #d1fae5; border: 1px solid #6ee7b7; border-radius: 8px; padding: 8px 14px; font-weight: 600; color: #065f46;">< 60：正常 → 僅記錄</div>
+            </div>
+
+            <h3>文件存取異常偵測</h3>
+            <p>每一次預覽和下載都記錄，自動偵測四種異常：<strong>大量下載</strong>（同人/IP 短時間超量）、<strong>高機密存取</strong>（機密等級達門檻）、<strong>跨部門存取</strong>（非所屬部門文件）、<strong>存取拒絕</strong>（被擋的嘗試也完整記錄）。全部標記為高風險資安事件。</p>
+
+            <h3>資安事件分類</h3>
+            <p>系統定義 25+ 種資安事件類型，分為四大類：<strong>帳號類</strong>（建立、修改、重設密碼、強制登出）、<strong>權限類</strong>（權限變更、安全參數修改）、<strong>文件類</strong>（下架、大量存取、跨部門存取）、<strong>系統類</strong>（ETL 失敗、雜湊鏈斷裂、API 金鑰操作）。每個事件有唯一編號、前後狀態差異、雜湊鏈保護。</p>
+
+            <h3>API 金鑰加密</h3>
+            <p>儲存的 API 金鑰使用對稱加密保護，每次加密用隨機初始向量，即使資料庫被盜也無法解出明文。管理介面僅顯示前後幾碼做辨識。</p>
+          </section>
+
+          <section id="t-rbac">
+            <h2>權限與 RBAC</h2>
+            <p>每一筆查詢都要過四關，確保沒有權限的資料「根本不會被搜到」：</p>
+            <ol>
+              <li><strong>身份驗證</strong>：Cookie + Session 確認你是誰，沒登入直接回 401。</li>
+              <li><strong>角色檢查</strong>：你是一般同仁、部門管理員、還是最高管理員？角色不對回 403。</li>
+              <li><strong>機密等級比對</strong>：你的機密等級要大於等於文件的機密等級。不夠就搜不到（空值會強制處理，沒辦法繞過）。</li>
+              <li><strong>部門歸屬 + 功能權限</strong>：你是哪個部門的？有沒有被授權看跨部門資料？功能權限矩陣一項一項查。</li>
+            </ol>
+            <p>這四關在向量搜尋和 BM25 搜尋「之前」就先跑完了，確保兩路搜尋結果都經過權限過濾，沒有漏網之魚。</p>
+          </section>
+
+          <section id="t-audit">
+            <h2>稽核日誌系統</h2>
+            <p>OceanRAG 有兩套互補的紀錄系統，隨時可以查、隨時可以匯出給稽核用：</p>
+
+            <h3>1. 對話紀錄</h3>
+            <p>每一筆查詢的完整鏈路：原始問題、改寫後的問題、AI 回答、信心分數、引用了哪些文件段落。用對話識別碼串起來，一個對話一條線。</p>
+            <ul>
+              <li>標記是不是被 B-layer 或 C-layer 擋過。</li>
+              <li>記下檢索分數（向量分、精排分、融合排名），方便 MIS 調整參數。</li>
+            </ul>
+
+            <h3>2. 系統操作紀錄</h3>
+            <p>登入登出、上傳文件、審閱通過、下架文件、改權限⋯⋯全部都有紀錄。</p>
+            <ul>
+              <li><strong>刪不掉</strong>：資料庫 trigger 會自動擋掉所有刪除操作，就算最高管理員也沒辦法。</li>
+              <li><strong>改不了</strong>：每筆紀錄的雜湊值串著上一筆，改一筆就整條鏈驗證失敗。</li>
+              <li><strong>可匯出</strong>：管理員可透過管理介面匯出 CSV 或 JSON，直接交給稽核或法遵。</li>
+            </ul>
+
+            <h3>3. 對話 Session 持久化</h3>
+            <p>每一輪對話的摘要、意圖、萃取事實、信心分數都存在對話紀錄裡，提供完整的多輪對話追溯能力。</p>
+          </section>
+
+          <section id="t-deploy">
+            <h2>部署方式</h2>
+
+            <h3>環境需求</h3>
+            <ul>
+              <li><strong>作業系統</strong>：Windows / macOS / Linux 都可以</li>
+              <li><strong>Python</strong>：3.10 以上</li>
+              <li><strong>GPU</strong>：NLI 模型建議有 GPU（用 CPU 也行，就是慢一點）</li>
+              <li><strong>推薦硬體</strong>：Mac Mini（最新升級版，約兩萬台幣起）是最推薦的選擇，效能與性價比兼具</li>
+            </ul>
+
+            <h3>怎麼上線</h3>
+            <ul>
+              <li><strong>辦公室內架機器</strong>：最簡單，四個 Tier 各自啟動，前面放一個 proxy 統一入口就好。</li>
+              <li><strong>私有雲部署</strong>：如果公司有多個據點，可以把 T2/T3/T4 放在私有雲，T1 前端透過 VPN 連。</li>
+            </ul>
+          </section>
+
+          <section id="t-dbupgrade">
+            <h2>資料庫升級路徑</h2>
+            <p>目前用嵌入式資料庫是因為中小企業不需要搞那麼複雜。但如果公司長大了（超過一千人同時用），有升級的路可以走：</p>
+            <ul>
+              <li><strong>嵌入式資料庫 → 企業級關聯式資料庫</strong>：支援多人同時寫入、更細的權限控管、更好的備份機制。</li>
+              <li><strong>本地向量資料庫 → 雲端向量資料庫</strong>：支援分散式向量搜尋，文件庫可以更大。</li>
+            </ul>
+            <p>架構設計有預留抽換介面，換資料庫不用改商業邏輯的程式碼。</p>
+          </section>
+
+          <section id="t-roadmap">
+            <h2>開發藍圖</h2>
+
+            <h3>1. MCP 伺服器</h3>
+            <p>讓 OceanRAG 變成任何 AI 工具的知識來源。各種 AI 助理可以透過 MCP 協定直接查 OceanRAG 的文件庫，不用自己重新處理文件。</p>
+
+            <h3>2. 技能系統（Skill）</h3>
+            <p>定義可重複執行的工作流程，讓 AI 按照企業定義的步驟完成特定任務。例如：固定格式的報表彙整、合約摘要、客訴分類等，每個技能都受 RBAC 和稽核控管。</p>
+
+            <h3>3. 文件代理（Document Agent）</h3>
+            <p>AI 主動協助處理新進文件：自動摘要、分類歸檔、標記關鍵資訊。減少人工處理負擔，讓知識庫始終保持最新。每個代理行為都記錄在稽核日誌中。</p>
+          </section>
+
+        </div>
 
       </div>
     </main>

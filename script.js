@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { type: 'emerald', text: '[1] 交通部路況-0313' },
             { type: 'blue', text: '[2] ERP內部規範' }
         ],
-        metadata: "下午02:18 · llama-3.1-8b-instant · 2K/345 · 4.2s · #AUD-20260313-112b3c4d"
+        metadata: "下午02:18 · AI 引擎 · 2K/345 · 4.2s · #AUD-20260313-112b3c4d"
     },
     {
         user: "目前 ERP 裡台中倉跟高雄倉的可用庫存總和，能補足北部多少缺口？",
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `,
         confLevel: "信心度", confScore: "38%", confColor: "amber",
         sources: [], 
-        metadata: "下午02:19 · llama-3.1-8b-instant · 2K/565 · 9.7s · #AUD-20260313-35f92a42"
+        metadata: "下午02:19 · AI 引擎 · 2K/565 · 9.7s · #AUD-20260313-35f92a42"
     }
   ];
 

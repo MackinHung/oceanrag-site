@@ -111,6 +111,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const idx = item.text.toLowerCase().indexOf(q);
             if (idx === -1) continue;
 
+            // Skip items in hidden content blocks
+            const parentBlock = item.el.closest('#clientContent, #techContent, #clientIntro, #techIntro');
+            if (parentBlock && parentBlock.style.display === 'none') continue;
+
             // Deduplicate by section + rough text match
             const key = item.sectionId + '|' + item.text.slice(0, 60);
             if (seen.has(key)) continue;
@@ -240,25 +244,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ─── 5. Version Switcher ──────────────────────────────────────
-    const techBtn   = document.getElementById('techBtn');
+    // ─── 5. Version Switcher (Dual-Audience) ─────────────────────
+    const techBtn = document.getElementById('techBtn');
     const clientBtn = document.getElementById('clientBtn');
-    const techVer   = document.getElementById('techVersion');
-    const clientVer = document.getElementById('clientVersion');
+    const clientIntro = document.getElementById('clientIntro');
+    const techIntro = document.getElementById('techIntro');
+    const clientContent = document.getElementById('clientContent');
+    const techContent = document.getElementById('techContent');
+    const clientNav = document.getElementById('clientNav');
+    const techNav = document.getElementById('techNav');
 
-    if (techBtn && clientBtn && techVer && clientVer) {
-        techBtn.addEventListener('click', () => {
-            techVer.style.display = 'block';
-            clientVer.style.display = 'none';
-            techBtn.classList.add('active');
-            clientBtn.classList.remove('active');
-        });
-        clientBtn.addEventListener('click', () => {
-            techVer.style.display = 'none';
-            clientVer.style.display = 'block';
-            clientBtn.classList.add('active');
-            techBtn.classList.remove('active');
-        });
+    function showClientView() {
+        if (clientIntro) clientIntro.style.display = 'block';
+        if (techIntro) techIntro.style.display = 'none';
+        if (clientContent) clientContent.style.display = 'block';
+        if (techContent) techContent.style.display = 'none';
+        if (clientNav) clientNav.style.display = 'block';
+        if (techNav) techNav.style.display = 'none';
+        if (clientBtn) clientBtn.classList.add('active');
+        if (techBtn) techBtn.classList.remove('active');
+    }
+
+    function showTechView() {
+        if (techIntro) techIntro.style.display = 'block';
+        if (clientIntro) clientIntro.style.display = 'none';
+        if (techContent) techContent.style.display = 'block';
+        if (clientContent) clientContent.style.display = 'none';
+        if (techNav) techNav.style.display = 'block';
+        if (clientNav) clientNav.style.display = 'none';
+        if (techBtn) techBtn.classList.add('active');
+        if (clientBtn) clientBtn.classList.remove('active');
+    }
+
+    if (techBtn && clientBtn) {
+        techBtn.addEventListener('click', showTechView);
+        clientBtn.addEventListener('click', showClientView);
     }
 
     // ─── 6. Sidebar Active-State via IntersectionObserver ────────

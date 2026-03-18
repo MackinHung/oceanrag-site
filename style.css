@@ -293,12 +293,20 @@ h1, h2, h3, h4 {
   color: var(--text-secondary);
   font-size: 0.95rem;
   font-weight: 600;
-  transition: color 0.2s;
+  transition: color 0.15s, background 0.15s;
+  padding: 6px 14px;
+  border-radius: 8px;
 }
 
-.nav-links a:hover,
+.nav-links a:hover {
+  color: var(--text-primary);
+  background: #f1f5f9;
+}
+
 .nav-links a.active-nav {
   color: var(--accent-base);
+  background: #eff6ff;
+  font-weight: 700;
 }
 
 /* Mobile Toggle */

@@ -108,13 +108,11 @@
             <div class="nav-section-title">信心度與準確性</div>
             <a href="#t-gates" class="nav-item">三層門控</a>
             <a href="#t-confidence" class="nav-item">信心管線</a>
-            <a href="#t-decay" class="nav-item">版本衰減</a>
           </div>
           <div class="nav-section">
             <div class="nav-section-title">模型與知識庫</div>
             <a href="#t-models" class="nav-item">模型角色與備援</a>
             <a href="#t-etl" class="nav-item">文件 ETL</a>
-            <a href="#t-sessions" class="nav-item">多輪對話</a>
             <a href="#t-websearch" class="nav-item">聯網搜尋</a>
           </div>
           <div class="nav-section">
@@ -128,7 +126,6 @@
           <div class="nav-section">
             <div class="nav-section-title">部署與擴充</div>
             <a href="#t-deploy" class="nav-item">部署方式</a>
-            <a href="#t-dbupgrade" class="nav-item">升級路徑</a>
             <a href="#t-roadmap" class="nav-item">開發藍圖</a>
           </div>
         </div>
@@ -154,10 +151,10 @@
 
           <div class="version-toggle">
             <button class="v-btn active" data-version="client" id="clientBtn">
-              <i class="fa-solid fa-user-tie"></i> 主管 / 決策者（預設）
+              <i class="fa-solid fa-user-tie"></i> 部門主管
             </button>
             <button class="v-btn" data-version="tech" id="techBtn">
-              <i class="fa-solid fa-code"></i> 技術同仁
+              <i class="fa-solid fa-code"></i> 技術解釋
             </button>
           </div>
 
@@ -174,11 +171,9 @@
               <li><strong>資料不出境</strong>：裝在公司自己的機器上，文件不會傳到任何外部服務，符合台灣個資法要求。</li>
               <li><strong>誰看什麼，清清楚楚</strong>：每份文件都有機密等級和部門歸屬。業務看不到人資的薪資單，人資看不到研發的專利文件。</li>
               <li><strong>操作紀錄全留底</strong>：誰查了什麼、什麼時候查的，紀錄不可刪除、不可竄改，稽核的時候直接匯出。</li>
-              <li><strong>像 LINE 一樣追問</strong>：問完一個問題可以繼續追問，系統會記住前面的對話內容，不用每次重新描述。</li>
-              <li><strong>知識庫找不到就上網查</strong>：公司文件沒有答案時，可以自動從網路搜尋補充，但會標明「這是網路來源」。</li>
-              <li><strong>AI 不會亂講話</strong>：三道關卡把關，信心不夠就不回答，避免 AI 瞎掰（幻覺）誤導同仁。</li>
+              <li><strong>AI 不會亂講話</strong>：三道關卡把關，信心不夠就不回答，避免 AI 瞎掰（幻覺）誤導員工。</li>
             </ul>
-            <p>簡單來說：<strong>讓同仁用「問問題」取代「翻資料夾」</strong>，省下的時間拿來做更有價值的事。</p>
+            <p>簡單來說：<strong>讓員工用「問問題」取代「翻資料夾」</strong>，省下的時間拿來做更有價值的事。</p>
           </div>
 
           <!-- Tech Intro (hidden by default) -->
@@ -202,7 +197,7 @@
         </section>
 
         <!-- ═══════════════════════════════════════════════════════ -->
-        <!-- 主管 / 決策者 內容（預設顯示）                            -->
+        <!-- 部門主管 內容（預設顯示）                                 -->
         <!-- ═══════════════════════════════════════════════════════ -->
 
         <div id="clientContent">
@@ -262,11 +257,11 @@
 
           <section id="c-how">
             <h2>系統如何運作</h2>
-            <p>同仁只需要「問問題」，系統在背後自動完成所有搜尋、驗證和回答的工作。</p>
+            <p>員工只需要「問問題」，系統在背後自動完成所有搜尋、驗證和回答的工作。</p>
 
             <!-- 簡化流程圖 -->
             <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 24px 0; align-items: center; font-size: 14px;">
-              <span style="background: #dbeafe; color: #1e40af; padding: 8px 16px; border-radius: 8px; font-weight: 600;">同仁提問</span>
+              <span style="background: #dbeafe; color: #1e40af; padding: 8px 16px; border-radius: 8px; font-weight: 600;">員工提問</span>
               <span style="color: #94a3b8;">→</span>
               <span style="background: #fef3c7; color: #92400e; padding: 8px 16px; border-radius: 8px; font-weight: 600;">理解意圖</span>
               <span style="color: #94a3b8;">→</span>
@@ -285,11 +280,6 @@
             <h3>自動文件處理</h3>
             <p>上傳檔案後，系統自動完成解析、切割、品質檢測和入庫，不需要人工整理。支援 PDF、Word、Excel 等常見格式。</p>
 
-            <h3>連續追問</h3>
-            <p>像 LINE 聊天一樣連續追問，系統記住前面的對話內容。閒置超過半小時自動開新對話，不會把不相關的舊話題混進來。</p>
-
-            <h3>找不到答案時</h3>
-            <p>公司知識庫沒有答案時，系統可自動上網搜尋補充資料，但會清楚標明「這是網路來源」，讓同仁分辨資訊來源。</p>
           </section>
 
           <section id="c-quality">
@@ -308,7 +298,7 @@
                 <div style="min-width: 48px; height: 48px; background: #92400e; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 18px;">2</div>
                 <div>
                   <div style="font-weight: 700; color: #92400e; margin-bottom: 4px;">搜尋品質檢查</div>
-                  <div style="font-size: 14px; color: #334155;">系統檢查搜尋到的資料是否足夠。品質不夠好時會嘗試其他方式；真的找不到就告訴同仁「資訊不足」，不硬掰答案。</div>
+                  <div style="font-size: 14px; color: #334155;">系統檢查搜尋到的資料是否足夠。品質不夠好時會嘗試其他方式；真的找不到就告訴員工「資訊不足」，不硬掰答案。</div>
                 </div>
               </div>
               <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 12px;">
@@ -320,21 +310,19 @@
               </div>
             </div>
 
-            <p>每個回答都會附上一段人看得懂的信心說明，讓同仁知道 AI 為什麼有信心回答，不是黑箱作業。</p>
+            <p>每個回答都會附上一段人看得懂的信心說明，讓員工知道 AI 為什麼有信心回答，不是黑箱作業。</p>
 
-            <h3>舊文件自動降權</h3>
-            <p>公司文件會過時。系統自動讓舊文件的搜尋排序降低，優先呈現最新版本。同仁也可以主動回報文件內容有誤，管理員確認後該文件會被大幅降權。</p>
           </section>
 
           <section id="c-security">
             <h2>安全防護</h2>
-            <p>假設你的公司有 30 位同仁，分成業務部、人資部、研發部。以下是 OceanRAG 在日常營運中如何保護你的企業：</p>
+            <p>假設你的公司有 30 位員工，分成業務部、人資部、研發部。以下是 OceanRAG 在日常營運中如何保護你的企業：</p>
 
             <h3>「公司機密文件會不會外洩？」</h3>
             <p>不會。系統完全部署在公司自己的機器上，所有文件、對話紀錄、搜尋索引都存在本地。即使 AI 模型也可以選擇跑在本地，完全不需要把資料傳到外部服務。符合台灣個資法對資料在地化的要求。</p>
 
             <h3>「人資的薪資單會不會被業務看到？」</h3>
-            <p>不會。每份文件都有機密等級（L1～L5）和部門歸屬。業務部的同仁搜尋時，人資的薪資文件<strong>根本不會出現在搜尋結果裡</strong> — 不是搜到後才隱藏，而是連搜都不搜。即使有人嘗試直接用連結存取，系統也會擋回來。</p>
+            <p>不會。每份文件都有機密等級（L1～L5）和部門歸屬。業務部的員工搜尋時，人資的薪資文件<strong>根本不會出現在搜尋結果裡</strong> — 不是搜到後才隱藏，而是連搜都不搜。即使有人嘗試直接用連結存取，系統也會擋回來。</p>
 
             <h3>「有人一直猜密碼怎麼辦？」</h3>
             <p>系統自動保護。連續輸錯密碼會自動鎖定帳號，同一 IP 短時間內太多登入嘗試直接擋回。外部 IP 登入自動標記為可疑，管理員會收到通知。而且攻擊者無法從回應速度判斷帳號是否存在。</p>
@@ -342,10 +330,10 @@
             <h3>「AI 會不會亂講話影響決策？」</h3>
             <p>三道品質關卡：第一關攔截與公司知識庫無關的問題，第二關確認搜尋到的資料品質夠好，第三關驗證 AI 回答的可信度。信心不足就不回答。每個回答都附上出處和一段人看得懂的信心說明。</p>
 
-            <h3>「同仁短時間下載大量文件？」</h3>
-            <p>系統自動偵測。每一次文件預覽和下載都有紀錄，短時間大量下載、跨部門存取、高機密文件存取都會自動標記，即時通知管理員。系統還會持續追蹤每位同仁的行為風險分數。</p>
+            <h3>「員工短時間下載大量文件？」</h3>
+            <p>系統自動偵測。每一次文件預覽和下載都有紀錄，短時間大量下載、跨部門存取、高機密文件存取都會自動標記，即時通知管理員。系統還會持續追蹤每位員工的行為風險分數。</p>
 
-            <h3>「同仁離職要怎麼處理？」</h3>
+            <h3>「員工離職要怎麼處理？」</h3>
             <p>管理員一鍵強制登出，所有登入狀態即時撤銷。但操作紀錄永久保留，不會因帳號停用而消失。角色或部門變更也會立刻讓舊的登入狀態失效。</p>
 
             <h3>「還有哪些安全措施？」</h3>
@@ -356,14 +344,14 @@
             <h2>權限管理</h2>
             <p>同樣以 30 人的公司為例，「誰能看什麼」是最常被問的問題。用三個實際場景來說明：</p>
 
-            <h3>場景一：新進業務同仁報到</h3>
-            <p>管理員建帳號時設定：角色「一般同仁」、部門「業務部」、機密等級「L2」。從此這位同仁只能搜到業務部 L2 以下的文件。人資的薪資單（L4）和研發的專利文件（L3）完全看不到。</p>
+            <h3>場景一：新進業務員工報到</h3>
+            <p>管理員建帳號時設定：角色「一般員工」、部門「業務部」、機密等級「L2」。從此這位員工只能搜到業務部 L2 以下的文件。人資的薪資單（L4）和研發的專利文件（L3）完全看不到。</p>
 
             <h3>場景二：業務主管需要看跨部門資料</h3>
-            <p>系統管理員可以授權特定同仁看指定部門的指定等級文件。授權範圍精確控制，不是「全部打開」。</p>
+            <p>系統管理員可以授權特定員工看指定部門的指定等級文件。授權範圍精確控制，不是「全部打開」。</p>
 
-            <h3>場景三：同仁調部門或離職</h3>
-            <p>管理員修改部門或角色後，該同仁所有正在使用的登入狀態即時失效。重新登入後自動套用新權限，舊部門的文件立刻看不到了。</p>
+            <h3>場景三：員工調部門或離職</h3>
+            <p>管理員修改部門或角色後，該員工所有正在使用的登入狀態即時失效。重新登入後自動套用新權限，舊部門的文件立刻看不到了。</p>
 
             <div class="img-placeholder" style="background:#f1f5f9; border:2px dashed #cbd5e1; border-radius:12px; padding:40px; text-align:center; color:#64748b; margin:24px 0;">
               <i class="fa-solid fa-image" style="font-size:2rem; margin-bottom:8px; display:block;"></i>
@@ -373,8 +361,8 @@
             <h3>三級角色</h3>
             <ul>
               <li><strong>系統管理員</strong>：看得到所有資料、管得到所有人。通常是 IT 主管或老闆。</li>
-              <li><strong>部門管理員</strong>：只管自己部門的文件和同仁。</li>
-              <li><strong>一般同仁</strong>：只能查詢，只看得到被授權的文件。</li>
+              <li><strong>部門管理員</strong>：只管自己部門的文件和員工。</li>
+              <li><strong>一般員工</strong>：只能查詢，只看得到被授權的文件。</li>
             </ul>
           </section>
 
@@ -386,7 +374,7 @@
             <p>管理員直接從後台匯出 CSV 或 JSON，內容包含：誰、什麼時候、做了什麼、從哪個 IP 登入。這些紀錄<strong>不可刪除、不可竄改</strong> — 資料庫層級自動擋掉所有刪除操作，每筆紀錄用密碼雜湊鏈串連，改一筆就整條鏈驗證失敗。</p>
 
             <h3>場景：懷疑有人不當存取機密文件</h3>
-            <p>管理員可查詢特定同仁的所有紀錄：問了什麼、AI 怎麼回答、引用了哪些文件、信心分數、文件下載紀錄和行為風險分數，全部一目了然。</p>
+            <p>管理員可查詢特定員工的所有紀錄：問了什麼、AI 怎麼回答、引用了哪些文件、信心分數、文件下載紀錄和行為風險分數，全部一目了然。</p>
 
             <h3>兩套互補的紀錄</h3>
             <ul>
@@ -411,8 +399,6 @@
               <li><strong>私有雲部署</strong>：如果公司有多個據點，可以把後端放在私有雲，前端透過 VPN 連。</li>
             </ul>
 
-            <h3>規模變大怎麼辦？</h3>
-            <p>目前用嵌入式資料庫是因為中小企業不需要搞那麼複雜。但如果公司長大了（超過一千人同時用），架構設計有預留升級路徑，可以換成企業級資料庫，不用改商業邏輯。</p>
           </section>
 
           <section id="c-roadmap">
@@ -438,7 +424,7 @@
         </div>
 
         <!-- ═══════════════════════════════════════════════════════ -->
-        <!-- 技術同仁 內容（預設隱藏）                                 -->
+        <!-- 技術解釋 內容（預設隱藏）                                 -->
         <!-- ═══════════════════════════════════════════════════════ -->
 
         <div id="techContent" style="display: none;">
@@ -544,12 +530,12 @@
               </div>
             </div>
 
-            <p><strong>為什麼用嵌入式資料庫？</strong> 在一千人以下的公司，嵌入式資料庫就很夠用了，完全不需要額外部署資料庫服務。向量資料庫也是同樣概念 — 用本機檔案存向量，不需要另外架雲端向量服務。如果公司規模變大，也有<a href="#t-dbupgrade">升級路徑</a>可以走。</p>
+            <p><strong>為什麼用嵌入式資料庫？</strong> 在一千人以下的公司，嵌入式資料庫就很夠用了，完全不需要額外部署資料庫服務。向量資料庫也是同樣概念 — 用本機檔案存向量，不需要另外架雲端向量服務。如果公司規模變大，架構設計有預留升級空間。</p>
           </section>
 
           <section id="t-pipeline">
             <h2>查詢管線（完整流程）</h2>
-            <p>當同仁按下「送出」後，系統在背後跑了以下步驟：</p>
+            <p>當員工按下「送出」後，系統在背後跑了以下步驟：</p>
 
             <div style="display: flex; flex-wrap: wrap; gap: 6px; margin: 24px 0; align-items: center; font-size: 13px;">
               <span style="background: #fee2e2; color: #991b1b; padding: 6px 12px; border-radius: 8px; font-weight: 600;">配額檢查</span>
@@ -578,14 +564,14 @@
             </div>
 
             <ol>
-              <li><strong>配額檢查</strong> — 確認部門 / 同仁的查詢額度還夠不夠，超額直接回 429。</li>
+              <li><strong>配額檢查</strong> — 確認部門 / 員工的查詢額度還夠不夠，超額直接回 429。</li>
               <li><strong>Session 載入</strong> — 撈最近 5 輪對話紀錄，包含之前萃取出的重點。</li>
               <li><strong>並行：意圖分類 ∥ Query Embedding</strong> — 同時跑 Router 意圖辨識和查詢向量化，不浪費時間。</li>
               <li><strong>A-layer 意圖門控</strong> — 跟公司知識庫無關的問題在這邊就擋掉（閒聊、寫程式等），大約擋 10%～15%。</li>
               <li><strong>查詢改寫</strong> — 根據前幾輪對話改寫查詢，讓搜尋更精準。改寫信心達標時會重新做 embedding。</li>
               <li><strong>並行：向量搜尋 ∥ BM25 搜尋</strong> — 兩路同時跑，語意搜尋抓意思相近的、BM25 抓精確關鍵字，最後用融合排序合併。</li>
               <li><strong>版本去重 + 精排</strong> — 移除舊版重複的段落，精排模型對候選結果做精準排序。</li>
-              <li><strong>Chunk 打包 + 時間衰減</strong> — 舊文件自動降權，詳見<a href="#t-decay">版本衰減系統</a>。</li>
+              <li><strong>Chunk 打包 + 時間衰減</strong> — 舊文件自動降權，優先呈現最新版本。</li>
               <li><strong>B-layer 檢索門控</strong> — 加權綜合評分（向量分 + 精排分），分數不夠就嘗試<a href="#t-websearch">上網找</a>。</li>
               <li><strong>LLM 生成</strong> — 把通過的文件段落餵給 LLM，SSE 串流即時回傳到前端。</li>
               <li><strong>C-layer 信心評分</strong> — 對回答打信心分數，太低就觸發 NLI 逐句查核，詳見<a href="#t-confidence">信心管線</a>。</li>
@@ -672,7 +658,7 @@
             <h3>三級結果</h3>
             <ul>
               <li><strong>PASS（高門檻以上）</strong>：高可信度，直接送出回答。六成以上的查詢在這邊就通過了，不用跑 NLI。</li>
-              <li><strong>WARN（中門檻以上）</strong>：中等可信度，回答照樣送出但會標一個黃色警示，提醒同仁再確認一下。</li>
+              <li><strong>WARN（中門檻以上）</strong>：中等可信度，回答照樣送出但會標一個黃色警示，提醒員工再確認一下。</li>
               <li><strong>BLOCK（低於中門檻）</strong>：信心不足，直接擋掉，改回「資料不足，建議換個問法」。</li>
             </ul>
 
@@ -680,24 +666,10 @@
             <p>使用 NLI 事實查核模型（跑在公司機器上，不需要雲端），把 AI 的回答拆成一句一句，跟原始文件逐句比對。結果分三種：Entail（文件有支持）、Neutral（文件沒提到）、Contradict（跟文件矛盾）。</p>
 
             <h3>繁體中文信心解釋</h3>
-            <p>每個回答都會附一段人看得懂的說明，例如：「高可信度：檢索相關性高，文件匹配度佳」。讓同仁知道 AI 為什麼有信心，不是黑箱。</p>
+            <p>每個回答都會附一段人看得懂的說明，例如：「高可信度：檢索相關性高，文件匹配度佳」。讓員工知道 AI 為什麼有信心，不是黑箱。</p>
 
             <h3>模型校正（Per-model Calibration）</h3>
             <p>不同 LLM 對信心的偏差不一樣，可以對每個模型設定信心校正參數。像有些模型天生偏樂觀，就設個負向偏移拉回來。</p>
-          </section>
-
-          <section id="t-decay">
-            <h2>版本衰減系統</h2>
-            <p>公司文件會過時，版本衰減系統自動幫舊內容降權，讓同仁優先看到最新的資料。</p>
-
-            <h3>第一優先：人工回報</h3>
-            <p>同仁回報「這份文件內容有誤」後，管理員確認就會對該段落設定降權，在搜尋排序裡會被大幅降低。</p>
-
-            <h3>第二優先：自動版本覆蓋</h3>
-            <p>新版文件入庫時，系統自動比對新舊版的相似度。相似度足夠高的舊段落分數會被大幅降權，讓新版自動浮上來。</p>
-
-            <h3>第三優先：年齡遞減</h3>
-            <p>文件每放一年就降 5% 權重，最多降到 80%（不會降到零）。但金融法規、公司政策或標記「永久有效」的文件不受影響。</p>
           </section>
 
           <section id="t-models">
@@ -742,7 +714,7 @@
             </table>
 
             <h3>備援鏈（Fallback Chain）</h3>
-            <p>「回答生成」這個角色支援自動備援：主模型掛了就自動切到下一個，切換過程同仁完全無感。每個模型定期做健康檢查，連續失敗就跳過，恢復後自動加回來。</p>
+            <p>「回答生成」這個角色支援自動備援：主模型掛了就自動切到下一個，切換過程員工完全無感。每個模型定期做健康檢查，連續失敗就跳過，恢復後自動加回來。</p>
 
             <div style="display: flex; align-items: center; gap: 8px; margin: 20px 0; flex-wrap: wrap; font-size: 13.5px;">
               <div style="background: #d1fae5; border: 1px solid #6ee7b7; border-radius: 8px; padding: 8px 14px; font-weight: 600; color: #065f46;">主模型</div>
@@ -774,24 +746,6 @@
 
             <h3>Excel 處理</h3>
             <p>Excel 會自動轉成 Markdown 表格格式入庫，保留表頭和 sheet 名稱。單一 sheet 最多處理一萬行，超過的部分會截斷並記錄警告。</p>
-          </section>
-
-          <section id="t-sessions">
-            <h2>多輪對話與記憶</h2>
-            <p>同仁可以像 LINE 聊天一樣連續追問，不用每次都重新描述背景。</p>
-
-            <h3>運作方式</h3>
-            <ul>
-              <li><strong>記住最近 5 輪</strong>：每次查詢都會載入前 5 輪的對話紀錄，作為改寫查詢和生成回答的參考。</li>
-              <li><strong>閒置 30 分鐘自動過期</strong>：離開超過半小時就開新的對話，不會把不相關的舊對話混進來。</li>
-              <li><strong>每輪都留紀錄</strong>：包含查詢摘要、意圖分類、回答重點、信心分數，方便追蹤。</li>
-            </ul>
-
-            <h3>自動萃取重點</h3>
-            <p>每次回答完，系統會自動從回答裡抓出 5 個最重要的事實（例如「Q3 營收 1.2 億」「合約到期日 2025/06/30」），注入下一輪的查詢改寫。這樣追問的時候，系統已經知道你前面問到了什麼。</p>
-
-            <h3>聊到別的話題自動切換</h3>
-            <p>如果新問題跟前面聊的完全不同（主題漂移 = severe），系統會自動不帶入舊對話的內容，避免舊話題污染新搜尋。</p>
           </section>
 
           <section id="t-websearch">
@@ -969,7 +923,7 @@
             <p>每一筆查詢都要過四關，確保沒有權限的資料「根本不會被搜到」：</p>
             <ol>
               <li><strong>身份驗證</strong>：Cookie + Session 確認你是誰，沒登入直接回 401。</li>
-              <li><strong>角色檢查</strong>：你是一般同仁、部門管理員、還是最高管理員？角色不對回 403。</li>
+              <li><strong>角色檢查</strong>：你是一般員工、部門管理員、還是最高管理員？角色不對回 403。</li>
               <li><strong>機密等級比對</strong>：你的機密等級要大於等於文件的機密等級。不夠就搜不到（空值會強制處理，沒辦法繞過）。</li>
               <li><strong>部門歸屬 + 功能權限</strong>：你是哪個部門的？有沒有被授權看跨部門資料？功能權限矩陣一項一項查。</li>
             </ol>
@@ -1015,16 +969,6 @@
               <li><strong>辦公室內架機器</strong>：最簡單，四個 Tier 各自啟動，前面放一個 proxy 統一入口就好。</li>
               <li><strong>私有雲部署</strong>：如果公司有多個據點，可以把 T2/T3/T4 放在私有雲，T1 前端透過 VPN 連。</li>
             </ul>
-          </section>
-
-          <section id="t-dbupgrade">
-            <h2>資料庫升級路徑</h2>
-            <p>目前用嵌入式資料庫是因為中小企業不需要搞那麼複雜。但如果公司長大了（超過一千人同時用），有升級的路可以走：</p>
-            <ul>
-              <li><strong>嵌入式資料庫 → 企業級關聯式資料庫</strong>：支援多人同時寫入、更細的權限控管、更好的備份機制。</li>
-              <li><strong>本地向量資料庫 → 雲端向量資料庫</strong>：支援分散式向量搜尋，文件庫可以更大。</li>
-            </ul>
-            <p>架構設計有預留抽換介面，換資料庫不用改商業邏輯的程式碼。</p>
           </section>
 
           <section id="t-roadmap">

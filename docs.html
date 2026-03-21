@@ -120,7 +120,7 @@
           </div>
           <div class="nav-section">
             <div class="nav-section-title">系統架構</div>
-            <a href="#t-architecture" class="nav-item">四層模組</a>
+            <a href="#t-architecture" class="nav-item">六子系統</a>
             <a href="#t-pipeline" class="nav-item">查詢管線</a>
             <a href="#t-hybrid" class="nav-item">混合檢索</a>
           </div>
@@ -159,7 +159,7 @@
         <div class="article-meta">
           <span>深入了解文件中心</span>
           <span style="opacity: 0.3;">|</span>
-          <span>v0.5.4</span>
+          <span>v0.6</span>
         </div>
 
         <!-- ═══════════════════════════════════════════════════════ -->
@@ -209,9 +209,9 @@
             <ul>
               <li><strong>混合檢索</strong>：語意向量搜尋 + BM25 中文分詞，融合排序</li>
               <li><strong>LLM 生成</strong>：大型語言模型 + 自動備援鏈（支援多家供應商切換）</li>
-              <li><strong>統一信心管線</strong>：多維度信心評分 + 條件觸發 NLI 事實查核，附繁體中文解釋</li>
+              <li><strong>統一信心管線</strong>：多維度信心評分 + Source Grounding 三態判定 (GROUNDED / PARTIAL / UNGROUNDED)，附繁體中文解釋</li>
               <li><strong>資料儲存</strong>：嵌入式資料庫，多輪對話持久化 + trigger 保護的稽核日誌</li>
-              <li><strong>通訊安全</strong>：四獨立 Tier (T1-T4) 以服務令牌通訊，非對稱加密簽章</li>
+              <li><strong>通訊安全</strong>：六子系統 (S1-S6) 以服務令牌通訊，非對稱加密簽章</li>
             </ul>
             <p>技術版本提供完整的架構說明，包含混合檢索、信心管線與門控機制。</p>
           </div>
@@ -326,7 +326,7 @@
                 <div class="gate-number">3</div>
                 <div>
                   <div class="gate-title">回答驗證</div>
-                  <div class="gate-desc">AI 回答後自動評估可信度：高信心直接送出、中等信心標示提醒、信心不足直接擋掉。六成以上查詢一次通過，只有低信心回答才觸發更深入的逐句事實查核。</div>
+                  <div class="gate-desc">AI 回答後自動評估可信度：高信心直接送出、中等信心標示提醒、信心不足直接擋掉。六成以上查詢一次通過，只有低信心回答才觸發更深入的來源溯源比對。</div>
                 </div>
               </div>
             </div>
@@ -416,7 +416,7 @@
 
             <h3>怎麼上線</h3>
             <ul>
-              <li><strong>辦公室內架機器</strong>：最簡單，四個模組各自啟動，前面放一個入口就好。</li>
+              <li><strong>辦公室內架機器</strong>：最簡單，Docker Compose 一鍵啟動，前面放一個入口就好。</li>
               <li><strong>私有雲部署</strong>：如果公司有多個據點，可以把後端放在私有雲，前端透過 VPN 連。</li>
             </ul>
 
@@ -424,7 +424,7 @@
 
           <section id="c-roadmap" class="docs-reveal">
             <h2>發展藍圖</h2>
-            <p>v0.6 即將推出以下重點功能：</p>
+            <p>v0.6 已推出下列功能：</p>
 
             <div class="roadmap-group">
               <div class="roadmap-card blue">
@@ -475,7 +475,7 @@
                 <tr>
                   <td><strong>答案驗證</strong></td>
                   <td>沒有（直接輸出）</td>
-                  <td>雙層查核：NLI 事實比對 + 來源相似度，按需觸發</td>
+                  <td>Source Grounding：規則式三態判定，&lt;5ms 即時回應</td>
                 </tr>
                 <tr>
                   <td><strong>幻覺防護</strong></td>
@@ -523,31 +523,39 @@
             <div class="alert alert-info">
               <i class="fa-solid fa-circle-info" style="margin-top: 4px;"></i>
               <div>
-                <strong>費用優勢：</strong> 地端模式的 LLM 費用可壓到主流方案的 5%～10%。即使用雲端 API，三道門控攔截不必要的查詢 + NLI 按需觸發，整體費用比傳統方案省 50%～70%。
+                <strong>費用優勢：</strong> 地端模式的 LLM 費用可壓到主流方案的 5%～10%。即使用雲端 API，三道門控攔截不必要的查詢 + Source Grounding 自動分類，整體費用比傳統方案省 50%～70%。
               </div>
             </div>
           </section>
 
           <section id="t-architecture" class="docs-reveal">
-            <h2>系統架構（四層獨立設計）</h2>
-            <p>OceanRAG 把系統拆成四個獨立的層級，層與層之間用服務驗證令牌通訊，搭配 IP 白名單 + 限流保護。</p>
+            <h2>系統架構（六子系統設計）</h2>
+            <p>OceanRAG v0.6 將系統重構為六個子系統，各自職責明確，子系統之間用服務驗證令牌通訊，搭配 IP 白名單 + 限流保護。</p>
 
             <div class="tier-diagram">
               <div class="tier-row t1">
-                <div class="tier-label"><i class="fa-solid fa-desktop"></i> T1 前端</div>
-                <div class="tier-desc">前端介面，權限控管，SSE 即時串流回答</div>
+                <div class="tier-label"><i class="fa-solid fa-database"></i> S1 Data Refinery</div>
+                <div class="tier-desc">ETL 9 階段 + SWIP 語意增強，自動解析、切塊、增強、向量化、品質檢測、入庫</div>
               </div>
               <div class="tier-row t2">
-                <div class="tier-label"><i class="fa-solid fa-brain"></i> T2 RAG</div>
-                <div class="tier-desc">混合檢索 + RBAC 過濾 + LLM 管理 + 統一信心管線</div>
+                <div class="tier-label"><i class="fa-solid fa-brain"></i> S2 Cortex Memory</div>
+                <div class="tier-desc">L0 知識圖譜 + L1 向量檢索 (LanceDB + tantivy BM25) + L2 原始存檔</div>
               </div>
               <div class="tier-row t3">
-                <div class="tier-label"><i class="fa-solid fa-file-lines"></i> T3 文件</div>
-                <div class="tier-desc">ETL Pipeline：解析 → 切塊 → 增強 → 向量化 → 品質檢測 → 入庫</div>
+                <div class="tier-label"><i class="fa-solid fa-magnifying-glass"></i> S3 Recall Engine</div>
+                <div class="tier-desc">混合檢索 + CRAG 三級路由 + RRF 融合排序 + RBAC 過濾</div>
               </div>
               <div class="tier-row t4">
-                <div class="tier-label"><i class="fa-solid fa-shield-halved"></i> T4 管理</div>
-                <div class="tier-desc">帳號管理、認證授權、資安事件、系統設定</div>
+                <div class="tier-label"><i class="fa-solid fa-route"></i> S4 LLM Gateway</div>
+                <div class="tier-desc">多模型路由 + 容錯切換 + Token 計量 + 備援鏈</div>
+              </div>
+              <div class="tier-row t1">
+                <div class="tier-label"><i class="fa-solid fa-wand-magic-sparkles"></i> S5 Gen Core</div>
+                <div class="tier-desc">Prompt 組裝 + Source Grounding 三態判定 + 來源歸因</div>
+              </div>
+              <div class="tier-row t2">
+                <div class="tier-label"><i class="fa-solid fa-shield-halved"></i> S6 API Gateway</div>
+                <div class="tier-desc">FastAPI + JWT + RBAC + SSE 串流 + 稽核日誌</div>
               </div>
             </div>
 
@@ -593,9 +601,15 @@
               <li><strong>並行：向量搜尋 ∥ BM25 搜尋</strong> — 兩路同時跑，語意搜尋抓意思相近的、BM25 抓精確關鍵字，最後用融合排序合併。</li>
               <li><strong>版本去重 + 精排</strong> — 移除舊版重複的段落，精排模型對候選結果做精準排序。</li>
               <li><strong>Chunk 打包 + 時間衰減</strong> — 舊文件自動降權，優先呈現最新版本。</li>
-              <li><strong>B-layer 檢索門控</strong> — 加權綜合評分（向量分 + 精排分），分數不夠就嘗試<a href="#t-websearch">上網找</a>。</li>
-              <li><strong>LLM 生成</strong> — 把通過的文件段落餵給 LLM，SSE 串流即時回傳到前端。</li>
-              <li><strong>C-layer 信心評分</strong> — 對回答打信心分數，太低就觸發 NLI 逐句查核，詳見<a href="#t-confidence">信心管線</a>。</li>
+              <li><strong>B-layer 檢索門控 + CRAG 路由</strong> — 加權綜合評分（向量分 + 精排分），根據 CRAG 三級路由決定下一步：
+                <ul style="margin-top:4px;">
+                  <li>信心 ≥ 0.85 → 直接 RAG 回答（0 工具呼叫）</li>
+                  <li>0.50 ≤ 信心 &lt; 0.85 → RAG + 工具可用（LLM 決定是否呼叫）</li>
+                  <li>信心 &lt; 0.50 → 工具優先（自動觸發<a href="#t-websearch">聯網搜尋</a>）</li>
+                </ul>
+              </li>
+              <li><strong>LLM 生成</strong> — 把通過的文件段落餵給 R2 Generator (Qwen3-14B)，SSE 串流即時回傳到前端。</li>
+              <li><strong>C-layer 信心評分</strong> — 對回答打信心分數，Source Grounding 以 3 個布林條件判定回答品質（&lt;5ms），詳見<a href="#t-confidence">信心管線</a>。</li>
               <li><strong>Session 更新</strong> — 自動從回答中萃取 top-5 重點事實，存回對話紀錄給下一輪用。</li>
               <li><strong>稽核記錄</strong> — 整條查詢鏈路（含檢索分數）寫入稽核日誌，留底備查。</li>
             </ol>
@@ -603,7 +617,7 @@
 
           <section id="t-hybrid" class="docs-reveal">
             <h2>混合檢索</h2>
-            <p>v0.5.4 同時用「語意搜尋」和「關鍵字搜尋」兩路並行，合在一起排名，讓精確數字和專有名詞的命中率大幅提升。</p>
+            <p>v0.6 同時用「語意搜尋」和「關鍵字搜尋」兩路並行，合在一起排名，讓精確數字和專有名詞的命中率大幅提升。</p>
 
             <div class="hybrid-cards">
               <div class="hybrid-card blue">
@@ -616,7 +630,7 @@
               </div>
             </div>
             <div class="hybrid-fusion">
-              <i class="fa-solid fa-arrow-down"></i> 融合排序：<strong>語意通道 + 關鍵字通道加權合併</strong>（權重可調）
+              <i class="fa-solid fa-arrow-down"></i> RRF 融合排序：<strong>語意通道 + 關鍵字通道 Reciprocal Rank Fusion</strong>（權重可調）
             </div>
 
             <div class="alert alert-info">
@@ -651,14 +665,14 @@
                   <div class="gate-label-title">C-layer 信心評分</div>
                   <div class="gate-label-stat">擋掉 5～10%</div>
                 </div>
-                <div class="gate-explanation">LLM 回答完後打信心分數，太低就觸發 NLI 逐句比對原始文件。詳見<a href="#t-confidence">信心管線</a>。</div>
+                <div class="gate-explanation">LLM 回答完後打信心分數，太低就觸發 Source Grounding 來源溯源。詳見<a href="#t-confidence">信心管線</a>。</div>
               </div>
             </div>
           </section>
 
           <section id="t-confidence" class="docs-reveal">
-            <h2>統一信心管線</h2>
-            <p>v0.5.4 把所有信心判斷統一成一條管線，不再各自為政：</p>
+            <h2>Source Grounding 信心管線</h2>
+            <p>v0.6 以規則式 Source Grounding 取代舊版 NLI 模型，用 3 個布林條件即時判定回答品質，&lt;5ms 完成，無需額外 LLM：</p>
 
             <div class="confidence-pipeline">
               <div class="confidence-row">
@@ -668,23 +682,23 @@
                 <div class="confidence-step indigo">C-layer 評分</div>
                 <span class="confidence-note">多維度綜合</span>
                 <span class="flow-arrow">→</span>
-                <div class="confidence-step amber">低於高門檻?</div>
+                <div class="confidence-step amber">Source Grounding</div>
               </div>
               <div class="confidence-result">
-                <div class="confidence-result-pass"><strong>否 →</strong> 直接輸出（跳過 NLI，省 2～5 秒）</div>
-                <div class="confidence-result-fail"><strong>是 →</strong> 觸發 NLI，取較低分</div>
+                <div class="confidence-result-pass"><strong>has_context ✓ has_citations ✓</strong> → GROUNDED</div>
+                <div class="confidence-result-fail"><strong>部分缺失</strong> → PARTIAL / UNGROUNDED</div>
               </div>
             </div>
 
-            <h3>三級結果</h3>
+            <h3>三態判定</h3>
             <ul>
-              <li><strong>PASS（高門檻以上）</strong>：高可信度，直接送出回答。六成以上的查詢在這邊就通過了，不用跑 NLI。</li>
-              <li><strong>WARN（中門檻以上）</strong>：中等可信度，回答照樣送出但會標一個黃色警示，提醒員工再確認一下。</li>
-              <li><strong>BLOCK（低於中門檻）</strong>：信心不足，直接擋掉，改回「資料不足，建議換個問法」。</li>
+              <li><strong>GROUNDED</strong>：回答有明確來源支撐，引用完整，直接送出。</li>
+              <li><strong>PARTIAL</strong>：部分內容有來源，部分為模型推論，標示黃色警示提醒員工再確認。</li>
+              <li><strong>UNGROUNDED</strong>：無法追溯來源，標記警示或直接擋掉，改回「資料不足，建議換個問法」。</li>
             </ul>
 
-            <h3>NLI 事實查核</h3>
-            <p>使用 NLI 事實查核模型（跑在公司機器上，不需要雲端），把 AI 的回答拆成一句一句，跟原始文件逐句比對。結果分三種：Entail（文件有支持）、Neutral（文件沒提到）、Contradict（跟文件矛盾）。</p>
+            <h3>判定條件</h3>
+            <p>Source Grounding 以 3 個布林條件判定：<strong>has_context</strong>（是否有檢索到相關文件）、<strong>has_citations</strong>（回答是否包含引用標記）、<strong>is_refusal</strong>（LLM 是否拒絕回答）。規則式判定確保結果具確定性，不受模型隨機性影響，且不需要 GPU。</p>
 
             <h3>繁體中文信心解釋</h3>
             <p>每個回答都會附一段人看得懂的說明，例如：「高可信度：檢索相關性高，文件匹配度佳」。讓員工知道 AI 為什麼有信心，不是黑箱。</p>
@@ -694,45 +708,46 @@
           </section>
 
           <section id="t-models" class="docs-reveal">
-            <h2>模型角色與備援鏈</h2>
-            <p>OceanRAG 把 AI 模型分成五個角色，每個角色都可以獨立切換，不會互相影響：</p>
+            <h2>4-Role 模型策略</h2>
+            <p>OceanRAG v0.6 將 AI 模型精簡為四個角色 (R1-R4)，每個角色都可以獨立切換，不會互相影響：</p>
             <table>
               <thead>
-                <tr><th>角色</th><th>說明</th><th>可替換性</th><th>部署方式</th></tr>
+                <tr><th>角色</th><th>模型</th><th>部署位置</th><th>用途</th></tr>
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>回答生成</strong></td>
-                  <td>大型語言模型，負責產生回答</td>
-                  <td>支援多家供應商，可熱切換</td>
-                  <td>雲端 / 地端</td>
+                  <td><strong>R1 Router</strong></td>
+                  <td>GPT-OSS-20B</td>
+                  <td>Groq (雲端)</td>
+                  <td>意圖分類、CRAG 路由</td>
                 </tr>
                 <tr>
-                  <td><strong>向量化</strong></td>
-                  <td>語意模型，將文字轉成向量</td>
-                  <td>換模型需重建向量索引</td>
-                  <td>雲端</td>
+                  <td><strong>R2 Generator</strong></td>
+                  <td>Qwen3-14B</td>
+                  <td>Ollama (地端)</td>
+                  <td>回答生成 (thinking mode)</td>
                 </tr>
                 <tr>
-                  <td><strong>精排序</strong></td>
-                  <td>精排模型，對候選結果做精準排序</td>
-                  <td>可獨立替換，門檻值可能需微調</td>
-                  <td>雲端</td>
+                  <td><strong>R3 Worker</strong></td>
+                  <td>Qwen3-8B</td>
+                  <td>Ollama (地端)</td>
+                  <td>SWIP 增強、摘要</td>
                 </tr>
                 <tr>
-                  <td><strong>意圖辨識</strong></td>
-                  <td>輕量分類模型，判斷問題意圖</td>
-                  <td>支援 JSON 輸出即可</td>
-                  <td>雲端 / 地端</td>
-                </tr>
-                <tr>
-                  <td><strong>事實查核</strong></td>
-                  <td>NLI 模型，比對回答與原始文件</td>
-                  <td>支援 NLI 三分類即可</td>
-                  <td>地端</td>
+                  <td><strong>R4 Embedder</strong></td>
+                  <td>BGE-M3</td>
+                  <td>ONNX (地端)</td>
+                  <td>1024 維向量 + 重排序</td>
                 </tr>
               </tbody>
             </table>
+
+            <div class="alert alert-info">
+              <i class="fa-solid fa-circle-info" style="margin-top: 4px;"></i>
+              <div>
+                <strong>離線備援：</strong> R1 Router 離線時自動切換至 Qwen3-14B @ Ollama (地端)，確保完全斷網環境仍可運作。Source Grounding 為規則式判定，不需要額外模型。
+              </div>
+            </div>
 
             <h3>備援鏈（Fallback Chain）</h3>
             <p>「回答生成」這個角色支援自動備援：主模型掛了就自動切到下一個，切換過程員工完全無感。每個模型定期做健康檢查，連續失敗就跳過，恢復後自動加回來。</p>
@@ -751,19 +766,30 @@
           </section>
 
           <section id="t-etl" class="docs-reveal">
-            <h2>文件 ETL Pipeline</h2>
-            <p>上傳檔案後，系統全自動跑完以下流程，不需要人工介入：</p>
+            <h2>文件 ETL Pipeline（9 階段）</h2>
+            <p>上傳檔案後，系統全自動跑完以下 9 階段流程（S1 Data Refinery），不需要人工介入：</p>
             <ol>
               <li><strong>解析</strong>：自動偵測檔案類型（PDF / Word / Excel），用檔案特徵碼驗證不是偽裝檔案。</li>
               <li><strong>清洗</strong>：去掉多餘的格式符號和亂碼，保留文字的語意完整性。</li>
               <li><strong>切塊</strong>：按語意段落切成小段（預設 512 tokens/段，重疊 64 tokens 避免斷句）。</li>
+              <li><strong>SWIP 語意增強</strong>：滑動窗口注入法（h_prev=2, h_next=1, 4 chunks ≈ 2000 字），由 R3 Qwen3-8B 解決代名詞、注入實體上下文，消除「語意孤兒」chunk。</li>
               <li><strong>摘要</strong>：幫每個小段落產生語意摘要，讓後面的精排序更準。</li>
               <li><strong>語料增強</strong>：自動抓出公司名、日期、金額等重要資訊，加到段落前面當索引，提高搜尋命中率。</li>
-              <li><strong>向量化</strong>：透過語意模型把文字轉成向量。</li>
+              <li><strong>向量化</strong>：透過 R4 BGE-M3 (ONNX) 把文字轉成 1024 維向量。</li>
               <li><strong>品質檢測</strong>：5 個維度打分（滿分 100），品質不過關不入庫。</li>
-              <li><strong>入庫</strong>：向量存到向量資料庫，同時建關鍵字索引，metadata 存到資料庫。整個過程是 atomic 的，不會只做一半。</li>
-              <li><strong>通知</strong>：處理完自動通知管理員去審閱。</li>
+              <li><strong>入庫</strong>：向量存到 LanceDB，同時建 tantivy BM25 關鍵字索引，metadata 存到 SQLite。整個過程是 atomic 的，不會只做一半。通知管理員審閱。</li>
             </ol>
+
+            <h3>SWIP 語意增強</h3>
+            <p>SWIP（Sliding Window Injection Prompting）是 v0.6 新增的關鍵技術。傳統切塊方式容易產生「語意孤兒」— 段落失去上下文後，代名詞（他、該公司）無法被正確解析。SWIP 用滑動窗口把前後相鄰的 chunk 一起送給 R3 Worker 模型，自動注入實體名稱和上下文，讓每個 chunk 都能獨立被理解。</p>
+
+            <h3>Cortex Memory 三層記憶</h3>
+            <p>處理完的文件存入 S2 Cortex Memory 的三層架構：</p>
+            <ul>
+              <li><strong>L0 知識圖譜</strong>：SQLite 儲存實體、關係與別名，支援實體解析與關聯查詢。</li>
+              <li><strong>L1 混合檢索</strong>：LanceDB 向量索引 + tantivy BM25 關鍵字索引，雙通道同時搜尋再 RRF 融合排序。</li>
+              <li><strong>L2 原始存檔</strong>：原始文件存檔 + 完整 metadata，供溯源和稽核使用。</li>
+            </ul>
 
             <h3>Excel 處理</h3>
             <p>Excel 會自動轉成 Markdown 表格格式入庫，保留表頭和 sheet 名稱。單一 sheet 最多處理一萬行，超過的部分會截斷並記錄警告。</p>
@@ -881,7 +907,7 @@
                 <tr>
                   <td><strong>幻覺 / 虛假引用</strong></td>
                   <td>AI 生成不存在的資訊或錯誤引用</td>
-                  <td>NLI 逐句事實查核 + 統一信心管線 + 來源連結驗證</td>
+                  <td>Source Grounding 來源溯源 + 統一信心管線 + 來源連結驗證</td>
                 </tr>
                 <tr>
                   <td><strong>跨權限資料洩漏</strong></td>
@@ -891,7 +917,7 @@
                 <tr>
                   <td><strong>外部 MCP 回傳攻擊</strong></td>
                   <td>惡意 MCP Server 回傳含注入的資料</td>
-                  <td>Schema 驗證 + 內容消毒 + 來源標記 + timeout 限制（v0.6 規劃中）</td>
+                  <td>Schema 驗證 + 內容消毒 + 來源標記 + timeout 限制</td>
                 </tr>
               </tbody>
             </table>
@@ -981,14 +1007,14 @@
             <ul>
               <li><strong>作業系統</strong>：Windows / macOS / Linux 都可以</li>
               <li><strong>Python</strong>：3.10 以上</li>
-              <li><strong>GPU</strong>：NLI 模型建議有 GPU（用 CPU 也行，就是慢一點）</li>
-              <li><strong>推薦硬體</strong>：Mac Mini（最新升級版，約兩萬台幣起）是最推薦的選擇，效能與性價比兼具</li>
+              <li><strong>推薦硬體</strong>：Mac Mini M2/M4（16-32GB RAM，約兩萬台幣起）是最推薦的選擇，效能與性價比兼具</li>
+              <li><strong>GPU</strong>：Source Grounding 為規則式判定，不需要 GPU。Ollama 地端模型在 Apple Silicon 上即可運行</li>
             </ul>
 
             <h3>怎麼上線</h3>
             <ul>
-              <li><strong>辦公室內架機器</strong>：最簡單，四個 Tier 各自啟動，前面放一個 proxy 統一入口就好。</li>
-              <li><strong>私有雲部署</strong>：如果公司有多個據點，可以把 T2/T3/T4 放在私有雲，T1 前端透過 VPN 連。</li>
+              <li><strong>Docker 單機部署</strong>：最簡單，Docker Compose 一鍵啟動所有子系統，適合 Mac Mini M2/M4 單機運行。</li>
+              <li><strong>私有雲部署</strong>：如果公司有多個據點，可以把後端子系統放在私有雲，前端透過 VPN 連。</li>
             </ul>
           </section>
 
